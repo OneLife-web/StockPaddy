@@ -7,7 +7,7 @@ import { z } from "zod";
 
 import { Form } from "@/components/ui/form";
 import FormFieldComponent from "../FormField";
-import { UserRound, Mail, Loader2 } from "lucide-react";
+import { Mail, Loader2 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import useFetch from "@/hooks/useFetch";
@@ -89,7 +89,7 @@ const SignInForm = () => {
             {loading ? <Loader2 className="animate-spin" /> : "Sign In"}
           </button>
           <p className="lg:text-sm">
-            Don't account yet?{" "}
+            Don&apos;t account yet?{" "}
             <Link className="font-clashmd" href="/sign-up">
               Sign Up
             </Link>
