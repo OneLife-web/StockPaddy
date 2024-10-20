@@ -75,7 +75,7 @@
     @apply text-2xl lg:text-[26px] font-clashmd;
   }
   .btn1 {
-    @apply bg-blue-700 rounded-lg w-full font-clashmd text-base shadow-none;
+    @apply bg-blue-700 dark:text-white rounded-lg w-full font-clashmd text-base shadow-none;
   }
 }
 
@@ -86,5 +86,10 @@
   }
   body {
     @apply bg-background text-foreground max-lg:text-sm;
+  }
+  input:-webkit-autofill {
+    -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
+    box-shadow: 0 0 0 1000px transparent inset !important;
+    transition: background-color 5000s ease-in-out 0s;
   }
 }
