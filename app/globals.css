@@ -75,7 +75,7 @@
     @apply text-2xl lg:text-[26px] font-clashmd;
   }
   .btn1 {
-    @apply bg-[#007BFF] dark:text-white rounded-lg w-full font-clashmd text-base shadow-none;
+    @apply bg-orange-500 dark:text-white rounded-lg w-full font-clashmd text-base shadow-none;
   }
 }
 
