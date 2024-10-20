@@ -41,7 +41,7 @@ function FormFieldComponent<TFieldValues extends FieldValues>({
               {...field}
             />
           </FormControl>
-          <FormMessage />
+          <FormMessage className="text-red-500" />
         </FormItem>
       )}
     />

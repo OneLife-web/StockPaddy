@@ -9,6 +9,7 @@ import { Form } from "@/components/ui/form";
 import toast from "react-hot-toast";
 import FormFieldComponent from "../FormField";
 import { UserRound, Mail } from "lucide-react";
+import Link from "next/link";
 
 const FormSchema = z.object({
   name: z.string().min(2, {
@@ -62,7 +63,15 @@ const SignUpForm = () => {
           placeholder="Enter your password"
           type="password"
         />
-        <Button className="btn1 h-[48px]" type="submit">Submit</Button>
+        <Button className="btn1 h-[48px]" type="submit">
+          Sign Up
+        </Button>
+        <p className="lg:text-sm">
+          Already have an account ?{" "}
+          <Link className="font-clashmd" href="/sign-in">
+            Sign In Instead
+          </Link>
+        </p>
       </form>
     </Form>
   );
