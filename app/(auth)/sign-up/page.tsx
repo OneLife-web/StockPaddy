@@ -3,7 +3,7 @@ import React from "react";
 
 const SignUpPage = () => {
   return (
-    <main className="">
+    <main className="dark:text-black">
       <div>
         <Logo />
         <h2 className="heading1 mb-1">Create Your Account</h2>
