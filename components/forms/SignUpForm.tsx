@@ -5,15 +5,15 @@ import { useForm } from "react-hook-form";
 import { z } from "zod";
 
 import { Form } from "@/components/ui/form";
-import toast from "react-hot-toast";
 import FormFieldComponent from "../FormField";
-import { UserRound, Mail } from "lucide-react";
+import { UserRound, Mail, Loader2 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import useFetch from "@/hooks/useFetch";
 
 const FormSchema = z.object({
   name: z.string().min(2, {
-    message: "name must be at least 2 characters.",
+    message: "Name must be at least 2 characters.",
   }),
   email: z.string().email({
     message: "Please enter a valid email address.",
@@ -34,14 +34,24 @@ const SignUpForm = () => {
     },
   });
 
-  function onSubmit(data: z.infer<typeof FormSchema>) {
-    toast.success("You submitted the following values:");
-    console.log(data);
+  // useFetch hook to handle the fetch logic
+  const { loading, error, fetchData } = useFetch({
+    url: "/api/auth/signup",
+    method: "POST",
+  });
+
+  async function onSubmit(data: z.infer<typeof FormSchema>) {
+    try {
+      await fetchData(data);
+    } catch (error) {
+      console.error("Error during sign-up:", error);
+    }
   }
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5 mt-10">
+      {error && <p className="text-sm mt-10 mb-1 text-red-500 text-center">{error}</p>}
+      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
         <FormFieldComponent
           form={form}
           name="name"
@@ -64,8 +74,11 @@ const SignUpForm = () => {
           placeholder="Enter your password"
           type="password"
         />
-        <button className="btn1 h-[48px]" type="submit">
-          Sign Up
+        <button
+          className="btn1 h-[48px] flex items-center justify-center"
+          type="submit"
+        >
+          {loading ? <Loader2 className="animate-spin" /> : "Sign Up"}
         </button>
         <p className="lg:text-sm">
           Already have an account ?{" "}
@@ -81,7 +94,7 @@ const SignUpForm = () => {
             <Image src="/google.svg" width={20} height={20} alt="google icon" />
           </button>
         </div>
-        <p className="text-xs lg:text-sm whitespace-nowrap text-center absolute bottom-10 left-[50%] translate-x-[-50%]">
+        <p className="text-xs lg:text-sm whitespace-nowrap text-center absolute max-lg:bottom-20 lg:bottom-10 left-[50%] translate-x-[-50%]">
           Copyright © {year} StockPaddy. All rights reserved
         </p>
       </form>
