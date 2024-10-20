@@ -23,7 +23,7 @@ const Input = ({
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
           className={cn(
-            "rounded-lg w-full h-[48px] px-4 text-base focus:outline-none placeholder:text-sm",
+            "rounded-lg w-full focus:ring-1 h-[48px] px-4 text-base focus:outline-none placeholder:text-sm",
             { className }
           )}
         />
