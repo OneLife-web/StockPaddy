@@ -44,4 +44,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   }
 );
 
+Input.displayName = 'Input'; // Optional: helps with debugging
+
 export default Input;
