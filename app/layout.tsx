@@ -3,6 +3,7 @@ import "../public/ClashDisplay_Complete/ClashDisplay_Complete/ClashDisplay_Compl
 import "./globals.css";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { Toaster } from "react-hot-toast";
+import { AuthProvider } from "@/contexts/Providers";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -18,7 +19,7 @@ export default function RootLayout({
     <html lang="en">
       <body className="font-clash container antialiased">
         <ThemeProvider>
-          {children}
+          <AuthProvider>{children}</AuthProvider>
           <Toaster />
         </ThemeProvider>
       </body>

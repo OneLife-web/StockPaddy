@@ -1,6 +1,7 @@
 // components/SignUpForm.tsx
 "use client";
-import { useRouter } from "next/navigation";
+import { signIn } from "next-auth/react";
+import { useRouter, useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -10,7 +11,6 @@ import FormFieldComponent from "../FormField";
 import { Mail, Loader2 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import useFetch from "@/hooks/useFetch";
 import toast from "react-hot-toast";
 import { useEffect, useState } from "react";
 
@@ -24,9 +24,20 @@ const FormSchema = z.object({
 });
 
 const SignInForm = () => {
+  const searchParams = useSearchParams();
   const router = useRouter();
-  const [submitAttempted, setSubmitAttempted] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const [callbackUrl, setCallbackUrl] = useState<string | null>(null);
+  const [error, setError] = useState("");
   const year = new Date().getFullYear();
+
+  useEffect(() => {
+    const callback = searchParams?.get("callbackUrl");
+    if (callback) {
+      setCallbackUrl(callback);
+    }
+  }, [searchParams]);
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -35,30 +46,32 @@ const SignInForm = () => {
     },
   });
 
-  // useFetch hook to handle the fetch logic
-  const { loading, data, error, fetchData } = useFetch({
-    url: "/api/auth/signup",
-    method: "POST",
-  });
-
-  useEffect(() => {
-    if (submitAttempted && data && !error) {
-      toast.success("Sign up successful!");
-      const email = form.getValues("email"); // Accessing email from form values
-      router.push(`/verify?email=${email}`);
-    }
-  }, [data, error, submitAttempted, router]);
-
   async function onSubmit(formData: z.infer<typeof FormSchema>) {
+    setLoading(true);
+    const { email, password } = formData;
+
     try {
-      setSubmitAttempted(true);
-      await fetchData(formData);
+      const result = await signIn("credentials", {
+        redirect: false,
+        email,
+        password,
+      });
+
+      if (!result) {
+        setError("Something went wrong.");
+      } else if (result.error) {
+        setError(result.error);
+      } else {
+        toast.success("Login successful. Redirecting...");
+        router.push(callbackUrl || "/");
+      }
     } catch (error) {
-      console.error("Error during sign-up:", error);
-      setSubmitAttempted(false);
+      toast.error("Sorry, an error occurred.");
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
   }
-
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="mt-10">
