@@ -3,7 +3,7 @@ import Logo from "@/components/Logo";
 
 const SignUpPage = () => {
   return (
-    <main className="dark:text-black">
+    <main className="dark:text-black lg:pb-20">
       <div>
         <Logo />
         <h2 className="heading1 mb-1">Create Your Account</h2>

@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import FormFieldComponent from "../FormField";
 import { UserRound, Mail } from "lucide-react";
 import Link from "next/link";
+import Image from "next/image";
 
 const FormSchema = z.object({
   name: z.string().min(2, {
@@ -71,6 +72,12 @@ const SignUpForm = () => {
             Sign In Instead
           </Link>
         </p>
+        <div className="mx-auto w-20 h-[1px] bg-gray-500 relative">
+          <p className="absolute left-[50%] translate-x-[-50%]">OR</p>
+        </div>
+        <button className="w-full hover:bg-orange-400 !bg-white h-[48px] flex items-center justify-center ring-1 !ring-slate-300">
+          <Image src="/google.svg" width={20} height={20} alt="google icon" />
+        </button>
       </form>
     </Form>
   );
