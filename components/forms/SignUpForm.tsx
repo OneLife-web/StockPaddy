@@ -78,7 +78,8 @@ const SignUpForm = () => {
             type="password"
           />
           <button
-            className="btn1 h-[48px] flex items-center justify-center"
+            className="btn1 h-[48px] flex items-center justify-center disabled:cursor-not-allowed"
+            disabled={loading}
             type="submit"
           >
             {loading ? <Loader2 className="animate-spin" /> : "Sign Up"}
