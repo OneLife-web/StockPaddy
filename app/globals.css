@@ -72,7 +72,7 @@
     @apply bg-clip-padding backdrop-filter backdrop-blur-xl bg-opacity-60;
   }
   .heading1 {
-    @apply text-xl lg:text-[26px] font-clashmd;
+    @apply text-2xl lg:text-[26px] font-clashmd;
   }
 }
 
