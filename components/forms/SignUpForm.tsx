@@ -4,7 +4,6 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { Button } from "@/components/ui/button";
 import { Form } from "@/components/ui/form";
 import toast from "react-hot-toast";
 import FormFieldComponent from "../FormField";
@@ -63,9 +62,9 @@ const SignUpForm = () => {
           placeholder="Enter your password"
           type="password"
         />
-        <Button className="btn1 h-[48px]" type="submit">
+        <button className="btn1 h-[48px]" type="submit">
           Sign Up
-        </Button>
+        </button>
         <p className="lg:text-sm">
           Already have an account ?{" "}
           <Link className="font-clashmd" href="/sign-in">
