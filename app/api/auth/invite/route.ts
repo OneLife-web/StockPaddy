@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import Invite from '@/models/Invite';
+import Invite from '@/utils/models/Invite';
 import { sendInviteEmail } from '@/utils/sendEmail'; // Utility to send invitation email
 import crypto from 'crypto';
 import connectToDatabase from '@/lib/mongodb';

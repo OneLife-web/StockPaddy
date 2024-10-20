@@ -1,9 +1,9 @@
 import { NextRequest, NextResponse } from "next/server";
 import bcrypt from "bcryptjs";
-import Invite from "@/models/Invite";
-import User from "@/models/User";
+import Invite from "@/utils/models/Invite";
+import User from "@/utils/models/User";
 import connectToDatabase from "@/lib/mongodb";
-import Role from "@/models/Role";
+import Role from "@/utils/models/Role";
 import { generateOTP, sendOTPEmail } from "@/utils/sendEmail";
 
 export async function POST(req: NextRequest) {

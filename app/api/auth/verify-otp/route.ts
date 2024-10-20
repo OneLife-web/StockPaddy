@@ -1,6 +1,6 @@
 // /app/api/verify-otp.ts
 import { NextRequest, NextResponse } from "next/server";
-import User from "@/models/User";
+import User from "@/utils/models/User";
 import connectToDatabase from "@/lib/mongodb";
 
 export async function POST(req: NextRequest) {
