@@ -1,5 +1,4 @@
 import { useState } from "react";
-import toast from "react-hot-toast";
 
 // Define the parameters for the fetch
 interface FetchParams {
@@ -29,19 +28,16 @@ const useFetch = ({ url, method = "GET", headers = {} }: FetchParams) => {
       });
 
       if (!response.ok) {
-        throw new Error(`Error: ${response.statusText}`);
+        const result = await response.json().catch(() => null);
+        const errorMessage =
+          result?.error || response.statusText || "Unknown error";
+        throw new Error(errorMessage);
       }
 
       const result = await response.json();
       setData(result);
-      // Show success message and log data
-      toast.success("Sign up successful!");
-    } catch (err) {
-      if (err instanceof Error) {
-        setError(err.message);
-      } else {
-        setError("An unknown error occurred");
-      }
+    } catch (err: any) {
+      setError(err.message);
     } finally {
       setLoading(false);
     }

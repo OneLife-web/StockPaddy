@@ -26,7 +26,7 @@ const FormSchema = z.object({
   }),
 });
 
-const SignUpForm = () => {
+const SignInForm = () => {
   const router = useRouter();
   const [submitAttempted, setSubmitAttempted] = useState(false);
   const year = new Date().getFullYear();
@@ -128,4 +128,4 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+export default SignInForm;

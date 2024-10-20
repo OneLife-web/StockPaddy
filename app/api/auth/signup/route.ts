@@ -40,6 +40,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({
       message: "User registered successfully using invite.",
+      status: 200,
     });
   }
 
@@ -55,7 +56,7 @@ export async function POST(req: NextRequest) {
   // Generate OTP
   const otp = generateOTP();
   const otpExpiresAt = new Date(Date.now() + 10 * 60 * 1000); // OTP expires in 10 minutes
-  const superAdminRole = await Role.findOne({ role_name: "super_admin" });
+  const superAdminRole = await Role.findOne({ role_name: "Super Admin" });
   const role = superAdminRole._id;
 
   // Create and save the new admin user
@@ -77,5 +78,6 @@ export async function POST(req: NextRequest) {
   return NextResponse.json({
     message:
       "Admin registered successfully. Please verify your account with the OTP sent to your email.",
+    status: 200,
   });
 }
