@@ -7,8 +7,8 @@ const layout = ({ children }: { children: ReactNode }) => {
       <Image
         src="/bg.jpg" // Replace with your image path
         alt="Background"
-        layout="fill"
-        objectFit="cover"
+        fill
+        style={{ objectFit: "cover" }}
       />
       <div className="lg:basis-[55%] w-full glassmorphism h-screen lg:overflow-y-scroll lg:custom-scrollbar max-lg:px-[5%] px-[7%] backdrop-blur-lg bg-white">
         {children}
