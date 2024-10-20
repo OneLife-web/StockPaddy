@@ -62,7 +62,7 @@ const SignUpForm = () => {
           placeholder="Enter your password"
           type="password"
         />
-        <Button type="submit">Submit</Button>
+        <Button className="btn1 h-[48px]" type="submit">Submit</Button>
       </form>
     </Form>
   );

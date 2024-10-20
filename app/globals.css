@@ -74,6 +74,9 @@
   .heading1 {
     @apply text-2xl lg:text-[26px] font-clashmd;
   }
+  .btn1 {
+    @apply bg-blue-700 rounded-lg w-full font-clashmd text-base shadow-none;
+  }
 }
 
 /* Base Styles */
