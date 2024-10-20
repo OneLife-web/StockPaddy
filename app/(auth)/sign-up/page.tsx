@@ -1,5 +1,5 @@
+import SignUpForm from "@/components/forms/SignUpForm";
 import Logo from "@/components/Logo";
-import React from "react";
 
 const SignUpPage = () => {
   return (
@@ -10,6 +10,7 @@ const SignUpPage = () => {
         <p className="text-xs lg:text-sm">
           Join StockPaddy today and streamline your inventory management!
         </p>
+        <SignUpForm />
       </div>
     </main>
   );
