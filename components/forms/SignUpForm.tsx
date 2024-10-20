@@ -24,6 +24,7 @@ const FormSchema = z.object({
 });
 
 const SignUpForm = () => {
+  const year = new Date().getFullYear();
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -72,12 +73,17 @@ const SignUpForm = () => {
             Sign In Instead
           </Link>
         </p>
-        <div className="mx-auto w-20 h-[1px] bg-gray-500 relative">
-          <p className="absolute left-[50%] translate-x-[-50%]">OR</p>
+        <div className="hidden">
+          <div className="mx-auto w-20 h-[1px] bg-gray-500 relative">
+            <p className="absolute left-[50%] translate-x-[-50%]">OR</p>
+          </div>
+          <button className="w-full hover:bg-orange-400 !bg-white h-[48px] flex items-center justify-center ring-1 !ring-slate-300">
+            <Image src="/google.svg" width={20} height={20} alt="google icon" />
+          </button>
         </div>
-        <button className="w-full hover:bg-orange-400 !bg-white h-[48px] flex items-center justify-center ring-1 !ring-slate-300">
-          <Image src="/google.svg" width={20} height={20} alt="google icon" />
-        </button>
+        <p className="text-xs lg:text-sm whitespace-nowrap text-center absolute bottom-10 left-[50%] translate-x-[-50%]">
+          Copyright © {year} StockPaddy. All rights reserved
+        </p>
       </form>
     </Form>
   );

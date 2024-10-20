@@ -4,7 +4,7 @@ import { Suspense } from "react";
 
 const SignUpPage = () => {
   return (
-    <main className="dark:text-black lg:pb-20">
+    <main className="dark:text-black min-h-full lg:pb-24 relative">
       <div>
         <Logo />
         <h2 className="heading1 mb-1">Create Your Account</h2>
