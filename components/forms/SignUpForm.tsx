@@ -50,50 +50,60 @@ const SignUpForm = () => {
 
   return (
     <Form {...form}>
-      {error && <p className="text-sm mt-10 mb-1 text-red-500 text-center">{error}</p>}
-      <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
-        <FormFieldComponent
-          form={form}
-          name="name"
-          label="Name"
-          placeholder="Enter your fullname"
-          icon={<UserRound strokeWidth={1.2} size={18} />}
-        />
-        <FormFieldComponent
-          form={form}
-          name="email"
-          label="Email"
-          placeholder="Enter your email"
-          type="email"
-          icon={<Mail strokeWidth={1.2} size={18} />}
-        />
-        <FormFieldComponent
-          form={form}
-          name="password"
-          label="Password"
-          placeholder="Enter your password"
-          type="password"
-        />
-        <button
-          className="btn1 h-[48px] flex items-center justify-center"
-          type="submit"
-        >
-          {loading ? <Loader2 className="animate-spin" /> : "Sign Up"}
-        </button>
-        <p className="lg:text-sm">
-          Already have an account ?{" "}
-          <Link className="font-clashmd" href="/sign-in">
-            Sign In Instead
-          </Link>
-        </p>
-        <div className="hidden">
-          <div className="mx-auto w-20 h-[1px] bg-gray-500 relative">
-            <p className="absolute left-[50%] translate-x-[-50%]">OR</p>
-          </div>
-          <button className="w-full hover:bg-orange-400 !bg-white h-[48px] flex items-center justify-center ring-1 !ring-slate-300">
-            <Image src="/google.svg" width={20} height={20} alt="google icon" />
+      <form onSubmit={form.handleSubmit(onSubmit)} className="mt-10">
+        {error && (
+          <p className="text-sm mb-1 text-red-500 text-center">{error}</p>
+        )}
+        <div className="space-y-5">
+          <FormFieldComponent
+            form={form}
+            name="name"
+            label="Name"
+            placeholder="Enter your fullname"
+            icon={<UserRound strokeWidth={1.2} size={18} />}
+          />
+          <FormFieldComponent
+            form={form}
+            name="email"
+            label="Email"
+            placeholder="Enter your email"
+            type="email"
+            icon={<Mail strokeWidth={1.2} size={18} />}
+          />
+          <FormFieldComponent
+            form={form}
+            name="password"
+            label="Password"
+            placeholder="Enter your password"
+            type="password"
+          />
+          <button
+            className="btn1 h-[48px] flex items-center justify-center"
+            type="submit"
+          >
+            {loading ? <Loader2 className="animate-spin" /> : "Sign Up"}
           </button>
+          <p className="lg:text-sm">
+            Already have an account ?{" "}
+            <Link className="font-clashmd" href="/sign-in">
+              Sign In Instead
+            </Link>
+          </p>
+          <div className="hidden">
+            <div className="mx-auto w-20 h-[1px] bg-gray-500 relative">
+              <p className="absolute left-[50%] translate-x-[-50%]">OR</p>
+            </div>
+            <button className="w-full hover:bg-orange-400 !bg-white h-[48px] flex items-center justify-center ring-1 !ring-slate-300">
+              <Image
+                src="/google.svg"
+                width={20}
+                height={20}
+                alt="google icon"
+              />
+            </button>
+          </div>
         </div>
+
         <p className="text-xs lg:text-sm whitespace-nowrap text-center absolute max-lg:bottom-20 lg:bottom-10 left-[50%] translate-x-[-50%]">
           Copyright © {year} StockPaddy. All rights reserved
         </p>
