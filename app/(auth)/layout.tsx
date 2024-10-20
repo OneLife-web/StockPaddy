@@ -10,7 +10,7 @@ const layout = ({ children }: { children: ReactNode }) => {
         layout="fill"
         objectFit="cover"
       />
-      <div className="lg:basis-[55%] w-full glassmorphism min-h-screen max-lg:px-[5%] px-[7%] backdrop-blur-lg bg-white">
+      <div className="lg:basis-[55%] w-full glassmorphism h-screen overflow-y-scroll custom-scrollbar max-lg:px-[5%] px-[7%] backdrop-blur-lg bg-white">
         {children}
       </div>
     </div>
