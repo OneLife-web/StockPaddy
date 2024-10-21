@@ -54,6 +54,16 @@ const PolarAreaChart = () => {
         },
       },
     },
+    scales: {
+      r: {
+        grid: {
+          display: false,
+        },
+        ticks: {
+          display: false,
+        },
+      },
+    },
   };
 
   return (
