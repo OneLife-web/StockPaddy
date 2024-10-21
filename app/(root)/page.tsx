@@ -1,6 +1,7 @@
 "use client";
 import { DatePickerWithRange } from "@/components/DatePicker";
 import PolarAreaChart from "@/components/PolarAreaChart";
+import SalesLineChart from "@/components/SalesLineChart";
 import { SwitchDemo } from "@/components/Switch";
 import ThemeContext from "@/contexts/ThemeContext";
 import { useSession } from "next-auth/react";
@@ -22,6 +23,7 @@ const HomePage = () => {
       <h2 className="">Home {session?.user?.name}</h2>
       <DatePickerWithRange />
       <PolarAreaChart />
+      <SalesLineChart />
     </div>
   );
 };
