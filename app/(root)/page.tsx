@@ -10,6 +10,16 @@ import { useContext } from "react";
 const HomePage = () => {
   const { theme, toggleTheme } = useContext(ThemeContext);
   const { data: session } = useSession();
+  const weeklyData = [
+    { label: "Mon", value: 1000 },
+    { label: "Tue", value: 1500 },
+    { label: "Wed", value: 1200 },
+    { label: "Thu", value: 1800 },
+    { label: "Fri", value: 2000 },
+    { label: "Sat", value: 2200 },
+    { label: "Sun", value: 1900 },
+  ];
+
   return (
     <div>
       <header className="header">
@@ -23,7 +33,7 @@ const HomePage = () => {
       <h2 className="">Home {session?.user?.name}</h2>
       <DatePickerWithRange />
       <PolarAreaChart />
-      <SalesLineChart />
+      <SalesLineChart data={weeklyData} timeFrame="week" />
     </div>
   );
 };
