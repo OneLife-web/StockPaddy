@@ -1,5 +1,7 @@
 "use client";
 import { DatePickerWithRange } from "@/components/DatePicker";
+import PolarAreaChart from "@/components/PolarAreaChart";
+import { SwitchDemo } from "@/components/Switch";
 import ThemeContext from "@/contexts/ThemeContext";
 import { useSession } from "next-auth/react";
 import { useContext } from "react";
@@ -10,6 +12,7 @@ const HomePage = () => {
   return (
     <div>
       <header className="header">
+        <SwitchDemo />
         <button onClick={toggleTheme} className="p-2 rounded">
           {theme === "light"
             ? "🌙 Switch to Dark Mode"
@@ -18,6 +21,7 @@ const HomePage = () => {
       </header>
       <h2 className="">Home {session?.user?.name}</h2>
       <DatePickerWithRange />
+      <PolarAreaChart />
     </div>
   );
 };
