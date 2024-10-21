@@ -1,5 +1,6 @@
 import SignInForm from "@/components/forms/SignInForm";
 import Logo from "@/components/Logo";
+import { Suspense } from "react";
 
 const SignInPage = () => {
   return (
@@ -11,7 +12,9 @@ const SignInPage = () => {
           Sign in to your StockPaddy account and continue optimizing your
           inventory management.
         </p>
-        <SignInForm />
+        <Suspense fallback="Loading...">
+          <SignInForm />
+        </Suspense>
       </div>
     </main>
   );
