@@ -51,6 +51,7 @@ export default function ProductList({ initialData }: ProductListProps) {
           process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000",
           {
             path: "/socket.io", // Default Socket.IO path
+            transports: ["websocket", "polling"], // Prioritize WebSocket
             reconnectionAttempts: 5,
             reconnectionDelay: 1000,
           }

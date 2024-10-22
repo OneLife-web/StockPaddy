@@ -12,7 +12,13 @@ app.prepare().then(() => {
     handle(req, res); // Handle requests through Next.js
   });
 
-  const io = new Server(server);
+  const io = new Server(server, {
+    cors: {
+      origin: "https://stock-paddy.vercel.app", // Allow your frontend domain
+      methods: ["GET", "POST"],
+      credentials: true,
+    },
+  });
   server.io = io;
 
   // Handle socket connections
