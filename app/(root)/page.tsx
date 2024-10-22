@@ -1,15 +1,23 @@
-"use client";
-import { DatePickerWithRange } from "@/components/DatePicker";
-import PolarAreaChart from "@/components/PolarAreaChart";
-import SalesLineChart from "@/components/SalesLineChart";
-import { SwitchDemo } from "@/components/Switch";
-import ThemeContext from "@/contexts/ThemeContext";
-import { useSession } from "next-auth/react";
-import { useContext } from "react";
+//import { DatePickerWithRange } from "@/components/DatePicker";
+import Header from "@/components/Navigation/Header";
+import dynamic from "next/dynamic";
+//import { useSession } from "next-auth/react";
+
+const DatePickerWithRange = dynamic(() => import("@/components/DatePicker"), {
+  loading: () => <p>Loading...</p>,
+  ssr: false,
+});
+const PolarAreaChart = dynamic(() => import("@/components/PolarAreaChart"), {
+  loading: () => <p>Loading...</p>,
+  ssr: false,
+});
+const SalesLineChart = dynamic(() => import("@/components/SalesLineChart"), {
+  loading: () => <p>Loading...</p>,
+  ssr: false,
+});
 
 const HomePage = () => {
-  const { theme, toggleTheme } = useContext(ThemeContext);
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
   const weeklyData = [
     { label: "Mon", value: 1000 },
     { label: "Tue", value: 1500 },
@@ -22,15 +30,8 @@ const HomePage = () => {
 
   return (
     <div>
-      <header className="header">
-        <SwitchDemo />
-        <button onClick={toggleTheme} className="p-2 rounded">
-          {theme === "light"
-            ? "🌙 Switch to Dark Mode"
-            : "☀️ Switch to Light Mode"}
-        </button>
-      </header>
-      <h2 className="">Home {session?.user?.name}</h2>
+      <Header />
+      {/*       <h2 className="">Home {session?.user?.name}</h2> */}{" "}
       <DatePickerWithRange />
       <PolarAreaChart />
       <SalesLineChart data={weeklyData} timeFrame="week" />

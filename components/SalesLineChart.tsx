@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Line } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -33,7 +33,8 @@ interface SalesLineChartProps {
 }
 
 const SalesLineChart: React.FC<SalesLineChartProps> = ({ data, timeFrame }) => {
-  const chartData = {
+  // Memoize chartData to avoid recalculation on each render
+  const chartData = useMemo(() => ({
     labels: data.map((item) => item.label),
     datasets: [
       {
@@ -44,9 +45,10 @@ const SalesLineChart: React.FC<SalesLineChartProps> = ({ data, timeFrame }) => {
         tension: 0.1,
       },
     ],
-  };
+  }), [data, timeFrame]); // Dependencies for re-computation
 
-  const options: ChartOptions<"line"> = {
+  // Memoize options for the chart
+  const options: ChartOptions<"line"> = useMemo(() => ({
     responsive: true,
     plugins: {
       legend: {
@@ -83,7 +85,7 @@ const SalesLineChart: React.FC<SalesLineChartProps> = ({ data, timeFrame }) => {
         },
       },
     },
-  };
+  }), [timeFrame]); // Recalculate options only when timeFrame changes
 
   return (
     <div className="lg:w-[80vw]">

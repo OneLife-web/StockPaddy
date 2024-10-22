@@ -40,9 +40,7 @@ const presets = {
   },
 };
 
-export function DatePickerWithRange({
-  className,
-}: React.HTMLAttributes<HTMLDivElement>) {
+const DatePicker = ({ className }: React.HTMLAttributes<HTMLDivElement>) => {
   const [date, setDate] = React.useState<DateRange | undefined>({
     from: startOfMonth(subMonths(new Date(), 1)), // first day of last month
     to: new Date(), // current day
@@ -112,4 +110,6 @@ export function DatePickerWithRange({
       </Popover>
     </div>
   );
-}
+};
+
+export default DatePicker;
