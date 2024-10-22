@@ -47,7 +47,7 @@ export default function ProductList({ initialData }: ProductListProps) {
   useEffect(() => {
     const initSocket = async () => {
       try {
-        await fetch("/api/socket");
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`);
         const socketInstance = io({
           path: "/api/socket",
           reconnectionAttempts: 5,
