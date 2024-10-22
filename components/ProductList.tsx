@@ -48,7 +48,7 @@ export default function ProductList({ initialData }: ProductListProps) {
       try {
         // Connect directly to the server where your Next.js app is running
         const socketInstance = io(
-          process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000",
+        "https://stock-paddy.vercel.app",
           {
             path: "/socket.io", // Default Socket.IO path
             transports: ["websocket", "polling"], // Prioritize WebSocket
