@@ -17,13 +17,10 @@ export default async function handler(
   if (!res.socket.server.io) {
     console.log("Initializing new Socket.IO server...");
 
+    // Check if res.socket is not null before accessing
     if (res.socket) {
       const io = new SocketIOServer(res.socket.server, {
         path: "/api/socket",
-        cors: {
-          origin: process.env.NEXT_PUBLIC_API_URL, // Ensure CORS allows requests from the client domain
-          methods: ["GET", "POST"],
-        },
       });
 
       // Setup event listeners for new connections
@@ -42,5 +39,6 @@ export default async function handler(
     console.log("Socket.IO server already running.");
   }
 
+  // Return a basic response indicating that Socket.IO is set up
   res.status(200).json({ message: "Socket.IO server is running" });
 }
