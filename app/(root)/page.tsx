@@ -1,7 +1,5 @@
-//import { DatePickerWithRange } from "@/components/DatePicker";
 import Header from "@/components/Navigation/Header";
 import dynamic from "next/dynamic";
-//import { useSession } from "next-auth/react";
 
 const DatePickerWithRange = dynamic(() => import("@/components/DatePicker"), {
   loading: () => <p>Loading...</p>,
@@ -17,7 +15,6 @@ const SalesLineChart = dynamic(() => import("@/components/SalesLineChart"), {
 });
 
 const HomePage = () => {
-  // const { data: session } = useSession();
   const weeklyData = [
     { label: "Mon", value: 1000 },
     { label: "Tue", value: 1500 },
@@ -31,7 +28,6 @@ const HomePage = () => {
   return (
     <div>
       <Header />
-      {/*       <h2 className="">Home {session?.user?.name}</h2> */}{" "}
       <DatePickerWithRange />
       <PolarAreaChart />
       <SalesLineChart data={weeklyData} timeFrame="week" />
