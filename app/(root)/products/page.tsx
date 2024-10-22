@@ -5,7 +5,7 @@ import AddProductForm from "@/components/forms/ProductForm";
 // Server-side fetch to get the products
 async function getProducts() {
   try {
-    const res = await fetch(`http://localhost:3000/api/products`, {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`, {
       cache: "no-store", // Disable caching to always get fresh data
     });
 
