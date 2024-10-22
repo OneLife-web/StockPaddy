@@ -46,14 +46,15 @@ export default function ProductList({ initialData }: ProductListProps) {
   useEffect(() => {
     const initSocket = async () => {
       try {
-        // Ensure the socket is ready by calling /api/socket first
-        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/socket`);
-
-        const socketInstance = io(process.env.NEXT_PUBLIC_API_URL, {
-          path: "/api/socket",
-          reconnectionAttempts: 5,
-          reconnectionDelay: 1000,
-        });
+        // Connect directly to the server where your Next.js app is running
+        const socketInstance = io(
+          process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000",
+          {
+            path: "/socket.io", // Default Socket.IO path
+            reconnectionAttempts: 5,
+            reconnectionDelay: 1000,
+          }
+        );
 
         socketInstance.on("connect", () => {
           console.log("Socket connected");
@@ -71,11 +72,11 @@ export default function ProductList({ initialData }: ProductListProps) {
             "/api/products",
             (currentProducts: Product[] = []) => {
               if (currentProducts.some((p) => p._id === newProduct._id)) {
-                return currentProducts;
+                return currentProducts; // Do not add if already exists
               }
-              return [...currentProducts, newProduct];
+              return [...currentProducts, newProduct]; // Add new product
             },
-            false
+            false // Do not revalidate after mutation
           );
         });
 
