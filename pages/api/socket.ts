@@ -1,6 +1,6 @@
-import { NextApiRequest, NextApiResponse } from 'next';
-import { Server as NetServer } from 'http';
-import { Server as SocketIOServer } from 'socket.io';
+import { NextApiRequest, NextApiResponse } from "next";
+import { Server as NetServer } from "http";
+import { Server as SocketIOServer } from "socket.io";
 
 type NextApiResponseWithSocket = NextApiResponse & {
   socket: {
@@ -15,20 +15,23 @@ export default async function handler(
   res: NextApiResponseWithSocket
 ) {
   if (!res.socket.server.io) {
-    console.log('Initializing new Socket.IO server...');
+    console.log("Initializing new Socket.IO server...");
 
-    // Check if res.socket is not null before accessing
     if (res.socket) {
       const io = new SocketIOServer(res.socket.server, {
-        path: '/api/socket',
+        path: "/api/socket",
+        cors: {
+          origin: process.env.NEXT_PUBLIC_API_URL, // Ensure CORS allows requests from the client domain
+          methods: ["GET", "POST"],
+        },
       });
 
       // Setup event listeners for new connections
-      io.on('connection', (socket) => {
-        console.log('Client connected');
+      io.on("connection", (socket) => {
+        console.log("Client connected");
 
-        socket.on('disconnect', () => {
-          console.log('Client disconnected');
+        socket.on("disconnect", () => {
+          console.log("Client disconnected");
         });
       });
 
@@ -36,9 +39,8 @@ export default async function handler(
       res.socket.server.io = io;
     }
   } else {
-    console.log('Socket.IO server already running.');
+    console.log("Socket.IO server already running.");
   }
 
-  // Return a basic response indicating that Socket.IO is set up
-  res.status(200).json({ message: 'Socket.IO server is running' });
+  res.status(200).json({ message: "Socket.IO server is running" });
 }

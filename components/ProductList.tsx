@@ -20,7 +20,6 @@ const fetcher = async (url: string): Promise<Product[]> => {
       throw new Error(`HTTP error! status: ${res.status}`);
     }
     const data: ApiResponse = await res.json();
-    // Extract the products array from the response
     return data.products || [];
   } catch (error) {
     console.error("Fetching error:", error);
@@ -47,8 +46,10 @@ export default function ProductList({ initialData }: ProductListProps) {
   useEffect(() => {
     const initSocket = async () => {
       try {
-        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/products`);
-        const socketInstance = io({
+        // Ensure the socket is ready by calling /api/socket first
+        await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/socket`);
+
+        const socketInstance = io(process.env.NEXT_PUBLIC_API_URL, {
           path: "/api/socket",
           reconnectionAttempts: 5,
           reconnectionDelay: 1000,
