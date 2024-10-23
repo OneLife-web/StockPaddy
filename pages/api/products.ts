@@ -25,7 +25,7 @@ export default async function handler(
     res.socket.server.io = io;
 
     // Handle new connections
-    io.on("connection", (socket) => {
+    io.on("connection", () => {
       console.log("A user connected");
     });
   }
