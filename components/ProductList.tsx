@@ -47,7 +47,7 @@ export default function ProductList({ initialData }: ProductListProps) {
     const initSocket = async () => {
       try {
         // Connect directly to the server where your Next.js app is running
-        const socketInstance = io("https://socket-k4ex.onrender.com/", {
+        const socketInstance = io("https://socket-k4ex.onrender.com", {
           path: "/socket.io", // Default Socket.IO path
           transports: ["websocket", "polling"], // Prioritize WebSocket
           reconnectionAttempts: 5,

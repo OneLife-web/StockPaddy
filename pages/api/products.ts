@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { Server as SocketIOServer } from "socket.io";
-import http from "http";
 import connectToDatabase from "@/lib/mongodb";
 import Product from "@/utils/models/Product";
 
@@ -16,20 +15,6 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponseWithSocket
 ) {
-  // Initialize Socket.IO if not already initialized
-  if (!res.socket.server.io) {
-    console.log("Initializing new Socket.IO server...");
-    
-    // Ensure that we are passing the raw HTTP server
-    const io = new SocketIOServer(res.socket.server as unknown as http.Server); 
-    res.socket.server.io = io;
-
-    // Handle new connections
-    io.on("connection", () => {
-      console.log("A user connected");
-    });
-  }
-
   if (req.method === "POST") {
     try {
       const { name } = req.body;
@@ -41,11 +26,24 @@ export default async function handler(
       const newProduct = new Product({ name });
       await newProduct.save();
 
-      // Emit the new product event to all connected clients
-      const io = res.socket.server.io;
-      io.emit("productCreated", newProduct); // Notify clients about the new product
-      console.log("New product emitted via Socket.IO");
+      // Send POST request to external Socket.IO server to emit event
+      const SOCKET_SERVER_URL = "https://socket-k4ex.onrender.com";
 
+      try {
+        await fetch(`${SOCKET_SERVER_URL}/emit`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ event: "productCreated", data: newProduct }), // Send the new product to the Socket.IO server
+        });
+
+        console.log("New product emitted via Socket.IO server");
+      } catch (emitError) {
+        console.error("Failed to emit to Socket.IO server:", emitError);
+      }
+
+      // Return success response
       return res
         .status(201)
         .json({ message: "Product created", product: newProduct });
