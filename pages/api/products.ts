@@ -1,5 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { Server as SocketIOServer } from "socket.io";
+import http from "http";
 import connectToDatabase from "@/lib/mongodb";
 import Product from "@/utils/models/Product";
 
@@ -15,6 +16,20 @@ export default async function handler(
   req: NextApiRequest,
   res: NextApiResponseWithSocket
 ) {
+  // Initialize Socket.IO if not already initialized
+  if (!res.socket.server.io) {
+    console.log("Initializing new Socket.IO server...");
+    
+    // Ensure that we are passing the raw HTTP server
+    const io = new SocketIOServer(res.socket.server as unknown as http.Server); 
+    res.socket.server.io = io;
+
+    // Handle new connections
+    io.on("connection", (socket) => {
+      console.log("A user connected");
+    });
+  }
+
   if (req.method === "POST") {
     try {
       const { name } = req.body;
@@ -26,16 +41,10 @@ export default async function handler(
       const newProduct = new Product({ name });
       await newProduct.save();
 
-      // Check if Socket.IO is initialized
-      const io = res.socket?.server?.io;
-
-      if (io) {
-        // Emit to all connected clients
-        io.emit("productCreated", newProduct); // Notify clients about the new product
-        console.log("New product emitted via Socket.IO");
-      } else {
-        console.error("Socket.IO server not initialized");
-      }
+      // Emit the new product event to all connected clients
+      const io = res.socket.server.io;
+      io.emit("productCreated", newProduct); // Notify clients about the new product
+      console.log("New product emitted via Socket.IO");
 
       return res
         .status(201)

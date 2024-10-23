@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "node server.js",
-    "start": "node server.js",
-    "build": "next build",
-    "lint": "next lint"
+    "dev": "next dev",
+    "start": "next start",
+    "lint": "next lint",
+    "build": "next bulid"
   },
   "dependencies": {
     "@headlessui/react": "^2.1.8",

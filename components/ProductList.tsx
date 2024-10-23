@@ -47,15 +47,12 @@ export default function ProductList({ initialData }: ProductListProps) {
     const initSocket = async () => {
       try {
         // Connect directly to the server where your Next.js app is running
-        const socketInstance = io(
-        "https://stock-paddy.vercel.app",
-          {
-            path: "/socket.io", // Default Socket.IO path
-            transports: ["websocket", "polling"], // Prioritize WebSocket
-            reconnectionAttempts: 5,
-            reconnectionDelay: 1000,
-          }
-        );
+        const socketInstance = io("https://socket-k4ex.onrender.com/", {
+          path: "/socket.io", // Default Socket.IO path
+          transports: ["websocket", "polling"], // Prioritize WebSocket
+          reconnectionAttempts: 5,
+          reconnectionDelay: 1000,
+        });
 
         socketInstance.on("connect", () => {
           console.log("Socket connected");
@@ -69,15 +66,19 @@ export default function ProductList({ initialData }: ProductListProps) {
 
         socketInstance.on("productCreated", (newProduct: Product) => {
           console.log("New product received:", newProduct);
+
           mutate(
             "/api/products",
             (currentProducts: Product[] = []) => {
+              console.log("Current products before mutate:", currentProducts);
               if (currentProducts.some((p) => p._id === newProduct._id)) {
-                return currentProducts; // Do not add if already exists
+                return currentProducts; // Prevent adding duplicate products
               }
-              return [...currentProducts, newProduct]; // Add new product
+              const updatedProducts = [...currentProducts, newProduct];
+              console.log("Updated products after mutate:", updatedProducts);
+              return updatedProducts; // Add new product
             },
-            false // Do not revalidate after mutation
+            false
           );
         });
 
