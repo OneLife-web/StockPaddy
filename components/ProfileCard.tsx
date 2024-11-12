@@ -26,7 +26,7 @@ const ProfileCard = () => {
       {/**Profile Card Info */}
       {isOpen && (
         <div
-          className={`absolute w-[220px] max-md:left-[-170px] text-sm myShadow rounded-lg z-30 bg-white ${
+          className={`absolute w-[220px] max-md:left-[-170px] text-sm myShadow rounded-lg z-50 bg-white ${
             isOpen && "animate-slide-up"
           }`}
         >

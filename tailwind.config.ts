@@ -113,7 +113,7 @@ const config: Config = {
         "slide-up": "slide-up 0.3s ease-out",
         rotateIn: "rotateIn 0.2s ease-in-out forwards",
         "slide-in": "slideIn 0.2s ease-out forwards",
-        "slide-out": "slideOut 0.2s ease-in forwards",
+        "slide-out": "slideOut 0.2s ease-out forwards",
       },
     },
   },
