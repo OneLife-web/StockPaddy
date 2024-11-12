@@ -18,7 +18,7 @@ const ProfileCard = () => {
         </div>
         <ChevronDown
           strokeWidth={1.3}
-          className={`size-4 md:size-5 duration-500 transition ${
+          className={`size-4 md:size-5 duration-200 transition ${
             isOpen ? "-rotate-180" : "rotate-0"
           }`}
         />
