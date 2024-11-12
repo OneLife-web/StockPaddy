@@ -6,7 +6,7 @@ const SignUpPage = () => {
   return (
     <main className="dark:text-black min-h-full lg:pb-24 relative">
       <div>
-        <Logo />
+        <Logo variant={1} width={300} height={300} />
         <h2 className="heading1 mb-1">Create Your Account</h2>
         <p className="text-xs lg:text-sm">
           Join StockPaddy today and streamline your inventory management!

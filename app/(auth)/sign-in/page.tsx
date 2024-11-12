@@ -6,7 +6,7 @@ const SignInPage = () => {
   return (
     <main className="dark:text-black min-h-full lg:pb-24 relative">
       <div>
-        <Logo />
+        <Logo variant={2} width={300} height={300} />
         <h2 className="heading1 mb-1">Welcome Back!</h2>
         <p className="text-xs lg:text-sm">
           Sign in to your StockPaddy account and continue optimizing your

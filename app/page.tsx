@@ -1,5 +1,6 @@
 import Header from "@/components/Navigation/Header";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 
 const DatePickerWithRange = dynamic(() => import("@/components/DatePicker"), {
   loading: () => <p>Loading...</p>,
@@ -28,6 +29,9 @@ const HomePage = () => {
   return (
     <div>
       <Header />
+      <Link href="/dashboard">
+      Dashboard
+      </Link>
       <DatePickerWithRange />
       <PolarAreaChart />
       <SalesLineChart data={weeklyData} timeFrame="week" />
