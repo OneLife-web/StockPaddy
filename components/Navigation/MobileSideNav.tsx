@@ -13,7 +13,7 @@ const MobileSideNav = () => {
     <>
       {isMobileOpen && (
         <aside
-          className={`fixed z-20 md:hidden overflow-y-scroll custom-scrollbar transition-transform ${
+          className={`fixed z-20 md:hidden overflow-y-scroll custom-scrollbar ${
             isMobileOpen ? "animate-slide-in" : "animate-slide-out"
           } w-screen bg-white top-[60px] bottom-0 left-0 border-r border-gray-200`}
         >
