@@ -11,7 +11,7 @@ const ShortCut = () => {
         className="bg-orange-400 size-14 myShadow myFlex rounded-full text-white"
       >
         <Plus
-          className={`rotate-[340deg] ${
+          className={`${
             isOpen ? "animate-rotateIn" : "animate-rotateIn"
           }`}
         />
