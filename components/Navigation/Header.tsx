@@ -4,37 +4,26 @@ import Logo from "../Logo";
 import { Bell, X } from "lucide-react";
 import ProfileCard from "../ProfileCard";
 import { useSideNav } from "@/contexts/SideNavContext";
-import { useEffect, useState } from "react";
 
 const Header = () => {
   const { openNav, closeNav, isOpen } = useSideNav();
-  const [menuVisible, setMenuVisible] = useState(false);
-
-  useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = "hidden";
-      setMenuVisible(true); // Show menu immediately when isMenu is true
-    } else {
-      document.body.style.overflow = "auto";
-      setTimeout(() => setMenuVisible(false), 200); // Delay hiding to allow animation to play
-    }
-  }, [isOpen]);
-  
   return (
     <header className="bg-white h-[60px] max-md:px-[3%] flex border-b border-gray-200 fixed right-0 left-0 top-0 z-20">
       <div className="max-md:basis-1/4 myFlex !justify-start md:hidden">
-        {menuVisible ? (
+        {isOpen ? (
           <X
             onClick={closeNav}
-            className={`icon-large rotate-[320deg] ${
-              menuVisible ? "animate-rotateIn" : "animate-rotateOut"
+            className={`icon-large rotate-[340deg] ${
+              isOpen && "animate-rotateIn"
             }`}
             strokeWidth={1.3}
           />
         ) : (
           <TextAlignLeftIcon
             onClick={openNav}
-            className="icon-large"
+            className={`icon-large rotate-[340deg] ${
+              !isOpen && "animate-rotateIn"
+            }`}
             strokeWidth={1.3}
           />
         )}
