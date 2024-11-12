@@ -27,7 +27,7 @@ const HomePage = () => {
   ];
 
   return (
-    <div>
+    <main className="pt-[80px]">
       <Header />
       <Link href="/dashboard">
       Dashboard
@@ -35,7 +35,7 @@ const HomePage = () => {
       <DatePickerWithRange />
       <PolarAreaChart />
       <SalesLineChart data={weeklyData} timeFrame="week" />
-    </div>
+    </main>
   );
 };
 
