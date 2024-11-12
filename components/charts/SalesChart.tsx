@@ -20,6 +20,18 @@ const SalesChart = () => {
       zoom: {
         enabled: false,
       },
+      animations: {
+        enabled: true,
+        speed: 800,
+        animateGradually: {
+          enabled: true,
+          delay: 150,
+        },
+        dynamicAnimation: {
+          enabled: true,
+          speed: 350,
+        },
+      },
     },
     stroke: {
       width: [0, 4],
