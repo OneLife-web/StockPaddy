@@ -11,7 +11,7 @@ const VerificationPage = ({
     <main className="dark:text-black min-h-full lg:pb-24 relative">
       {email && (
         <div>
-          <Logo />
+          <Logo variant={1} width={300} height={300} />
           <h2 className="heading1 mb-1 text-center">Verify Your Account</h2>
           <p className="text-xs lg:text-sm text-center">
             We&apos;ve sent a 6-digit code to your email.
