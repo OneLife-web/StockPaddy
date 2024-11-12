@@ -15,24 +15,45 @@ const SalesChart = () => {
 
   const chartOptions: ApexOptions = {
     chart: {
-      id: "sales-chart",
-      toolbar: {
-        show: true,
+      height: 350,
+      type: "line",
+      zoom: {
+        enabled: false,
       },
     },
-    xaxis: {
-      categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    stroke: {
+      width: [0, 4],
+      curve: "smooth",
     },
     title: {
-      text: "Monthly Sales",
+      text: "Traffic Sources",
       align: "center",
     },
+    dataLabels: {
+      enabled: false,
+    },
+    labels: ["Mon", "Tue", "Wed", "Thurs", "Fri", "Sat", "Sun"],
+    yaxis: [
+      {},
+      {
+        opposite: true,
+        labels: {
+          show: false,
+        },
+      },
+    ],
   };
 
   const chartData = [
     {
-      name: "Sales",
-      data: [1500, 2000, 3000, 5000, 4000, 6000],
+      name: "Website Blog",
+      type: "column",
+      data: [440, 505, 414, 671, 227, 413, 201],
+    },
+    {
+      name: "Social Media",
+      type: "line",
+      data: [0, 505, 414, 671, 227, 413, 201],
     },
   ];
 
