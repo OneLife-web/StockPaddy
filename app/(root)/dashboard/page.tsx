@@ -2,9 +2,9 @@ import SalesChart from '@/components/charts/SalesChart'
 
 const DashboardPage = () => {
   return (
-    <div>
+    <main className='pt-[80px]'>
       <SalesChart />
-    </div>
+    </main>
   )
 }
 

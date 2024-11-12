@@ -11,10 +11,17 @@ export interface InputProps {
 }
 
 export interface Product {
-  _id: string
-  name: string
+  _id: string;
+  name: string;
   /* quantity: number
   price: number
   createdAt: Date
   updatedAt: Date */
+}
+
+export interface ImageProps {
+  variant: 1 | 2;
+  width: number;
+  height: number;
+  className?: string;
 }

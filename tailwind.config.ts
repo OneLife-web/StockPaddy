@@ -19,6 +19,8 @@ const config: Config = {
         "orange-600": "#ea580c",
         "orange-700": "#c2410c",
         "orange-800": "#9a3412",
+        "text-1": "#333333",
+        "text-2": "#555555",
         "orange-900": "#7c2d12",
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
@@ -81,9 +83,14 @@ const config: Config = {
           "0%,70%,100%": { opacity: "1" },
           "20%,50%": { opacity: "0" },
         },
+        "slide-up": {
+          "0%": { transform: "translateY(30%)", opacity: "0" },
+          "100%": { transform: "translateY(0)", opacity: "1" },
+        },
       },
       animation: {
         "caret-blink": "caret-blink 1.25s ease-out infinite",
+        "slide-up": "slide-up 0.5s ease-out",
       },
     },
   },
