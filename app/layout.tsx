@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "@/contexts/ThemeContext";
 import { Toaster } from "react-hot-toast";
 import { AuthProvider } from "@/contexts/Providers";
+import { SideNavProvider } from "@/contexts/SideNavContext";
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -20,7 +21,9 @@ export default function RootLayout({
     <html lang="en">
       <body className="font-clash antialiased">
         <ThemeProvider>
-          <AuthProvider>{children}</AuthProvider>
+          <AuthProvider>
+            <SideNavProvider>{children}</SideNavProvider>
+          </AuthProvider>
           <Toaster />
         </ThemeProvider>
       </body>
