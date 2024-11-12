@@ -4,14 +4,27 @@ import { navLinks } from "@/lib/constants";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 const SideNav = () => {
   const pathName = usePathname();
   const { isOpen } = useSideNav();
+  const [menuVisible, setMenuVisible] = useState(false);
+
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden";
+      setMenuVisible(true); // Show menu immediately when isMenu is true
+    } else {
+      document.body.style.overflow = "auto";
+      setTimeout(() => setMenuVisible(false), 200); // Delay hiding to allow animation to play
+    }
+  }, [isOpen]);
+  
   return (
     <aside
       className={`fixed overflow-y-scroll custom-scrollbar ${
-        isOpen ? "block" : "hidden"
+        menuVisible ? "animate-slide-in" : "animate-slide-out"
       } md:block md:w-[200px] lg:w-[300px] bg-white top-[60px] bottom-0 left-0 z-20 border-r border-gray-200`}
     >
       <div className="grid gap-5 max-lg:px-[7%] px-[10%]">

@@ -95,12 +95,30 @@ const config: Config = {
           "0%": { transform: "rotate(180deg)", opacity: "1" },
           "100%": { transform: "rotate(0deg)", opacity: "0" },
         },
+        slideIn: {
+          "0%": {
+            transform: "translateX(-100%)",
+          },
+          "100%": {
+            transform: "translateX(0)",
+          },
+        },
+        slideOut: {
+          "0%": {
+            transform: "translateX(0)",
+          },
+          "100%": {
+            transform: "translateX(-100%)",
+          },
+        },
       },
       animation: {
         "caret-blink": "caret-blink 1.25s ease-out infinite",
         "slide-up": "slide-up 0.3s ease-out",
         rotateIn: "rotateIn 0.2s ease-in-out forwards",
-        rotateOut: "rotateOut 0.3s ease-in-out",
+        rotateOut: "rotateOut 0.2s ease-in-out",
+        "slide-in": "slideIn 0.2s ease-out forwards",
+        "slide-out": "slideOut 0.2s ease-in forwards",
       },
     },
   },
