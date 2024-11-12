@@ -7,7 +7,7 @@ import { usePathname } from "next/navigation";
 
 const MobileSideNav = () => {
   const pathName = usePathname();
-  const { isMobileOpen } = useSideNav();
+  const { isMobileOpen, closeMobileNav } = useSideNav();
 
   return (
     <>
@@ -27,6 +27,7 @@ const MobileSideNav = () => {
                       <Link
                         key={item.title}
                         href={item.link}
+                        onClick={closeMobileNav}
                         className={cn(
                           `flex gap-3 max-md:px-5 max-lg:px-3 px-5 py-3 items-center font-clashmd text-text-3 text-sm rounded-lg`,
                           {

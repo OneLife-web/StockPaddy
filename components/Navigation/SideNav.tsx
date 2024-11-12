@@ -17,7 +17,7 @@ const SideNav = () => {
             isOpen ? "animate-slide-in" : "animate-slide-out"
           } md:w-[200px] lg:w-[300px] bg-white top-[60px] bottom-0 left-0 z-20 border-r border-gray-200`}
         >
-          <div className="grid gap-5 max-lg:px-[7%] px-[10%]">
+          <div className="grid max-lg:px-[7%] px-[10%]">
             {navLinks.map((link) => (
               <div key={link.heading} className="py-7 border-b">
                 <h4 className="heading3 mb-5">{link.heading}</h4>
