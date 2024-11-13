@@ -29,7 +29,7 @@ export interface ImageProps {
 // TypeScript types for the props
 export interface CardProps {
   title: string;
-  value: string | number;
+  value: number;
   chartOptions: ApexCharts.ApexOptions; // Using ApexCharts options type
   chartSeries: ApexAxisChartSeries; // Using ApexCharts series type
 }

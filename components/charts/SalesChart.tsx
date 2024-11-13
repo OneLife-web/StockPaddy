@@ -20,18 +20,6 @@ const SalesChart = () => {
       zoom: {
         enabled: false,
       },
-      animations: {
-        enabled: true,
-        speed: 800,
-        animateGradually: {
-          enabled: true,
-          delay: 150,
-        },
-        dynamicAnimation: {
-          enabled: true,
-          speed: 350,
-        },
-      },
     },
     stroke: {
       width: [0, 4],
@@ -46,7 +34,6 @@ const SalesChart = () => {
     },
     labels: ["Mon", "Tue", "Wed", "Thurs", "Fri", "Sat", "Sun"],
     yaxis: [
-      {},
       {
         opposite: true,
         labels: {
@@ -58,11 +45,6 @@ const SalesChart = () => {
 
   const chartData = [
     {
-      name: "Website Blog",
-      type: "column",
-      data: [440, 505, 414, 671, 227, 413, 201],
-    },
-    {
       name: "Social Media",
       type: "line",
       data: [0, 505, 414, 671, 227, 413, 201],
@@ -70,8 +52,7 @@ const SalesChart = () => {
   ];
 
   return (
-    <div className="myCard p-4">
-      <h1 className="heading2">Sales Dashboard</h1>
+    <div> 
       {isClient && (
         <Chart
           options={chartOptions}

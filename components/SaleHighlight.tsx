@@ -2,8 +2,12 @@
 import { CardProps } from "@/types";
 import dynamic from "next/dynamic";
 import { ChartSkeleton } from "./skeletons/ChartSkeleton";
+import CountUp from "react-countup";
 
-const Chart = dynamic(() => import("react-apexcharts"), { ssr: false, loading: () => <ChartSkeleton /> });
+const Chart = dynamic(() => import("react-apexcharts"), {
+  ssr: false,
+  loading: () => <ChartSkeleton />,
+});
 
 const SaleHighlight = () => {
   // Data for sparklines
@@ -75,7 +79,14 @@ const SaleHighlight = () => {
     chartSeries,
   }) => (
     <div className="myCard p-4 flex flex-col min-h-[150px]">
-      <h4 className="heading1">{value}</h4>
+      <h4 className="heading1">
+        <CountUp
+          end={value}
+          duration={2.5}
+          prefix={title === "Profit" ? "$" : ""}
+          formattingFn={(num) => new Intl.NumberFormat().format(num)}
+        />
+      </h4>
       <p className="bodyText">{title}</p>
       <div className="mt-4">
         <Chart
@@ -92,19 +103,19 @@ const SaleHighlight = () => {
     <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
       <Card
         title="Profit"
-        value="$500"
+        value={500}
         chartOptions={profitData.options}
         chartSeries={profitData.series}
       />
       <Card
         title="Total Sales Amount"
-        value="$2,300"
+        value={2300}
         chartOptions={totalSalesData.options}
         chartSeries={totalSalesData.series}
       />
       <Card
         title="Number of Sales"
-        value="23"
+        value={23}
         chartOptions={numOfSalesData.options}
         chartSeries={numOfSalesData.series}
       />
