@@ -69,6 +69,14 @@
     @apply flex items-center justify-center;
   }
 
+  .pageContainer {
+    @apply min-h-screen pt-[60px] md:pl-[200px] lg:pl-[300px];
+  }
+
+  .sectionContainer {
+    @apply max-lg:px-[3%] px-[5%] py-16;
+  }
+
   .text-balance {
     text-wrap: balance;
   }
@@ -84,7 +92,7 @@
   }
 
   .heading1 {
-    @apply text-2xl lg:text-[26px] font-clashmd;
+    @apply text-2xl lg:text-[26px] font-clashsm text-text-1;
   }
 
   .heading2 {
@@ -97,6 +105,10 @@
 
   .heading4 {
     @apply;
+  }
+
+  .bodyText {
+    @apply text-text-3 text-sm;
   }
 
   .btn1 {

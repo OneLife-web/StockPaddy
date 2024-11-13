@@ -1,13 +1,21 @@
-import SalesChart from '@/components/charts/SalesChart'
-import ShortCut from '@/components/Navigation/ShortCut'
+import SalesChart from "@/components/charts/SalesChart";
+import ShortCut from "@/components/Navigation/ShortCut";
+import SaleHighlight from "@/components/SaleHighlight";
 
 const DashboardPage = () => {
   return (
-    <main className='pt-[80px] relative min-h-screen'>
-      <SalesChart />
-      <ShortCut />
+    <main className="pageContainer">
+      <section className="sectionContainer">
+        <SaleHighlight />
+      </section>
+      <section>
+        <SalesChart />
+      </section>
+      <section>
+        <ShortCut />
+      </section>
     </main>
-  )
-}
+  );
+};
 
-export default DashboardPage
+export default DashboardPage;
