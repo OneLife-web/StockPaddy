@@ -74,7 +74,7 @@ const SaleHighlight = () => {
     chartOptions,
     chartSeries,
   }) => (
-    <div className="bg-white myShadow rounded-lg p-4 flex flex-col">
+    <div className="myCard p-4 flex flex-col min-h-[150px]">
       <h4 className="heading1">{value}</h4>
       <p className="bodyText">{title}</p>
       <div className="mt-4">

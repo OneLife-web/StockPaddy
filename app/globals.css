@@ -68,6 +68,10 @@
     @apply flex items-center justify-center;
   }
 
+  .myCard {
+    @apply bg-white myShadow rounded-lg;
+  }
+
   .pageContainer {
     @apply min-h-screen pt-[60px] md:pl-[200px] lg:pl-[300px];
   }
@@ -95,7 +99,7 @@
   }
 
   .heading2 {
-    @apply;
+    @apply font-clashmd text-text-1 text-xl;
   }
 
   .heading3 {

@@ -70,8 +70,8 @@ const SalesChart = () => {
   ];
 
   return (
-    <div>
-      <h1>Sales Dashboard</h1>
+    <div className="myCard p-4">
+      <h1 className="heading2">Sales Dashboard</h1>
       {isClient && (
         <Chart
           options={chartOptions}
