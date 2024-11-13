@@ -77,7 +77,7 @@
   }
 
   .sectionContainer {
-    @apply max-lg:px-[3%] px-[5%] py-16;
+    @apply max-lg:px-[3%] px-[5%] py-10 md:py-16;
   }
 
   .text-balance {

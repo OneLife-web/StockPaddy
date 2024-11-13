@@ -8,7 +8,7 @@ const DashboardPage = () => {
       <section className="sectionContainer">
         <SaleHighlight />
       </section>
-      <section className="sectionContainer">
+      <section className="sectionContainer !pt-0">
         <SalesChart />
       </section>
       <section>
