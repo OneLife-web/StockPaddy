@@ -82,9 +82,14 @@ const SaleHighlight = () => {
       <h4 className="heading1">
         <CountUp
           end={value}
-          duration={2.5}
-          prefix={title === "Profit" ? "$" : ""}
-          formattingFn={(num) => new Intl.NumberFormat().format(num)}
+          duration={1}
+          formattingFn={(num) =>
+            title === "Profit"
+              ? `$${new Intl.NumberFormat().format(num)}`
+              : title === "Total Sales Amount"
+              ? `$${new Intl.NumberFormat().format(num)}`
+              : new Intl.NumberFormat().format(num)
+          }
         />
       </h4>
       <p className="bodyText">{title}</p>
