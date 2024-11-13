@@ -25,3 +25,11 @@ export interface ImageProps {
   height: number;
   className?: string;
 }
+
+// TypeScript types for the props
+export interface CardProps {
+  title: string;
+  value: string | number;
+  chartOptions: ApexCharts.ApexOptions; // Using ApexCharts options type
+  chartSeries: ApexAxisChartSeries; // Using ApexCharts series type
+}

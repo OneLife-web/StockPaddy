@@ -1,4 +1,5 @@
 "use client";
+import { CardProps } from "@/types";
 import dynamic from "next/dynamic";
 
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
@@ -14,11 +15,11 @@ const SaleHighlight = () => {
     ],
     options: {
       chart: {
-        type: "line",
+        type: "line" as const,
         sparkline: { enabled: true },
       },
       stroke: {
-        curve: "smooth",
+        curve: "smooth" as const,
         width: 2,
       },
       colors: ["#34c38f"],
@@ -34,7 +35,7 @@ const SaleHighlight = () => {
     ],
     options: {
       chart: {
-        type: "bar",
+        type: "bar" as const,
         sparkline: { enabled: true },
       },
       colors: ["#556ee6"],
@@ -50,7 +51,7 @@ const SaleHighlight = () => {
     ],
     options: {
       chart: {
-        type: "area",
+        type: "area" as const,
         sparkline: { enabled: true },
       },
       fill: {
@@ -66,7 +67,12 @@ const SaleHighlight = () => {
   };
 
   // Card Component
-  const Card = ({ title, value, chartOptions, chartSeries }: any) => (
+  const Card: React.FC<CardProps> = ({
+    title,
+    value,
+    chartOptions,
+    chartSeries,
+  }) => (
     <div className="bg-white myShadow rounded-lg p-4 flex flex-col">
       <h4 className="heading1">{value}</h4>
       <p className="bodyText">{title}</p>
@@ -74,7 +80,7 @@ const SaleHighlight = () => {
         <Chart
           options={chartOptions}
           series={chartSeries}
-          type={chartOptions.chart.type}
+          type={chartOptions.chart?.type as "line" | "bar" | "area"} // Type assertion for chart type
           height={50}
         />
       </div>
