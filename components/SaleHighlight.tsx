@@ -1,8 +1,9 @@
 "use client";
 import { CardProps } from "@/types";
 import dynamic from "next/dynamic";
+import { ChartSkeleton } from "./skeletons/ChartSkeleton";
 
-const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
+const Chart = dynamic(() => import("react-apexcharts"), { ssr: false, loading: () => <ChartSkeleton /> });
 
 const SaleHighlight = () => {
   // Data for sparklines
