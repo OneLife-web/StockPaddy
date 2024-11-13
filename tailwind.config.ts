@@ -86,7 +86,7 @@ const config: Config = {
         },
         "slide-up": {
           "0%": { transform: "translateY(20%)", opacity: "0" },
-          "100%": { transform: "translateY(0)", opacity: "1" },
+          "100%": { transform: "translateY(10px)", opacity: "1" },
         },
         rotateIn: {
           "100%": { transform: "rotate(360deg)", opacity: "1" },
@@ -107,7 +107,7 @@ const config: Config = {
       },
       animation: {
         "caret-blink": "caret-blink 1.25s ease-out infinite",
-        "slide-up": "slide-up 0.3s ease-out",
+        "slide-up": "slide-up 0.3s ease-out forwards",
         rotateIn: "rotateIn 0.2s ease-in-out forwards",
         "slide-in": "slideIn 0.2s ease-out forwards",
         "slide-out": "slideOut 1.5s ease-in forwards",
