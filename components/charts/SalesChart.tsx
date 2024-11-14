@@ -97,10 +97,6 @@ const SalesChart = () => {
       curve: "smooth",
     },
     colors: ["#fb923c"],
-    title: {
-      text: "Sales Data",
-      align: "center",
-    },
     dataLabels: { enabled: false },
     xaxis: {
       categories: getXAxisCategories(),
@@ -157,7 +153,7 @@ const SalesChart = () => {
               },
             ]}
             type="line"
-            height={350}
+            height={500}
           />
         )}
       </div>

@@ -28,17 +28,19 @@ const SaleHighlight = () => {
         width: 2,
       },
       colors: ["#34c38f"],
-      dataLabels: {
-        enabled: true,
-        style: {
-          fontSize: "10px",
-          colors: ["#34c38f"],
+      xaxis: {
+        categories: [10, 40, 25, 50, 30, 70, 80], // Use data points as labels
+        labels: {
+          style: {
+            fontSize: "10px",
+            colors: "#6c757d", // Adjust label colors
+          },
         },
-        offsetY: -10, // Position topmost
+        tickPlacement: "on", // Ensures alignment with the data points
       },
     },
   };
-  
+
   const totalSalesData = {
     series: [
       {
@@ -52,17 +54,19 @@ const SaleHighlight = () => {
         sparkline: { enabled: true },
       },
       colors: ["#556ee6"],
-      dataLabels: {
-        enabled: true,
-        style: {
-          fontSize: "10px",
-          colors: ["#556ee6"],
+      xaxis: {
+        categories: [300, 400, 350, 500, 450, 600, 700], // Use data points as labels
+        labels: {
+          style: {
+            fontSize: "10px",
+            colors: "#6c757d",
+          },
         },
-        offsetY: -10, // Adjust for bar height
+        tickPlacement: "on",
       },
     },
   };
-  
+
   const numOfSalesData = {
     series: [
       {
@@ -84,16 +88,18 @@ const SaleHighlight = () => {
         },
       },
       colors: ["#f46a6a"],
-      dataLabels: {
-        enabled: true,
-        style: {
-          fontSize: "10px",
-          colors: ["#f46a6a"],
+      xaxis: {
+        categories: [3, 5, 2, 8, 7, 6, 10], // Use data points as labels
+        labels: {
+          style: {
+            fontSize: "10px",
+            colors: "#6c757d",
+          },
         },
-        offsetY: -10, // Position for area chart
+        tickPlacement: "on",
       },
     },
-  };  
+  };
 
   // Card Component
   const Card: React.FC<CardProps> = ({
