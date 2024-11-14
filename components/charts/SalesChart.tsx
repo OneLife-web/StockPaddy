@@ -119,7 +119,7 @@ const SalesChart = () => {
 
   return (
     <div className="space-y-4">
-      <div>
+      <div className="p-4">
         <Calendar
           mode="single"
           selected={dateRange}
@@ -128,7 +128,7 @@ const SalesChart = () => {
         />
       </div>
 
-      <div>
+      <div className="p-4">
         <select
           value={filter}
           onChange={(e) => handleFilterChange(e.target.value as typeof filter)}

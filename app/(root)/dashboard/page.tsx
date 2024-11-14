@@ -9,8 +9,8 @@ const DashboardPage = () => {
         <SaleHighlight />
       </section>
       <section className="sectionContainer !pt-0">
-        <div className="myCard p-4">
-          <h1 className="heading2">Sales Dashboard</h1>
+        <div className="myCard">
+          <h1 className="heading2 p-4">Sales Dashboard</h1>
           <SalesChart />
         </div>
       </section>
