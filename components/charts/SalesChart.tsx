@@ -153,7 +153,7 @@ const SalesChart = () => {
               },
             ]}
             type="line"
-            height={500}
+            height={350}
           />
         )}
       </div>
