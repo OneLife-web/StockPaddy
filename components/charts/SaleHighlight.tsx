@@ -1,7 +1,7 @@
 "use client";
 import { CardProps } from "@/types";
 import dynamic from "next/dynamic";
-import { ChartSkeleton } from "./skeletons/ChartSkeleton";
+import { ChartSkeleton } from "../skeletons/ChartSkeleton";
 import CountUp from "react-countup";
 
 const Chart = dynamic(() => import("react-apexcharts"), {
@@ -28,9 +28,17 @@ const SaleHighlight = () => {
         width: 2,
       },
       colors: ["#34c38f"],
+      dataLabels: {
+        enabled: true,
+        style: {
+          fontSize: "10px",
+          colors: ["#34c38f"],
+        },
+        offsetY: -10, // Position topmost
+      },
     },
   };
-
+  
   const totalSalesData = {
     series: [
       {
@@ -44,9 +52,17 @@ const SaleHighlight = () => {
         sparkline: { enabled: true },
       },
       colors: ["#556ee6"],
+      dataLabels: {
+        enabled: true,
+        style: {
+          fontSize: "10px",
+          colors: ["#556ee6"],
+        },
+        offsetY: -10, // Adjust for bar height
+      },
     },
   };
-
+  
   const numOfSalesData = {
     series: [
       {
@@ -68,8 +84,16 @@ const SaleHighlight = () => {
         },
       },
       colors: ["#f46a6a"],
+      dataLabels: {
+        enabled: true,
+        style: {
+          fontSize: "10px",
+          colors: ["#f46a6a"],
+        },
+        offsetY: -10, // Position for area chart
+      },
     },
-  };
+  };  
 
   // Card Component
   const Card: React.FC<CardProps> = ({

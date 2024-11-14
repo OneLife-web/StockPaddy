@@ -1,6 +1,6 @@
 import SalesChart from "@/components/charts/SalesChart";
 import ShortCut from "@/components/Navigation/ShortCut";
-import SaleHighlight from "@/components/SaleHighlight";
+import SaleHighlight from "@/components/charts/SaleHighlight";
 
 const DashboardPage = () => {
   return (

@@ -1,66 +1,166 @@
 "use client";
+
 import React, { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import { ApexOptions } from "apexcharts";
+import { Calendar } from "@/components/ui/calendar";
+import { format } from "date-fns";
 
-// Dynamically import the ApexCharts component
 const Chart = dynamic(() => import("react-apexcharts"), { ssr: false });
 
 const SalesChart = () => {
   const [isClient, setIsClient] = useState(false);
+  const [dateRange, setDateRange] = useState<Date | undefined>(new Date());
+  const [filter, setFilter] = useState<"week" | "month" | "year" | "compare">(
+    "week"
+  );
+  const [chartData, setChartData] = useState<number[]>([]);
+  const [chartKey, setChartKey] = useState(0); // Unique key to force re-render
+
+  // Ensure this runs only on the client
+  useEffect(() => {
+    setIsClient(true);
+    fetchChartData(filter); // Initial fetch
+  }, []);
 
   useEffect(() => {
-    setIsClient(true); // Ensure the code runs only on the client side
-  }, []);
+    fetchChartData(filter);
+    setChartKey((prevKey) => prevKey + 1); // Increment key to force re-render
+  }, [filter]);
+
+  const fetchChartData = (filter: "week" | "month" | "year" | "compare") => {
+    let data: number[] = [];
+    switch (filter) {
+      case "week":
+        data = [0, 505, 414, 671, 227, 413, 201];
+        break;
+      case "month":
+        data = Array.from({ length: 30 }, () =>
+          Math.floor(Math.random() * 1000)
+        );
+        break;
+      case "year":
+        data = Array.from({ length: 12 }, () =>
+          Math.floor(Math.random() * 5000)
+        );
+        break;
+      case "compare":
+        data = [4500, 5500, 6200, 7000, 7500, 8000];
+        break;
+    }
+    setChartData(data);
+  };
+
+  const getXAxisCategories = () => {
+    switch (filter) {
+      case "week":
+        return ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"];
+      case "month":
+        return Array.from({ length: 30 }, (_, i) => `Day ${i + 1}`);
+      case "year":
+        return [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "May",
+          "Jun",
+          "Jul",
+          "Aug",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dec",
+        ];
+      case "compare":
+        return [
+          "Jan-Feb",
+          "Mar-Apr",
+          "May-Jun",
+          "Jul-Aug",
+          "Sep-Oct",
+          "Nov-Dec",
+        ];
+      default:
+        return [];
+    }
+  };
 
   const chartOptions: ApexOptions = {
     chart: {
       height: 350,
       type: "line",
-      zoom: {
-        enabled: false,
-      },
+      zoom: { enabled: false },
     },
     stroke: {
-      width: [0, 4],
+      width: 2,
       curve: "smooth",
     },
+    colors: ["#fb923c"],
     title: {
-      text: "Traffic Sources",
+      text: "Sales Data",
       align: "center",
     },
-    dataLabels: {
-      enabled: false,
+    dataLabels: { enabled: false },
+    xaxis: {
+      categories: getXAxisCategories(),
     },
-    labels: ["Mon", "Tue", "Wed", "Thurs", "Fri", "Sat", "Sun"],
-    yaxis: [
-      {
-        opposite: true,
-        labels: {
-          show: false,
-        },
+    yaxis: {
+      labels: {
+        formatter: (value) => `$${value}`,
       },
-    ],
+    },
   };
 
-  const chartData = [
-    {
-      name: "Social Media",
-      type: "line",
-      data: [0, 505, 414, 671, 227, 413, 201],
-    },
-  ];
+  const handleFilterChange = (selectedFilter: typeof filter) => {
+    setFilter(selectedFilter);
+  };
+
+  const handleDateChange = (date: Date | undefined) => {
+    setDateRange(date);
+    console.log("Selected Date:", date ? format(date, "yyyy-MM-dd") : "None");
+  };
 
   return (
-    <div> 
-      {isClient && (
-        <Chart
-          options={chartOptions}
-          series={chartData}
-          type="line"
-          height={350}
+    <div className="space-y-4">
+      <div>
+        <Calendar
+          mode="single"
+          selected={dateRange}
+          onSelect={handleDateChange}
+          className="border p-4 rounded-md"
         />
-      )}
+      </div>
+
+      <div>
+        <select
+          value={filter}
+          onChange={(e) => handleFilterChange(e.target.value as typeof filter)}
+          className="p-2 border rounded-md"
+        >
+          <option value="week">Week</option>
+          <option value="month">Month</option>
+          <option value="year">Year</option>
+          <option value="compare">Compare Months</option>
+        </select>
+      </div>
+
+      <div>
+        {isClient && (
+          <Chart
+            key={chartKey} // Force re-render on key change
+            options={chartOptions}
+            series={[
+              {
+                name: "Sales",
+                data: chartData, // Updated data
+              },
+            ]}
+            type="line"
+            height={350}
+          />
+        )}
+      </div>
     </div>
   );
 };
