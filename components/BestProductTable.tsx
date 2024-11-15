@@ -12,7 +12,7 @@ const BestProductTable = () => {
     <div className="mt-10">
       <table className="min-w-full mt-4">
         <thead>
-          <tr className="bg-gray-100 heading3 !text-base">
+          <tr className="bg-gray-100 heading3 md:!text-base">
             <th className="px-4 py-2 text-left font-normal">Product Name</th>
             <th className="px-4 py-2 text-left font-normal">Stock Level</th>
             <th className="px-4 py-2 text-left font-normal">Sales</th>
