@@ -93,7 +93,7 @@ const SalesChart = () => {
       zoom: { enabled: false },
     },
     stroke: {
-      width: 2,
+      width: 0,
       curve: "smooth",
     },
     colors: ["#fb923c"],
