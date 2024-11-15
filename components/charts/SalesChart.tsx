@@ -119,7 +119,7 @@ const SalesChart = () => {
 
   return (
     <div className="space-y-4">
-      <div className="p-4">
+      <div className="p-4 hidden">
         <Calendar
           mode="single"
           selected={dateRange}
