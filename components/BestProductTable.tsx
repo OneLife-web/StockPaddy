@@ -12,20 +12,20 @@ const BestProductTable = () => {
     <div className="mt-10">
       <table className="min-w-full mt-4">
         <thead>
-          <tr className="bg-gray-100 heading3 md:!text-base">
-            <th className="px-4 py-2 text-left font-normal">Product Name</th>
-            <th className="px-4 py-2 text-left font-normal">Stock Level</th>
-            <th className="px-4 py-2 text-left font-normal">Sales</th>
-            <th className="px-4 py-2 text-left font-normal">SKU</th>
+          <tr className="bg-zinc-100 heading3 lg:!text-base">
+            <th className="px-4 py-3 text-left font-normal">Product Name</th>
+            <th className="px-4 py-3 text-left font-normal">Stock Level</th>
+            <th className="px-4 py-3 text-left font-normal">Sales</th>
+            <th className="px-4 py-3 text-left font-normal">SKU</th>
           </tr>
         </thead>
         <tbody>
           {productDetails.map((product, index) => (
-            <tr key={index} className="hover:bg-gray-50 border-b bodyText !text-text-2 last-of-type:border-b-0">
-              <td className="px-4 py-2">{product.name}</td>
-              <td className="px-4 py-2">{product.stock}</td>
-              <td className="px-4 py-2">{product.sales}</td>
-              <td className="px-4 py-2">{product.sku}</td>
+            <tr key={index} className="hover:bg-zinc-50 border-b bodyText !text-text-2 last-of-type:border-b-0">
+              <td className="px-4 py-3">{product.name}</td>
+              <td className="px-4 py-3">{product.stock}</td>
+              <td className="px-4 py-3">{product.sales}</td>
+              <td className="px-4 py-3">{product.sku}</td>
             </tr>
           ))}
         </tbody>
