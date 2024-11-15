@@ -12,11 +12,11 @@ const BestProductTable = () => {
     <div className="mt-10">
       <table className="min-w-full mt-4">
         <thead>
-          <tr className="bg-gray-100">
-            <th className="px-4 py-2 text-left font-thin !font-clashmd">Product Name</th>
-            <th className="px-4 py-2 text-left">Stock Level</th>
-            <th className="px-4 py-2 text-left">Sales</th>
-            <th className="px-4 py-2 text-left">SKU</th>
+          <tr className="bg-gray-100 heading3 !text-base">
+            <th className="px-4 py-2 text-left font-normal">Product Name</th>
+            <th className="px-4 py-2 text-left font-normal">Stock Level</th>
+            <th className="px-4 py-2 text-left font-normal">Sales</th>
+            <th className="px-4 py-2 text-left font-normal">SKU</th>
           </tr>
         </thead>
         <tbody>

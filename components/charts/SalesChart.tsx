@@ -152,7 +152,7 @@ const SalesChart = () => {
                 data: chartData, // Updated data
               },
             ]}
-            type="line"
+            type="bar"
             height={350}
           />
         )}
