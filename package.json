@@ -41,6 +41,7 @@
     "react-dom": "^18",
     "react-hook-form": "^7.53.1",
     "react-hot-toast": "^2.4.1",
+    "react-swipeable": "^7.0.2",
     "socket.io": "^4.8.0",
     "socket.io-client": "^4.8.0",
     "swr": "^2.2.5",

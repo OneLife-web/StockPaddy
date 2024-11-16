@@ -10,6 +10,9 @@ interface SideNavContextType {
   isMobileOpen: boolean;
   openMobileNav: () => void;
   closeMobileNav: () => void;
+  isProductModalOpen: boolean;
+  openProductModal: () => void;
+  closeProductModal: () => void;
 }
 
 // Create the context
@@ -19,11 +22,14 @@ const SideNavContext = createContext<SideNavContextType | undefined>(undefined);
 export const SideNavProvider = ({ children }: { children: ReactNode }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [isProductModalOpen, setIsProductModalOpen] = useState(false);
 
   const openNav = () => setIsOpen(true);
   const closeNav = () => setIsOpen(false);
   const openMobileNav = () => setIsMobileOpen(true);
   const closeMobileNav = () => setIsMobileOpen(false);
+  const openProductModal = () => setIsProductModalOpen(true);
+  const closeProductModal = () => setIsProductModalOpen(false);
 
   return (
     <SideNavContext.Provider
@@ -34,6 +40,9 @@ export const SideNavProvider = ({ children }: { children: ReactNode }) => {
         isMobileOpen,
         openMobileNav,
         closeMobileNav,
+        isProductModalOpen,
+        openProductModal,
+        closeProductModal,
       }}
     >
       {children}

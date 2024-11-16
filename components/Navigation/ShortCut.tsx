@@ -1,9 +1,11 @@
 "use client";
+import { useSideNav } from "@/contexts/SideNavContext";
 import { Plus } from "lucide-react";
 import { useState } from "react";
 
 const ShortCut = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const { openProductModal } = useSideNav();
   return (
     <div className="fixed right-10 bottom-20">
       <button
@@ -21,8 +23,15 @@ const ShortCut = () => {
           }`}
         >
           <div className="grid px-3">
-            <button className="border-b heading3 py-3 text-start px-2">Add New Product</button>
-            <button className="border-b heading3 py-3 text-start px-2">Add New Sale</button>
+            <button
+              onClick={openProductModal}
+              className="border-b heading3 py-3 text-start px-2"
+            >
+              Add New Product
+            </button>
+            <button className="border-b heading3 py-3 text-start px-2">
+              Add New Sale
+            </button>
             <button className="heading3 py-3 text-start px-2">POS</button>
           </div>
         </div>

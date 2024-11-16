@@ -7,6 +7,7 @@ import LowStockAlertTable from "@/components/LowStockAlertTable";
 import { MoveRight } from "lucide-react";
 import RecentSalesTable from "@/components/RecentSalesTable";
 import RecentActivities from "@/components/RecentActivities";
+import ProductModals from "@/components/Modals/ProductModals";
 
 const DashboardPage = () => {
   return (
@@ -65,6 +66,9 @@ const DashboardPage = () => {
       </section>
       <section>
         <ShortCut />
+      </section>
+      <section>
+        <ProductModals />
       </section>
     </main>
   );
