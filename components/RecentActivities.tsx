@@ -57,7 +57,7 @@ const AuditTrail = () => {
                 <span className="font-semibold">{item.actor}</span> -{" "}
                 {item.action}
               </p>
-              <p className="text-xs text-zinc-400">{item.timestamp}</p>
+              <p className="text-xs text-text-3">{item.timestamp}</p>
             </div>
           </li>
         ))}

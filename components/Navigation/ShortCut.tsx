@@ -5,7 +5,7 @@ import { useState } from "react";
 const ShortCut = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="absolute right-10 bottom-20">
+    <div className="fixed right-10 bottom-20">
       <button
         onClick={() => setIsOpen(!isOpen)}
         className="bg-orange-400 size-14 myShadow myFlex rounded-full text-white"
