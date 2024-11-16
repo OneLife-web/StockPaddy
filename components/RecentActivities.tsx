@@ -53,7 +53,7 @@ const AuditTrail = () => {
               </span>
             </div>
             <div className="flex-grow">
-              <p className="text-sm text-zinc-900">
+              <p className="text-sm text-text-1 mb-[2px]">
                 <span className="font-semibold">{item.actor}</span> -{" "}
                 {item.action}
               </p>
