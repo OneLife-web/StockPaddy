@@ -6,6 +6,7 @@ import BestProductTable from "@/components/BestProductTable";
 import LowStockAlertTable from "@/components/LowStockAlertTable";
 import { MoveRight } from "lucide-react";
 import RecentSalesTable from "@/components/RecentSalesTable";
+import RecentActivities from "@/components/RecentActivities";
 
 const DashboardPage = () => {
   return (
@@ -48,6 +49,18 @@ const DashboardPage = () => {
             </button>
           </div>
           <RecentSalesTable />
+        </div>
+      </section>
+      <section className="sectionContainer !pt-0">
+        <div className="myCard pb-7">
+          <div className="flex items-center justify-between p-4">
+            <h1 className="heading2">Recent Activities</h1>
+            <button className="heading3 !text-text-2 border-b flex items-center gap-1">
+              View All
+              <MoveRight strokeWidth={1.3} />
+            </button>
+          </div>
+          <RecentActivities />
         </div>
       </section>
       <section>
