@@ -9,8 +9,8 @@ const LowStockAlertTable = () => {
     { name: "Product E", stock: 15, reorderThreshold: 20, sku: "SKU005" },
   ];
   return (
-    <div className="mt-5 px-3">
-      <table className="min-w-full mt-4 border-collapse">
+    <div className="mt-4 px-3">
+      <table className="min-w-full border-collapse">
         <thead className="bg-zinc-50 rounded-full">
           <tr className="heading3 lg:!text-base">
             <th className="px-4 py-3 text-left font-normal rounded-l-full">
