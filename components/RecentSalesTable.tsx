@@ -1,4 +1,5 @@
 "use client";
+import { cn } from "@/lib/utils";
 import React, { useState } from "react";
 
 const RecentSalesTable = () => {
@@ -79,7 +80,16 @@ const RecentSalesTable = () => {
                   <td className="px-4 py-3">{sale.attendedBy}</td>{" "}
                   {/* Updated */}
                   <td className="px-4 py-3">{sale.totalAmount}</td>
-                  <td className="px-4 py-3">{sale.paymentStatus}</td>
+                  <td
+                    className={cn("px-4 py-3", {
+                      "bg-[#F8BCBC] text-[#8B1A1A]":
+                        status === "cancelled" || status === "Paid", // 'failed' was corrected here
+                      "bg-[#BAD9F7] text-[#1673CC]": status === "Pending",
+                      "bg-[#BAF7BA] text-[#1B691B]": status === "processing",
+                    })}
+                  >
+                    {sale.paymentStatus}
+                  </td>
                   <td className="px-4 py-3 whitespace-nowrap">
                     <button
                       onClick={() => toggleExpandRow(index)}
