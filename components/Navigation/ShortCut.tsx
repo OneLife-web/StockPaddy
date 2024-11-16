@@ -23,7 +23,7 @@ const ShortCut = () => {
           <div className="grid px-3">
             <button className="border-b heading3 py-3 text-start px-2">Add New Product</button>
             <button className="border-b heading3 py-3 text-start px-2">Add New Sale</button>
-            <button className="border-b heading3 py-3 text-start px-2">POS</button>
+            <button className="heading3 py-3 text-start px-2">POS</button>
           </div>
         </div>
       )}
