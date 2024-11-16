@@ -83,9 +83,9 @@ const RecentSalesTable = () => {
                   <td
                     className={cn("px-4 py-3", {
                       "bg-[#F8BCBC] text-[#8B1A1A]":
-                        status === "cancelled" || status === "Paid", // 'failed' was corrected here
-                      "bg-[#BAD9F7] text-[#1673CC]": status === "Pending",
-                      "bg-[#BAF7BA] text-[#1B691B]": status === "processing",
+                        sale.paymentStatus === "cancelled" || sale.paymentStatus === "Paid", // 'failed' was corrected here
+                      "bg-[#BAD9F7] text-[#1673CC]": sale.paymentStatus === "Pending",
+                      "bg-[#BAF7BA] text-[#1B691B]": sale.paymentStatus === "processing",
                     })}
                   >
                     {sale.paymentStatus}
