@@ -46,70 +46,80 @@ const RecentSalesTable = () => {
   };
 
   return (
-    <div className="mt-4 px-3 max-lg:overflow-x-scroll max-lg:custom-scrollbar">
-      <table className="min-w-full border-collapse">
-        <thead className="bg-zinc-50 rounded-full">
-          <tr className="heading3 lg:!text-base whitespace-nowrap">
-            <th className="px-4 py-3 text-left font-normal rounded-l-full">
-              Date/Time
-            </th>
-            <th className="px-4 py-3 text-left font-normal">Transaction ID</th>
-            <th className="px-4 py-3 text-left font-normal">Attended By</th>
-            <th className="px-4 py-3 text-left font-normal">Total Amount</th>
-            <th className="px-4 py-3 text-left font-normal">Payment Status</th>
-            <th className="px-4 py-3 text-left font-normal rounded-r-full">
-              Actions
-            </th>
-          </tr>
-        </thead>
-        <tbody>
-          {recentSales.map((sale, index) => (
-            <React.Fragment key={index}>
-              {/* Main Row */}
-              <tr
-                className={`lg:hover:bg-zinc-50 border-b bodyText !text-text-2 last-of-type:border-b-0`}
-              >
-                <td className="px-4 py-3">{sale.date}</td>
-                <td className="px-4 py-3">{sale.transactionId}</td>
-                <td className="px-4 py-3">{sale.attendedBy}</td> {/* Updated */}
-                <td className="px-4 py-3">{sale.totalAmount}</td>
-                <td className="px-4 py-3">{sale.paymentStatus}</td>
-                <td className="px-4 py-3 whitespace-nowrap">
-                  <button
-                    onClick={() => toggleExpandRow(index)}
-                    className="text-blue-500 hover:underline"
-                  >
-                    {expandedRows.includes(index)
-                      ? "Hide Details"
-                      : "View Details"}
-                  </button>
-                </td>
-              </tr>
-
-              {/* Expanded Row for Products */}
-              {expandedRows.includes(index) && (
-                <tr className="bodyText !text-text-2 last-of-type:border-b-0">
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td></td>
-                  <td colSpan={6} className="px-4 py-3">
-                    <h3 className="heading3">Products Sold:</h3>
-                    <ul className="list-disc pl-5">
-                      {sale.products.map((product, idx) => (
-                        <li key={idx}>
-                          <span className="heading3">{product.name}</span>{" "}
-                          - {product.quantity} unit(s) at <span className="font-clashmd">{product.price}</span>
-                        </li>
-                      ))}
-                    </ul>
+    <div className="mt-4 px-3">
+      <div className="max-lg:overflow-x-scroll max-lg:custom-scrollbar">
+        <table className="min-w-full border-collapse">
+          <thead className="bg-zinc-50 rounded-full">
+            <tr className="heading3 lg:!text-base whitespace-nowrap">
+              <th className="px-4 py-3 text-left font-normal rounded-l-full">
+                Date/Time
+              </th>
+              <th className="px-4 py-3 text-left font-normal">
+                Transaction ID
+              </th>
+              <th className="px-4 py-3 text-left font-normal">Attended By</th>
+              <th className="px-4 py-3 text-left font-normal">Total Amount</th>
+              <th className="px-4 py-3 text-left font-normal">
+                Payment Status
+              </th>
+              <th className="px-4 py-3 text-left font-normal rounded-r-full">
+                Actions
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            {recentSales.map((sale, index) => (
+              <React.Fragment key={index}>
+                {/* Main Row */}
+                <tr
+                  className={`lg:hover:bg-zinc-50 border-b bodyText !text-text-2 last-of-type:border-b-0`}
+                >
+                  <td className="px-4 py-3">{sale.date}</td>
+                  <td className="px-4 py-3">{sale.transactionId}</td>
+                  <td className="px-4 py-3">{sale.attendedBy}</td>{" "}
+                  {/* Updated */}
+                  <td className="px-4 py-3">{sale.totalAmount}</td>
+                  <td className="px-4 py-3">{sale.paymentStatus}</td>
+                  <td className="px-4 py-3 whitespace-nowrap">
+                    <button
+                      onClick={() => toggleExpandRow(index)}
+                      className="text-blue-500 hover:underline"
+                    >
+                      {expandedRows.includes(index)
+                        ? "Hide Details"
+                        : "View Details"}
+                    </button>
                   </td>
                 </tr>
-              )}
-            </React.Fragment>
-          ))}
-        </tbody>
-      </table>
+
+                {/* Expanded Row for Products */}
+                {expandedRows.includes(index) && (
+                  <tr className="bodyText !text-text-2 last-of-type:border-b-0">
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td colSpan={6} className="px-4 py-3">
+                      <h3 className="heading3">Products Sold:</h3>
+                      <ul className="list-disc pl-5">
+                        {sale.products.map((product, idx) => (
+                          <li key={idx}>
+                            <span className="heading3">{product.name}</span> -{" "}
+                            {product.quantity} unit(s) at{" "}
+                            <span className="font-clashmd">
+                              {product.price}
+                            </span>
+                          </li>
+                        ))}
+                      </ul>
+                    </td>
+                  </tr>
+                )}
+              </React.Fragment>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };
