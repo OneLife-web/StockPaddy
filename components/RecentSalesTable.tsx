@@ -67,7 +67,7 @@ const RecentSalesTable = () => {
             <React.Fragment key={index}>
               {/* Main Row */}
               <tr
-                className={`hover:bg-zinc-50 border-b bodyText !text-text-2 last-of-type:border-b-0`}
+                className={`lg:hover:bg-zinc-50 border-b bodyText !text-text-2 last-of-type:border-b-0`}
               >
                 <td className="px-4 py-3">{sale.date}</td>
                 <td className="px-4 py-3">{sale.transactionId}</td>
@@ -89,6 +89,10 @@ const RecentSalesTable = () => {
               {/* Expanded Row for Products */}
               {expandedRows.includes(index) && (
                 <tr className="bodyText !text-text-2 last-of-type:border-b-0">
+                  <td></td>
+                  <td></td>
+                  <td></td>
+                  <td></td>
                   <td colSpan={6} className="px-4 py-3">
                     <h3 className="heading3">Products Sold:</h3>
                     <ul className="list-disc pl-5">
