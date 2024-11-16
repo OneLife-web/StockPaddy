@@ -28,7 +28,7 @@ const RecentSalesTable = () => {
       transactionId: "TXN003",
       attendedBy: "Charlie Brown", // Another admin/person
       totalAmount: "$200",
-      paymentStatus: "Paid",
+      paymentStatus: "Cancelled",
       products: [{ name: "Product D", quantity: 1, price: "$200" }],
     },
   ];
@@ -48,7 +48,7 @@ const RecentSalesTable = () => {
 
   return (
     <div className="mt-4 px-3">
-      <div className="max-lg:overflow-x-scroll max-lg:custom-scrollbar">
+      <div className="max-lg:overflow-x-scroll max-lg:custom-scrollbar pb-3">
         <table className="min-w-full border-collapse">
           <thead className="bg-zinc-50 rounded-full">
             <tr className="heading3 lg:!text-base whitespace-nowrap">
@@ -60,7 +60,7 @@ const RecentSalesTable = () => {
               </th>
               <th className="px-4 py-3 text-left font-normal">Attended By</th>
               <th className="px-4 py-3 text-left font-normal">Total Amount</th>
-              <th className="px-4 py-3 text-left font-normal">
+              <th className="px-4 py-3 text-center font-normal">
                 Payment Status
               </th>
               <th className="px-4 py-3 text-left font-normal rounded-r-full">
@@ -80,16 +80,15 @@ const RecentSalesTable = () => {
                   <td className="px-4 py-3">{sale.attendedBy}</td>{" "}
                   {/* Updated */}
                   <td className="px-4 py-3">{sale.totalAmount}</td>
-                  <td className="px-4 py-3">
+                  <td className="px-4 py-3 text-center">
                     <span
                       className={cn("rounded-full text-center px-4 py-2", {
                         "bg-[#F8BCBC] text-[#8B1A1A]":
-                          sale.paymentStatus === "cancelled" ||
-                          sale.paymentStatus === "Paid", // 'failed' was corrected here
+                          sale.paymentStatus === "Cancelled",
                         "bg-[#BAD9F7] text-[#1673CC]":
                           sale.paymentStatus === "Pending",
                         "bg-[#BAF7BA] text-[#1B691B]":
-                          sale.paymentStatus === "processing",
+                          sale.paymentStatus === "Paid",
                       })}
                     >
                       {sale.paymentStatus}
@@ -114,12 +113,12 @@ const RecentSalesTable = () => {
                     <td></td>
                     <td></td>
                     <td></td>
-                    <td colSpan={6} className="px-4 py-3">
-                      <h3 className="heading3">Products Sold:</h3>
-                      <ul className="list-disc pl-5">
+                    <td colSpan={6} className="px-4 py-5">
+                      <h3 className="heading3 mb-1">Products Sold:</h3>
+                      <ul className="list-disc pl-5 grid gap-1">
                         {sale.products.map((product, idx) => (
                           <li key={idx}>
-                            <span className="heading3">{product.name}</span> -{" "}
+                            <span className="heading3 !text-text-2">{product.name}</span> -{" "}
                             {product.quantity} unit(s) at{" "}
                             <span className="font-clashmd">
                               {product.price}

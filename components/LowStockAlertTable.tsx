@@ -9,18 +9,18 @@ const LowStockAlertTable = () => {
     { name: "Product E", stock: 15, reorderThreshold: 20, sku: "SKU005" },
   ];
   return (
-    <div className="mt-4 px-3">
+    <div className="mt-4 max-xs:px-[1%] px-3">
       <table className="min-w-full border-collapse">
         <thead className="bg-zinc-50 rounded-full">
           <tr className="heading3 lg:!text-base">
-            <th className="px-4 py-3 text-left font-normal rounded-l-full">
+            <th className="max-xs:pr-3 px-4 py-3 text-left font-normal rounded-l-full">
               Product Name
             </th>
-            <th className="px-4 py-3 text-left font-normal">Current Stock</th>
-            <th className="px-4 py-3 text-left font-normal">
+            <th className="max-xs:px-3 px-4 py-3 text-left font-normal">Current Stock</th>
+            <th className="max-xs:px-2 px-4 py-3 text-left font-normal">
               Reorder Threshold
             </th>
-            <th className="px-4 py-3 text-left font-normal rounded-r-full">
+            <th className="max-xs:px-3 px-4 py-3 text-left font-normal rounded-r-full">
               SKU/ID
             </th>
           </tr>
@@ -32,11 +32,11 @@ const LowStockAlertTable = () => {
               className="hover:bg-zinc-50 border-b bodyText !text-text-2 last-of-type:border-b-0"
             >
               <td className="px-4 py-3">{product.name}</td>
-              <td className="px-4 py-3">{product.stock}</td>
-              <td className="px-4 py-3 !text-red-500">
+              <td className="max-xs:px-3 px-4 py-3">{product.stock}</td>
+              <td className="max-xs:px-2 px-4 py-3 !text-red-500">
                 {product.reorderThreshold}
               </td>
-              <td className="px-4 py-3">{product.sku}</td>
+              <td className="max-xs:px-3 px-4 py-3">{product.sku}</td>
             </tr>
           ))}
         </tbody>

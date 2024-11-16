@@ -9,7 +9,7 @@ const BestProductTable = () => {
     { name: "Product E", stock: 20, sales: 10, sku: "SKU005" },
   ];
   return (
-    <div className="mt-10 px-3">
+    <div className="mt-10 max-xs:px-[1%] px-3">
       <table className="min-w-full mt-4 border-collapse">
         <thead className="bg-zinc-50 rounded-full">
           <tr className="heading3 lg:!text-base">
