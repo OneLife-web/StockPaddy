@@ -16,7 +16,7 @@ const ShortCut = () => {
       </button>
       {isOpen && (
         <div
-          className={`absolute w-[220px] -top-[150px] max-md:left-[-170px] text-sm myShadow rounded-lg z-50 bg-white ${
+          className={`absolute w-[220px] border -top-[150px] max-md:left-[-170px] text-sm myShadow rounded-lg z-50 bg-white ${
             isOpen && "animate-slide-up"
           }`}
         >
