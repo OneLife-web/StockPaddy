@@ -33,3 +33,9 @@ export interface CardProps {
   chartOptions: ApexCharts.ApexOptions; // Using ApexCharts options type
   chartSeries: ApexAxisChartSeries; // Using ApexCharts series type
 }
+
+export interface AuditType {
+  actor: string,
+  action: string,
+  timestamp: string
+}

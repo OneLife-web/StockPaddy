@@ -185,3 +185,18 @@ export const navLinks = [
     ],
   },
 ];
+
+export const actionColors = {
+  "Add Product": "bg-blue-500",
+  "Edit Product": "bg-yellow-500",
+  "Delete Product": "bg-red-500",
+  "Add Order": "bg-green-500",
+  "Edit Order": "bg-orange-500",
+  "Delete Order": "bg-purple-500",
+  "Login": "bg-teal-500",
+  "Logout": "bg-gray-500",
+  "Failed Login Attempt": "bg-pink-500",
+  "View Report": "bg-indigo-500",
+  "Update Settings": "bg-cyan-500",
+};
+
