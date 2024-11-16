@@ -82,7 +82,7 @@ const RecentSalesTable = () => {
                   <td className="px-4 py-3">{sale.totalAmount}</td>
                   <td className="px-4 py-3">
                     <span
-                      className={cn("rounded-full text-center px-3 py-2", {
+                      className={cn("rounded-full text-center px-4 py-2", {
                         "bg-[#F8BCBC] text-[#8B1A1A]":
                           sale.paymentStatus === "cancelled" ||
                           sale.paymentStatus === "Paid", // 'failed' was corrected here
