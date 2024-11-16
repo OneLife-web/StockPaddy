@@ -9,14 +9,18 @@ const BestProductTable = () => {
     { name: "Product E", stock: 20, sales: 10, sku: "SKU005" },
   ];
   return (
-    <div className="mt-10">
-      <table className="min-w-full mt-4">
-        <thead>
-          <tr className="bg-zinc-100 heading3 lg:!text-base">
-            <th className="px-4 py-3 text-left font-normal">Product Name</th>
+    <div className="mt-10 px-3">
+      <table className="min-w-full mt-4 border-collapse">
+        <thead className="bg-zinc-50 rounded-full">
+          <tr className="heading3 lg:!text-base">
+            <th className="px-4 py-3 text-left font-normal rounded-l-full">
+              Product Name
+            </th>
             <th className="px-4 py-3 text-left font-normal">Current Stock</th>
             <th className="px-4 py-3 text-left font-normal">Units Sold</th>
-            <th className="px-4 py-3 text-left font-normal">SKU/ID</th>
+            <th className="px-4 py-3 text-left font-normal rounded-r-full">
+              SKU/ID
+            </th>
           </tr>
         </thead>
         <tbody>

@@ -147,7 +147,6 @@
   body {
     @apply bg-background text-foreground max-lg:text-sm;
   }
-
   p {
     @apply text-text-2;
   }
