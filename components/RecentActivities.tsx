@@ -30,7 +30,7 @@ const AuditTrail = () => {
   ];
 
   return (
-    <div className="px-3">
+    <div className="px-3 mt-4">
       <ul className="space-y-3">
         {auditTrail.map((item, index) => (
           <li
