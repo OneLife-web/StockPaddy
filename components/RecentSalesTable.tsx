@@ -46,7 +46,7 @@ const RecentSalesTable = () => {
   };
 
   return (
-    <div className="mt-4 px-3 overflow-x-scroll custom-scrollbar">
+    <div className="mt-4 px-3 max-lg:overflow-x-scroll max-lg:custom-scrollbar">
       <table className="min-w-full border-collapse">
         <thead className="bg-zinc-50 rounded-full">
           <tr className="heading3 lg:!text-base">
