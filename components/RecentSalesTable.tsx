@@ -80,15 +80,20 @@ const RecentSalesTable = () => {
                   <td className="px-4 py-3">{sale.attendedBy}</td>{" "}
                   {/* Updated */}
                   <td className="px-4 py-3">{sale.totalAmount}</td>
-                  <td
-                    className={cn("px-4 py-3", {
-                      "bg-[#F8BCBC] text-[#8B1A1A]":
-                        sale.paymentStatus === "cancelled" || sale.paymentStatus === "Paid", // 'failed' was corrected here
-                      "bg-[#BAD9F7] text-[#1673CC]": sale.paymentStatus === "Pending",
-                      "bg-[#BAF7BA] text-[#1B691B]": sale.paymentStatus === "processing",
-                    })}
-                  >
-                    {sale.paymentStatus}
+                  <td className="px-4 py-3">
+                    <span
+                      className={cn("rounded-full text-center px-3 py-2", {
+                        "bg-[#F8BCBC] text-[#8B1A1A]":
+                          sale.paymentStatus === "cancelled" ||
+                          sale.paymentStatus === "Paid", // 'failed' was corrected here
+                        "bg-[#BAD9F7] text-[#1673CC]":
+                          sale.paymentStatus === "Pending",
+                        "bg-[#BAF7BA] text-[#1B691B]":
+                          sale.paymentStatus === "processing",
+                      })}
+                    >
+                      {sale.paymentStatus}
+                    </span>
                   </td>
                   <td className="px-4 py-3 whitespace-nowrap">
                     <button
