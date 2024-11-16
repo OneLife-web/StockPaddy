@@ -1,21 +1,23 @@
 import React from "react";
 
-const BestProductTable = () => {
+const LowStockAlertTable = () => {
   const productDetails = [
-    { name: "Product A", stock: 120, sales: 45, sku: "SKU001" },
-    { name: "Product B", stock: 80, sales: 30, sku: "SKU002" },
-    { name: "Product C", stock: 50, sales: 25, sku: "SKU003" },
-    { name: "Product D", stock: 35, sales: 15, sku: "SKU004" },
-    { name: "Product E", stock: 20, sales: 10, sku: "SKU005" },
+    { name: "Product A", stock: 10, reorderThreshold: 25, sku: "SKU001" },
+    { name: "Product B", stock: 20, reorderThreshold: 30, sku: "SKU002" },
+    { name: "Product C", stock: 8, reorderThreshold: 25, sku: "SKU003" },
+    { name: "Product D", stock: 5, reorderThreshold: 20, sku: "SKU004" },
+    { name: "Product E", stock: 15, reorderThreshold: 20, sku: "SKU005" },
   ];
   return (
-    <div className="mt-10">
+    <div className="mt-5">
       <table className="min-w-full mt-4">
         <thead>
-          <tr className="bg-zinc-100 heading3 lg:!text-base">
+          <tr className="border-b heading3 lg:!text-base">
             <th className="px-4 py-3 text-left font-normal">Product Name</th>
             <th className="px-4 py-3 text-left font-normal">Current Stock</th>
-            <th className="px-4 py-3 text-left font-normal">Units Sold</th>
+            <th className="px-4 py-3 text-left font-normal">
+              Reorder Threshold
+            </th>
             <th className="px-4 py-3 text-left font-normal">SKU/ID</th>
           </tr>
         </thead>
@@ -27,7 +29,9 @@ const BestProductTable = () => {
             >
               <td className="px-4 py-3">{product.name}</td>
               <td className="px-4 py-3">{product.stock}</td>
-              <td className="px-4 py-3">{product.sales}</td>
+              <td className="px-4 py-3 !text-red-500">
+                {product.reorderThreshold}
+              </td>
               <td className="px-4 py-3">{product.sku}</td>
             </tr>
           ))}
@@ -37,4 +41,4 @@ const BestProductTable = () => {
   );
 };
 
-export default BestProductTable;
+export default LowStockAlertTable;

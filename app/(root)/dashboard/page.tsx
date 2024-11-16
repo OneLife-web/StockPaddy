@@ -3,6 +3,8 @@ import ShortCut from "@/components/Navigation/ShortCut";
 import SaleHighlight from "@/components/charts/SaleHighlight";
 import BestProductChart from "@/components/charts/BestProductChart";
 import BestProductTable from "@/components/BestProductTable";
+import LowStockAlertTable from "@/components/LowStockAlertTable";
+import { MoveRight } from "lucide-react";
 
 const DashboardPage = () => {
   return (
@@ -21,6 +23,19 @@ const DashboardPage = () => {
           <h1 className="heading2 p-4">Top Selling Products</h1>
           <BestProductChart />
           <BestProductTable />
+        </div>
+      </section>
+      <section className="sectionContainer !pt-0">
+        <div className="myCard">
+          <div className="flex items-center justify-between p-4">
+            <h1 className="heading2">Low Stock Alert</h1>
+            <button className="heading3 !text-text-2 border-b flex items-center gap-1">
+              View All
+              <MoveRight strokeWidth={1.3} />
+            </button>
+          </div>
+
+          <LowStockAlertTable />
         </div>
       </section>
       <section>
