@@ -62,7 +62,7 @@ const ProductModals = () => {
       {isProductModalOpen && (
         <div
           onClick={handleClose}
-          className={`fixed top-0 bottom-0 z-30 right-0 left-0 bg-black/60 flex items-end ${
+          className={`fixed top-0 opacity-0 translate-y-[100%] bottom-0 z-30 right-0 left-0 bg-black/60 flex items-end ${
             isVisible ? "animate-modal-slide-up" : "animate-modal-slide-down"
           }`}
         >

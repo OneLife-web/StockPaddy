@@ -88,14 +88,23 @@ const config: Config = {
           "20%,50%": { opacity: "0" },
         },
         "slide-up": {
-          "0%": { transform: "translateY(20%)", opacity: "0", borderTopLeftRadius:"100%" },
-          "100%": { transform: "translateY(10px)", opacity: "1", borderTopLeftRadius:"8px" },
+          "0%": {
+            transform: "translateY(20%)",
+            opacity: "0",
+            borderTopLeftRadius: "100%",
+          },
+          "100%": {
+            transform: "translateY(10px)",
+            opacity: "1",
+            borderTopLeftRadius: "8px",
+          },
         },
         "modal-slide-up": {
           "0%": { transform: "translateY(100%)", opacity: "0" },
           "100%": { transform: "translateY(0px)", opacity: "1" },
         },
         "modal-slide-down": {
+          "0%": { transform: "translateY(0px)", opacity: "1" },
           "100%": { transform: "translateY(100%)", opacity: "0" },
         },
         rotateIn: {
@@ -113,8 +122,8 @@ const config: Config = {
       animation: {
         "caret-blink": "caret-blink 1.25s ease-out infinite",
         "slide-up": "slide-up 0.2s ease-out forwards",
-        "modal-slide-up": "modal-slide-up 1.5s forwards",
-        "modal-slide-down": "modal-slide-down 0.15s ease-out forwards",
+        "modal-slide-up": "modal-slide-up 0.3s forwards",
+        "modal-slide-down": "modal-slide-down 0.2s ease-out forwards",
         rotateIn: "rotateIn 0.2s ease-in-out forwards",
         "slide-in": "slideIn 0.2s ease-out forwards",
       },
