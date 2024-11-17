@@ -62,13 +62,15 @@ const ProductModals = () => {
       {isProductModalOpen && (
         <div
           onClick={handleClose}
-          className={`fixed top-0 opacity-0 translate-y-[100%] bottom-0 z-30 right-0 left-0 bg-black/60 flex items-end ${
-            isVisible ? "animate-modal-slide-up" : "animate-modal-slide-down"
+          className={`fixed top-0 bottom-0 z-30 right-0 left-0 bg-black/60 flex items-end ${
+            !isVisible && "animate-modal-slide-down"
           }`}
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className={`h-[95%] bg-white w-[100vw] rounded-tr-3xl rounded-tl-3xl relative px-[3%]`}
+            className={`h-[95%] bg-white w-[100vw] opacity-0 translate-y-[100%] rounded-tr-3xl rounded-tl-3xl relative px-[3%] ${
+              isVisible && "animate-modal-slide-up"
+            }`}
           >
             <div className="flex py-4 justify-between">
               <input
