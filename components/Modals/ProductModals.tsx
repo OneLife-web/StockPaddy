@@ -17,7 +17,7 @@ const ProductModals = () => {
     setIsVisible(false); // Trigger the closing animation
     setTimeout(() => {
       closeProductModal(); // Close after animation completes
-    }, 100); // Match the animation duration (150ms)
+    }, 150); // Match the animation duration (150ms)
   };
 
   return (
@@ -25,12 +25,14 @@ const ProductModals = () => {
       {isProductModalOpen && (
         <div
           onClick={handleClose}
-          className="fixed top-0 bottom-0 z-30 right-0 left-0 bg-black/60 flex items-end"
+          className={`fixed top-0 bottom-0 z-30 right-0 left-0 bg-black/60 flex items-end ${
+            !isVisible && "animate-modal-slide-down"
+          }`}
         >
           <div
             onClick={(e) => e.stopPropagation()}
             className={`h-[95%] bg-white w-[100vw] rounded-tr-3xl rounded-tl-3xl relative px-[3%] ${
-              isVisible ? "animate-modal-slide-up" : "animate-modal-slide-down"
+              isVisible && "animate-modal-slide-up"
             }`}
           >
             <div className="flex py-4 justify-between">
