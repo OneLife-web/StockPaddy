@@ -1,6 +1,12 @@
 "use client";
 
-import React, { createContext, useContext, useState, ReactNode } from "react";
+import React, {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 
 // Define the context type
 interface SideNavContextType {
@@ -23,6 +29,14 @@ export const SideNavProvider = ({ children }: { children: ReactNode }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isProductModalOpen, setIsProductModalOpen] = useState(false);
+
+  useEffect(() => {
+    if (isProductModalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+  }, [isProductModalOpen]);
 
   const openNav = () => setIsOpen(true);
   const closeNav = () => setIsOpen(false);
