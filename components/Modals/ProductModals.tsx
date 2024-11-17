@@ -21,7 +21,7 @@ const ProductModals = () => {
                 <Upload strokeWidth={1.3} size={24} />
                 <p className="max-md:text-xs text-sm">Upload CSV</p>
               </button>
-              <button>
+              <button onClick={closeProductModal}>
                 <X strokeWidth={1.3} size={30} />
               </button>
             </div>

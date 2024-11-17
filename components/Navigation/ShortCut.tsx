@@ -13,7 +13,11 @@ const ShortCut = () => {
         className="bg-orange-400 size-14 myShadow myFlex rounded-full text-white"
       >
         <Plus
-          className={`${isOpen ? "animate-rotateIn" : "animate-rotateIn"}`}
+          className={`${
+            isOpen
+              ? "rotate-45 duration-150 ease-out"
+              : "-rotate-0 duration-150 ease-out"
+          }`}
         />
       </button>
       {isOpen && (
