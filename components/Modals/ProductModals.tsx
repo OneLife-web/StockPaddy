@@ -87,6 +87,9 @@ const ProductModals = () => {
                 <X strokeWidth={1.3} size={30} />
               </button>
             </div>
+            <div className="py-5">
+              <button onClick={handleUpload}></button>
+            </div>
           </div>
         </div>
       )}
