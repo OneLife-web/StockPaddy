@@ -20,7 +20,7 @@ const ProductModals = () => {
     setIsVisible(false); // Trigger the closing animation
     setTimeout(() => {
       closeProductModal(); // Close after animation completes
-    }, 150); // Match the animation duration (150ms)
+    }, 300); // Match the animation duration (150ms)
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {

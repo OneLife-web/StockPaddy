@@ -123,7 +123,7 @@ const config: Config = {
         "caret-blink": "caret-blink 1.25s ease-out infinite",
         "slide-up": "slide-up 0.15s ease-out forwards",
         "modal-slide-up": "modal-slide-up 0.5s forwards",
-        "modal-slide-down": "modal-slide-down 0.2s ease-out forwards",
+        "modal-slide-down": "modal-slide-down 0.3s ease-out forwards",
         rotateIn: "rotateIn 0.2s ease-in-out forwards",
         "slide-in": "slideIn 0.2s ease-out forwards",
       },
