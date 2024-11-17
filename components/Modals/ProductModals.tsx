@@ -77,12 +77,9 @@ const ProductModals = () => {
                 type="file"
                 accept=".csv"
                 onChange={handleFileChange}
-                className="mt-2 border rounded p-2"
+                className="hidden"
               />
-              <button
-                onClick={handleUpload}
-                className="mt-4 bg-blue-500 text-white py-2 px-4 rounded"
-              >
+              <button className="myFlex flex-col gap-[2px]">
                 <Upload strokeWidth={1.3} size={24} />
                 <p className="max-md:text-xs text-sm">Upload CSV</p>
               </button>
