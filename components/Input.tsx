@@ -5,15 +5,26 @@ import { forwardRef, useState } from "react";
 const Input = forwardRef<HTMLInputElement, InputProps>(
   ({ type, label, value, onChange, placeholder, className, icon }, ref) => {
     const [showPassword, setShowPassword] = useState(false);
+
+    // Convert value to string or number based on type
+    const inputValue = type === 'number' 
+      ? (value !== undefined ? Number(value) : '') 
+      : value;
+
     return (
       <div className="grid gap-2 lg:text-sm">
         {label && <label className="font-clashmd">{label}</label>}
         <div className="relative">
           <input
             ref={ref}
-            type={type === "password" && !showPassword ? "password" : "text"} // Toggle input type based on state
-            value={value}
-            onChange={(e) => onChange(e.target.value)}
+            type={type === "password" && !showPassword ? "password" : type} // Toggle input type based on state
+            defaultValue={inputValue}
+            onChange={(e) => {
+              const newValue = type === 'number' 
+                ? (e.target.value === '' ? '' : Number(e.target.value)) 
+                : e.target.value;
+              onChange(newValue);
+            }}
             placeholder={placeholder}
             className={`rounded-lg w-full focus:ring-1 ring-orange-400 h-[48px] px-4 text-base focus:outline-none placeholder:text-sm ${className}`}
           />

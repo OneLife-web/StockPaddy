@@ -110,6 +110,7 @@ const NewProductForm = () => {
                 label="Stock Quantity"
                 placeholder="Enter Stock Quantity"
                 className="bg-gray-100 placeholder:text-sm placeholder:text-text-2"
+                type="number"
               />
               <FormFieldComponent
                 form={form}
@@ -117,6 +118,7 @@ const NewProductForm = () => {
                 label="Low Stock Threshold"
                 placeholder="Enter Low Stock Threshold"
                 className="bg-gray-100 placeholder:text-sm placeholder:text-text-2"
+                type="number"
               />
             </div>
             <div className="grid grid-cols-2 gap-3">
@@ -126,6 +128,7 @@ const NewProductForm = () => {
                 label="Unit Seling Price"
                 placeholder="Enter Unit Selling Price"
                 className="bg-gray-100 placeholder:text-sm placeholder:text-text-2"
+                type="number"
               />
               <FormFieldComponent
                 form={form}
@@ -133,6 +136,7 @@ const NewProductForm = () => {
                 label="Unit Cost Price"
                 placeholder="Enter Unit Cost Price"
                 className="bg-gray-100 placeholder:text-sm placeholder:text-text-2"
+                type="number"
               />
             </div>
             <FormFieldComponent
