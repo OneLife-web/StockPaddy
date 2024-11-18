@@ -1,15 +1,17 @@
 "use client";
 import Papa from "papaparse";
 import { useSideNav } from "@/contexts/SideNavContext";
-import { Upload, X } from "lucide-react";
+import { Loader, Upload, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { MyProduct } from "@/types";
 import NewProductForm from "../forms/NewProductForm";
 import Modal1 from "./Modal1";
+import toast from "react-hot-toast";
 
 const ProductModals = () => {
   const { isProductModalOpen, closeProductModal } = useSideNav();
   const [isVisible, setIsVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [isCSV, setIsCSV] = useState(false);
   const [csvData, setCsvData] = useState<MyProduct[] | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -55,6 +57,7 @@ const ProductModals = () => {
   const handleCancelUpload = () => {
     setIsCSV(false);
     setCsvData(null);
+    setIsLoading(false);
 
     // Reset the file input to allow selecting a new file after deleting
     if (fileInputRef.current) {
@@ -68,6 +71,12 @@ const ProductModals = () => {
       return;
     }
 
+    setIsLoading(true);
+    setTimeout(() => {
+      setIsLoading(false);
+      setIsCSV(false);
+      toast.success("Products Added");
+    }, 3000);
     /*  try {
       const response = await axios.post("/api/upload-csv", { data: csvData });
       console.log("Response from server:", response.data);
@@ -117,17 +126,23 @@ const ProductModals = () => {
       )}
       {isCSV && (
         <Modal1 closeModal={handleCancelUpload}>
-          <div className="px-4 py-5 pb-10">
-            <h2 className="heading2 mb-7 w-[80%]">
-              Are you sure you want to upload this CSV?
-            </h2>
-            <button onClick={handleUpload} className="btn1 py-2 mb-3">
-              Yes, Upload CSV
-            </button>
-            <button onClick={handleCancelUpload} className="btn2 py-2">
-              No, Cancel
-            </button>
-          </div>
+          {isLoading ? (
+            <div className="h-[236px] myFlex">
+              <Loader size={32} className="animate-spin" />
+            </div>
+          ) : (
+            <div className="px-4 py-5 pb-10">
+              <h2 className="heading2 mb-7 w-[80%]">
+                Are you sure you want to upload this CSV?
+              </h2>
+              <button onClick={handleUpload} className="btn1 py-2 mb-3">
+                Yes, Upload CSV
+              </button>
+              <button onClick={handleCancelUpload} className="btn2 py-2">
+                No, Cancel
+              </button>
+            </div>
+          )}
         </Modal1>
       )}
     </>
