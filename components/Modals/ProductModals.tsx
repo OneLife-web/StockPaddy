@@ -118,7 +118,9 @@ const ProductModals = () => {
       {isCSV && (
         <Modal1 closeModal={handleCancelUpload}>
           <div className="px-4 py-5 pb-10">
-            <h2 className="heading2 mb-6">Do you want to proceed?</h2>
+            <h2 className="heading2 mb-7 w-[80%]">
+              Are you sure you want to upload this CSV?
+            </h2>
             <button onClick={handleUpload} className="btn1 py-2 mb-3">
               Yes, Upload CSV
             </button>
