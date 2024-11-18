@@ -78,48 +78,56 @@ const NewProductForm = ({ handleUpload }: { handleUpload: () => void }) => {
               name="productImage"
               label="Product Image"
               placeholder="Select Product Image"
+              className="bg-gray-100"
             />
             <FormFieldComponent
               form={form}
               name="productCategory"
               label="Product Category"
               placeholder="Select Product Category"
+              className="bg-gray-100"
             />
             <FormFieldComponent
               form={form}
               name="sku"
               label="SKU"
               placeholder="Enter SKU"
+              className="bg-gray-100"
             />
             <FormFieldComponent
               form={form}
               name="stockQuantity"
               label="Stock Quantity"
               placeholder="Enter Stock Quantity"
+              className="bg-gray-100"
             />
             <FormFieldComponent
               form={form}
               name="unitSellingPrice"
               label="Unit Seling Price"
               placeholder="Enter Unit Selling Price"
+              className="bg-gray-100"
             />
             <FormFieldComponent
               form={form}
               name="unitCostPrice"
               label="Unit Cost Price"
               placeholder="Enter Unit Cost Price"
+              className="bg-gray-100"
             />
             <FormFieldComponent
               form={form}
               name="lowStockThreshold"
               label="Low Stock Threshold"
               placeholder="Enter Low Stock Threshold"
+              className="bg-gray-100"
             />
             <FormFieldComponent
               form={form}
               name="productBarcode"
               label="Product Barcode"
               placeholder="Enter Product Barcode"
+              className="bg-gray-100"
             />
             <button
               className="btn1 h-[48px] myFlex disabled:cursor-not-allowed"
