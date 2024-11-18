@@ -117,6 +117,10 @@
   .btn1 {
     @apply bg-orange-400 text-white hover:ring-1 transform transition-all duration-200 ring-orange-400 hover:text-orange-400 hover:bg-white dark:text-white dark:hover:text-orange-400 rounded-lg w-full font-clashmd text-base shadow-none;
   }
+
+  .btn2 {
+    @apply ring-1 ring-black/80 rounded-lg w-full font-clashmd text-base shadow-none;
+  }
   /* Hide scrollbar for Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {
     display: none;
@@ -177,5 +181,5 @@
 
   select::-ms-expand {
     display: none; /* Hides the native arrow in IE/Edge */
-  }  
+  }
 }

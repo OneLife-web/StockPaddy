@@ -5,10 +5,12 @@ import { Upload, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { MyProduct } from "@/types";
 import NewProductForm from "../forms/NewProductForm";
+import Modal1 from "./Modal1";
 
 const ProductModals = () => {
   const { isProductModalOpen, closeProductModal } = useSideNav();
   const [isVisible, setIsVisible] = useState(false);
+  const [isCSV, setIsCSV] = useState(false);
   const [csvData, setCsvData] = useState<MyProduct[] | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -40,6 +42,7 @@ const ProductModals = () => {
         complete: (results: Papa.ParseResult<MyProduct>) => {
           // Use a proper type here
           setCsvData(results.data);
+          setIsCSV(true);
           console.log("Parsed CSV Data:", results.data);
         },
         error: (error) => {
@@ -101,6 +104,15 @@ const ProductModals = () => {
             <button onClick={handleUpload} className="hidden"></button>
           </div>
         </div>
+      )}
+      {isCSV && (
+        <Modal1 closeModal={() => setIsCSV(false)}>
+          <div className="px-4 py-5 pb-10">
+            <h2 className="heading2 mb-6">Do you want to proceed?</h2>
+            <button onClick={handleUpload} className="btn1 py-2 mb-3">Upload CSV</button>
+            <button className="btn2 py-2">Cancel</button>
+          </div>
+        </Modal1>
       )}
     </>
   );

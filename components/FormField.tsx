@@ -117,8 +117,8 @@ function FormFieldComponent<TFieldValues extends FieldValues>({
                     className="bg-gray-100 h-[48px] text-sm px-3 focus:outline-none text-text-1 focus:ring-1 ring-orange-400 rounded-lg pr-8 w-full"
                   >
                     <option value="">{placeholder}</option>
-                    <option value="option1">Option 1</option>
-                    <option value="option2">Option 2</option>
+                    <option className="text-base text-text-1" value="option1">Option 1</option>
+                    <option className="text-base text-text-1" value="option2">Option 2</option>
                   </select>
                   <span className="absolute top-1/2 right-2 -translate-y-1/2 pointer-events-none">
                     <ChevronDown strokeWidth={1.2} size={20} />
