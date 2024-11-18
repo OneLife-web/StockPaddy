@@ -73,8 +73,8 @@ const ProductModals = () => {
 
     setIsLoading(true);
     setTimeout(() => {
-      setIsLoading(false);
-      setIsCSV(false);
+      handleCancelUpload();
+      handleClose();
       toast.success("Products Added");
     }, 3000);
     /*  try {
@@ -127,8 +127,9 @@ const ProductModals = () => {
       {isCSV && (
         <Modal1 closeModal={handleCancelUpload}>
           {isLoading ? (
-            <div className="h-[236px] myFlex">
+            <div className="h-[236px] myFlex flex-col gap-1">
               <Loader size={32} className="animate-spin" />
+              <p className="mt-4 text-sm text-text-2">Uploading...</p>
             </div>
           ) : (
             <div className="px-4 py-5 pb-10">
