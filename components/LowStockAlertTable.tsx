@@ -11,7 +11,7 @@ const LowStockAlertTable = () => {
   return (
     <div className="mt-4 max-xs:px-[1%] px-3">
       <table className="min-w-full border-collapse">
-        <thead className="bg-zinc-50 rounded-full">
+        <thead className="bg-gray-100 rounded-full">
           <tr className="heading3 lg:!text-base">
             <th className="max-xs:pr-3 px-4 py-3 text-left font-normal rounded-l-full">
               Product Name

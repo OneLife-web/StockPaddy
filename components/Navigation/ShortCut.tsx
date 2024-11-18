@@ -29,7 +29,10 @@ const ShortCut = () => {
         >
           <div className="grid px-3">
             <button
-              onClick={openProductModal}
+              onClick={() => {
+                setIsOpen(false);
+                openProductModal();
+              }}
               className="border-b heading3 py-3 text-start px-2"
             >
               Add New Product
@@ -37,7 +40,9 @@ const ShortCut = () => {
             <button className="border-b heading3 py-3 text-start px-2">
               Add New Sale
             </button>
-            <Link href="/pos" className="heading3 py-3 text-start px-2">POS</Link>
+            <Link href="/pos" className="heading3 py-3 text-start px-2">
+              POS
+            </Link>
           </div>
         </div>
       )}

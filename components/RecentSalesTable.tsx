@@ -50,8 +50,8 @@ const RecentSalesTable = () => {
     <div className="mt-4 px-3">
       <div className="max-lg:overflow-x-scroll max-lg:custom-scrollbar pb-3">
         <table className="min-w-full border-collapse">
-          <thead className="bg-zinc-50 rounded-full">
-            <tr className="heading3 lg:!text-base whitespace-nowrap">
+          <thead className="bg-gray-100 rounded-full">
+            <tr className="heading3 lg:!text-base">
               <th className="px-4 py-3 text-left font-normal rounded-l-full">
                 Date/Time
               </th>
@@ -77,7 +77,7 @@ const RecentSalesTable = () => {
                 >
                   <td className="px-4 py-3">{sale.date}</td>
                   <td className="px-4 py-3">{sale.transactionId}</td>
-                  <td className="px-4 py-3">{sale.attendedBy}</td>{" "}
+                  <td className="px-4 py-3">{sale.attendedBy}</td>
                   {/* Updated */}
                   <td className="px-4 py-3">{sale.totalAmount}</td>
                   <td className="px-4 py-3 text-center">

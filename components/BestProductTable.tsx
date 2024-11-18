@@ -11,7 +11,7 @@ const BestProductTable = () => {
   return (
     <div className="mt-10 max-xs:px-[1%] px-3">
       <table className="min-w-full mt-4 border-collapse">
-        <thead className="bg-zinc-50 rounded-full">
+        <thead className="bg-gray-100 rounded-full">
           <tr className="heading3 lg:!text-base">
             <th className="px-4 py-3 text-left font-normal rounded-l-full">
               Product Name
