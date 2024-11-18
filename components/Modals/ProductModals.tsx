@@ -76,11 +76,11 @@ const ProductModals = () => {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className={`h-[95%] overflow-scroll bg-white w-[100vw] rounded-tr-3xl rounded-tl-3xl relative px-[3%] ${
+            className={`h-[95%] bg-white w-[100vw] rounded-tr-3xl rounded-tl-3xl relative px-[3%] ${
               isVisible && "animate-modal-slide-up"
             }`}
           >
-            <div className="flex py-4 justify-between">
+            <div className="fixed bg-white z-20 right-[3%] left-[3%] top-0 flex py-4 justify-between">
               <input
                 type="file"
                 accept=".csv"
@@ -95,7 +95,7 @@ const ProductModals = () => {
                 <X strokeWidth={1.5} size={30} />
               </button>
             </div>
-            <div>
+            <div className="h-[90vh] pt-16 overflow-y-scroll">
               <NewProductForm handleUpload={handleUpload} />
             </div>
           </div>
