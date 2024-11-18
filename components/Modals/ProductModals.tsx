@@ -52,6 +52,16 @@ const ProductModals = () => {
     }
   };
 
+  const handleCancelUpload = () => {
+    setIsCSV(false);
+    setCsvData(null);
+
+    // Reset the file input to allow selecting a new file after deleting
+    if (fileInputRef.current) {
+      fileInputRef.current.value = ""; // Clear the file input value
+    }
+  };
+
   const handleUpload = async () => {
     if (!csvData) {
       alert("Please upload a CSV file first!");
@@ -106,11 +116,15 @@ const ProductModals = () => {
         </div>
       )}
       {isCSV && (
-        <Modal1 closeModal={() => setIsCSV(false)}>
+        <Modal1 closeModal={handleCancelUpload}>
           <div className="px-4 py-5 pb-10">
             <h2 className="heading2 mb-6">Do you want to proceed?</h2>
-            <button onClick={handleUpload} className="btn1 py-2 mb-3">Upload CSV</button>
-            <button className="btn2 py-2">Cancel</button>
+            <button onClick={handleUpload} className="btn1 py-2 mb-3">
+              Yes, Upload CSV
+            </button>
+            <button onClick={handleCancelUpload} className="btn2 py-2">
+              No, Cancel
+            </button>
           </div>
         </Modal1>
       )}
