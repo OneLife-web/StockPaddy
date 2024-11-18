@@ -87,15 +87,11 @@ const ProductModals = () => {
                 onChange={handleFileChange}
                 className="hidden"
               />
-              <button
-                onClick={handleButtonClick}
-                className="myFlex flex-col gap-[2px]"
-              >
-                <Upload strokeWidth={1.3} size={24} />
-                <p className="max-md:text-xs text-sm">Upload CSV</p>
+              <button onClick={handleButtonClick}>
+                <Upload strokeWidth={1.5} size={26} />
               </button>
               <button onClick={handleClose}>
-                <X strokeWidth={1.3} size={30} />
+                <X strokeWidth={1.5} size={30} />
               </button>
             </div>
             <div className="py-5">
