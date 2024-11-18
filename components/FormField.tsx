@@ -73,7 +73,7 @@ function FormFieldComponent<TFieldValues extends FieldValues>({
             {formType === "image" ? (
               <div className="grid gap-3">
                 <label className="font-clashmd">{label}</label>
-                <div className="bg-gray-100 h-[150px] rounded-lg myFlex">
+                <div className="bg-gray-100 h-[180px] rounded-lg myFlex">
                   {field.value ? (
                     <div className="relative">
                       <Image
@@ -81,7 +81,7 @@ function FormFieldComponent<TFieldValues extends FieldValues>({
                         width={150}
                         height={150}
                         alt="Preview"
-                        className="rounded-lg h-[150px] object-contain"
+                        className="rounded-lg w-[150px] h-[150px] object-cover"
                       />
                       <button
                         onClick={handleDeleteImage}
@@ -121,7 +121,7 @@ function FormFieldComponent<TFieldValues extends FieldValues>({
                     <option value="option2">Option 2</option>
                   </select>
                   <span className="absolute top-1/2 right-2 -translate-y-1/2 pointer-events-none">
-                    <ChevronDown strokeWidth={1.3}/>
+                    <ChevronDown strokeWidth={1.3} />
                   </span>
                 </div>
               </div>
