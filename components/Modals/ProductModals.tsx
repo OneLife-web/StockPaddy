@@ -95,7 +95,7 @@ const ProductModals = () => {
                 <X strokeWidth={1.5} size={30} />
               </button>
             </div>
-            <div className="h-[90vh] pt-16 overflow-y-scroll no-scrollbar">
+            <div className="h-[90vh] pt-12 overflow-y-scroll no-scrollbar">
               <NewProductForm handleUpload={handleUpload} />
             </div>
           </div>

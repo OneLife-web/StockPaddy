@@ -6,13 +6,14 @@ import { useForm } from "react-hook-form";
 import FormFieldComponent from "../FormField";
 //import { useState } from "react";
 //import { Loader2 } from "lucide-react";
+//.url("Please provide a valid image URL")
 
 const FormSchema = z.object({
   productName: z
     .string()
     .min(1, "Product Name is required")
     .max(100, "Product Name must be less than 100 characters"),
-  productImage: z.string().url("Please provide a valid image URL").optional(),
+  productImage: z.string().optional(),
   productCategory: z.string().min(1, "Product Category is required"),
   sku: z
     .string()
@@ -79,6 +80,7 @@ const NewProductForm = ({ handleUpload }: { handleUpload: () => void }) => {
               label="Product Image"
               placeholder="Select Product Image"
               className="bg-gray-100 placeholder:text-sm"
+              formType="image"
             />
             <div className="grid grid-cols-2 gap-3">
               <FormFieldComponent

@@ -1,6 +1,6 @@
 // components/FormField.tsx
-import React, { ReactNode } from "react";
-import { UseFormReturn, FieldValues, Path } from "react-hook-form";
+import React, { ReactNode, useRef } from "react";
+import { UseFormReturn, FieldValues, Path, PathValue } from "react-hook-form";
 import {
   FormField,
   FormItem,
@@ -8,6 +8,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import Input from "./Input";
+import { UploadCloud, X } from "lucide-react";
+import Image from "next/image";
 
 interface FormFieldComponentProps<TFieldValues extends FieldValues> {
   form: UseFormReturn<TFieldValues>;
@@ -17,6 +19,7 @@ interface FormFieldComponentProps<TFieldValues extends FieldValues> {
   type?: string;
   icon?: ReactNode;
   className?: string;
+  formType?: "default" | "select" | "image";
 }
 
 function FormFieldComponent<TFieldValues extends FieldValues>({
@@ -26,8 +29,41 @@ function FormFieldComponent<TFieldValues extends FieldValues>({
   placeholder,
   icon,
   type,
-  className
+  className,
+  formType,
 }: FormFieldComponentProps<TFieldValues>) {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleButtonClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
+
+  const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = () => {
+        if (typeof reader.result === "string") {
+          console.log(reader.result);
+          form.setValue(
+            name as Path<TFieldValues>,
+            reader.result as PathValue<TFieldValues, Path<TFieldValues>>
+          );
+        }
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleDeleteImage = () => {
+    form.setValue(
+      name as Path<TFieldValues>,
+      "" as PathValue<TFieldValues, Path<TFieldValues>>
+    ); // Clear the form value
+  };
+
   return (
     <FormField
       control={form.control}
@@ -35,14 +71,51 @@ function FormFieldComponent<TFieldValues extends FieldValues>({
       render={({ field }) => (
         <FormItem>
           <FormControl>
-            <Input
-              placeholder={placeholder}
-              icon={icon}
-              label={label}
-              type={type}
-              className={className}
-              {...field}
-            />
+            {formType === "image" ? (
+              <div className="grid gap-3">
+                <label className="font-clashmd">{label}</label>
+                <div className="bg-gray-100 h-[150px] rounded-lg myFlex">
+                  {field.value ? (
+                    <div className="relative">
+                      <Image
+                        src={field.value}
+                        width={150}
+                        height={150}
+                        alt="Preview"
+                        className="rounded-lg"
+                      />
+                      <button onClick={handleDeleteImage} className="absolute -right-2 -top-2 text-red-500 bg-white rounded-full p-1">
+                        <X strokeWidth={1.2} size={14} />
+                      </button>
+                    </div>
+                  ) : (
+                    <div
+                      onClick={handleButtonClick}
+                      className="myFlex flex-col gap-1"
+                    >
+                      <input
+                        type="file"
+                        accept="image/*"
+                        ref={fileInputRef}
+                        onChange={handleFileChange}
+                        className="hidden"
+                      />
+                      <UploadCloud />
+                      <p className="text-sm">Click to select image</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            ) : (
+              <Input
+                placeholder={placeholder}
+                icon={icon}
+                label={label}
+                type={type}
+                className={className}
+                {...field}
+              />
+            )}
           </FormControl>
           <FormMessage className="text-red-500" />
         </FormItem>
