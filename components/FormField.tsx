@@ -8,7 +8,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import Input from "./Input";
-import { UploadCloud, X } from "lucide-react";
+import { ChevronDown, UploadCloud, X } from "lucide-react";
 import Image from "next/image";
 
 interface FormFieldComponentProps<TFieldValues extends FieldValues> {
@@ -111,14 +111,19 @@ function FormFieldComponent<TFieldValues extends FieldValues>({
             ) : formType === "select" ? (
               <div className="grid gap-2">
                 <label className="font-clashmd">{label}</label>
-                <select
-                  {...field}
-                  className="bg-gray-100 h-[48px] text-sm px-3 text-text-3 focus:ring-1 ring-orange-400 rounded-lg"
-                >
-                  <option value="">{placeholder}</option>
-                  <option value="option1">Option 1</option>
-                  <option value="option2">Option 2</option>
-                </select>
+                <div className="relative w-full">
+                  <select
+                    {...field}
+                    className="bg-gray-100 h-[48px] text-sm px-3 text-text-2 focus:ring-1 ring-orange-400 rounded-lg pr-8 w-full"
+                  >
+                    <option value="">{placeholder}</option>
+                    <option value="option1">Option 1</option>
+                    <option value="option2">Option 2</option>
+                  </select>
+                  <span className="absolute top-1/2 right-2 -translate-y-1/2 pointer-events-none">
+                    <ChevronDown strokeWidth={1.3}/>
+                  </span>
+                </div>
               </div>
             ) : (
               <Input
