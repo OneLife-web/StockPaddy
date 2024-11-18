@@ -71,6 +71,7 @@ const NewProductForm = ({ handleUpload }: { handleUpload: () => void }) => {
               name="productName"
               label="Product Name"
               placeholder="Enter product name"
+              className="bg-gray-100"
             />
             <FormFieldComponent
               form={form}

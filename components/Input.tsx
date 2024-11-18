@@ -1,4 +1,3 @@
-import { cn } from "@/lib/utils";
 import { InputProps } from "@/types";
 import { Eye, EyeOff } from "lucide-react";
 import { forwardRef, useState } from "react";
@@ -16,10 +15,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
             value={value}
             onChange={(e) => onChange(e.target.value)}
             placeholder={placeholder}
-            className={cn(
-              "rounded-lg w-full focus:ring-1 ring-orange-400 h-[48px] px-4 text-base focus:outline-none placeholder:text-sm",
-              { className }
-            )}
+            className={`rounded-lg w-full focus:ring-1 ring-orange-400 h-[48px] px-4 text-base focus:outline-none placeholder:text-sm ${className}`}
           />
           {type === "password" && (
             <div
@@ -44,6 +40,6 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
   }
 );
 
-Input.displayName = 'Input'; // Optional: helps with debugging
+Input.displayName = "Input"; // Optional: helps with debugging
 
 export default Input;

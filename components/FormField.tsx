@@ -16,6 +16,7 @@ interface FormFieldComponentProps<TFieldValues extends FieldValues> {
   placeholder?: string;
   type?: string;
   icon?: ReactNode;
+  className?: string;
 }
 
 function FormFieldComponent<TFieldValues extends FieldValues>({
@@ -25,6 +26,7 @@ function FormFieldComponent<TFieldValues extends FieldValues>({
   placeholder,
   icon,
   type,
+  className
 }: FormFieldComponentProps<TFieldValues>) {
   return (
     <FormField
@@ -38,6 +40,7 @@ function FormFieldComponent<TFieldValues extends FieldValues>({
               icon={icon}
               label={label}
               type={type}
+              className={className}
               {...field}
             />
           </FormControl>
