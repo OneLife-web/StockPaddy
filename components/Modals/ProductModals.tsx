@@ -80,7 +80,7 @@ const ProductModals = () => {
               isVisible && "animate-modal-slide-up"
             }`}
           >
-            <div className="fixed bg-white z-20 right-[3%] left-[3%] top-0 flex py-4 justify-between">
+            <div className="fixed bg-white z-20 right-[3%] left-[3%] top-0 rounded-tl-xl rounded-tr-xl flex py-4 justify-between">
               <input
                 type="file"
                 accept=".csv"
@@ -95,7 +95,7 @@ const ProductModals = () => {
                 <X strokeWidth={1.5} size={30} />
               </button>
             </div>
-            <div className="h-[90vh] pt-16 overflow-y-scroll">
+            <div className="h-[90vh] pt-16 overflow-y-scroll no-scrollbar">
               <NewProductForm handleUpload={handleUpload} />
             </div>
           </div>
