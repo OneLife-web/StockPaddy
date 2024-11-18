@@ -80,7 +80,7 @@ const ProductModals = () => {
               isVisible && "animate-modal-slide-up"
             }`}
           >
-            <div className="fixed bg-white z-20 right-[3%] left-[3%] top-0 rounded-tl-xl rounded-tr-xl flex py-4 justify-between">
+            <div className="fixed bg-white z-20 right-0 left-0 top-0 rounded-tl-3xl rounded-tr-3xl flex px-[3%] py-4 justify-between">
               <input
                 type="file"
                 accept=".csv"
