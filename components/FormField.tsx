@@ -111,10 +111,11 @@ function FormFieldComponent<TFieldValues extends FieldValues>({
             ) : formType === "select" ? (
               <div className="grid gap-2">
                 <label className="font-clashmd">{label}</label>
-                <select {...field} className="bg-gray-100 h-[48px] rounded-lg">
-                  <option value="" className="text-sm text-text-3">
-                    {placeholder}
-                  </option>
+                <select
+                  {...field}
+                  className="bg-gray-100 h-[48px] text-sm px-3 text-text-3 focus:ring-1 ring-orange-400 rounded-lg"
+                >
+                  <option value="">{placeholder}</option>
                   <option value="option1">Option 1</option>
                   <option value="option2">Option 2</option>
                 </select>

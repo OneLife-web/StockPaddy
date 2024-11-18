@@ -76,7 +76,7 @@ const ProductModals = () => {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className={`h-[95%] bg-white w-[100vw] rounded-tr-3xl rounded-tl-3xl relative px-[3%] ${
+            className={`h-[95%] bg-white w-[100vw] rounded-tr-3xl rounded-tl-3xl relative ${
               isVisible && "animate-modal-slide-up"
             }`}
           >
@@ -95,7 +95,7 @@ const ProductModals = () => {
                 <X strokeWidth={1.5} size={30} />
               </button>
             </div>
-            <div className="h-[90vh] pt-12 overflow-y-scroll no-scrollbar">
+            <div className="h-[90vh] pt-12 pb-6 px-[3%] overflow-y-scroll no-scrollbar">
               <NewProductForm />
             </div>
             <button onClick={handleUpload} className="hidden"></button>
