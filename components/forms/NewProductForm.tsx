@@ -4,8 +4,10 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import FormFieldComponent from "../FormField";
-//import { useState } from "react";
-//import { Loader2 } from "lucide-react";
+import { useState } from "react";
+import { Loader2 } from "lucide-react";
+import { useSideNav } from "@/contexts/SideNavContext";
+import toast from "react-hot-toast";
 //.url("Please provide a valid image URL")
 
 const FormSchema = z.object({
@@ -42,8 +44,9 @@ const FormSchema = z.object({
 });
 
 const NewProductForm = () => {
-  /*   const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(""); */
+  const { closeProductModal } = useSideNav();
+  const [loading, setLoading] = useState(false);
+  // const [error, setError] = useState("");
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -61,6 +64,13 @@ const NewProductForm = () => {
 
   async function onSubmit(formData: z.infer<typeof FormSchema>) {
     console.log(formData);
+    setLoading(true);
+
+    setTimeout(() => {
+      setLoading(false);
+      closeProductModal();
+      toast.success("Product Added");
+    }, 3000);
   }
 
   return (
@@ -148,11 +158,10 @@ const NewProductForm = () => {
             />
             <button
               className="btn1 h-[48px] myFlex disabled:cursor-not-allowed"
-              /* disabled={loading} */
+              disabled={loading}
               type="submit"
             >
-              Add Product
-              {/* {loading ? <Loader2 className="animate-spin" /> : "Add Product"} */}
+              {loading ? <Loader2 className="animate-spin" /> : "Add Product"}
             </button>
           </div>
         </form>
