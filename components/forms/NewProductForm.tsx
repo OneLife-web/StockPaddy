@@ -65,7 +65,7 @@ const NewProductForm = ({ handleUpload }: { handleUpload: () => void }) => {
           {/* {error && (
             <p className="text-sm mb-1 text-red-500 text-center">{error}</p>
           )} */}
-          <div className="space-y-5">
+          <div className="space-y-8">
             <FormFieldComponent
               form={form}
               name="productName"
@@ -80,48 +80,54 @@ const NewProductForm = ({ handleUpload }: { handleUpload: () => void }) => {
               placeholder="Select Product Image"
               className="bg-gray-100 placeholder:text-sm"
             />
-            <FormFieldComponent
-              form={form}
-              name="productCategory"
-              label="Product Category"
-              placeholder="Select Product Category"
-              className="bg-gray-100 placeholder:text-sm"
-            />
-            <FormFieldComponent
-              form={form}
-              name="sku"
-              label="SKU"
-              placeholder="Enter SKU"
-              className="bg-gray-100 placeholder:text-sm"
-            />
-            <FormFieldComponent
-              form={form}
-              name="stockQuantity"
-              label="Stock Quantity"
-              placeholder="Enter Stock Quantity"
-              className="bg-gray-100 placeholder:text-sm"
-            />
-            <FormFieldComponent
-              form={form}
-              name="unitSellingPrice"
-              label="Unit Seling Price"
-              placeholder="Enter Unit Selling Price"
-              className="bg-gray-100 placeholder:text-sm"
-            />
-            <FormFieldComponent
-              form={form}
-              name="unitCostPrice"
-              label="Unit Cost Price"
-              placeholder="Enter Unit Cost Price"
-              className="bg-gray-100 placeholder:text-sm"
-            />
-            <FormFieldComponent
-              form={form}
-              name="lowStockThreshold"
-              label="Low Stock Threshold"
-              placeholder="Enter Low Stock Threshold"
-              className="bg-gray-100 placeholder:text-sm"
-            />
+            <div className="grid grid-cols-2 gap-3">
+              <FormFieldComponent
+                form={form}
+                name="productCategory"
+                label="Product Category"
+                placeholder="Select Product Category"
+                className="bg-gray-100 placeholder:text-sm"
+              />
+              <FormFieldComponent
+                form={form}
+                name="sku"
+                label="SKU"
+                placeholder="Enter SKU"
+                className="bg-gray-100 placeholder:text-sm"
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <FormFieldComponent
+                form={form}
+                name="stockQuantity"
+                label="Stock Quantity"
+                placeholder="Enter Stock Quantity"
+                className="bg-gray-100 placeholder:text-sm"
+              />
+              <FormFieldComponent
+                form={form}
+                name="lowStockThreshold"
+                label="Low Stock Threshold"
+                placeholder="Enter Low Stock Threshold"
+                className="bg-gray-100 placeholder:text-sm"
+              />
+            </div>
+            <div className="grid grid-cols-2 gap-3">
+              <FormFieldComponent
+                form={form}
+                name="unitSellingPrice"
+                label="Unit Seling Price"
+                placeholder="Enter Unit Selling Price"
+                className="bg-gray-100 placeholder:text-sm"
+              />
+              <FormFieldComponent
+                form={form}
+                name="unitCostPrice"
+                label="Unit Cost Price"
+                placeholder="Enter Unit Cost Price"
+                className="bg-gray-100 placeholder:text-sm"
+              />
+            </div>
             <FormFieldComponent
               form={form}
               name="productBarcode"
