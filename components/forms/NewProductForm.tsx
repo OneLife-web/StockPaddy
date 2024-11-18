@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import FormFieldComponent from "../FormField";
 //import { useState } from "react";
-import { Loader2 } from "lucide-react";
+//import { Loader2 } from "lucide-react";
 
 const FormSchema = z.object({
   productName: z
