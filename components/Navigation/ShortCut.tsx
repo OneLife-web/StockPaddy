@@ -1,6 +1,7 @@
 "use client";
 import { useSideNav } from "@/contexts/SideNavContext";
 import { Plus } from "lucide-react";
+import Link from "next/link";
 import { useState } from "react";
 
 const ShortCut = () => {
@@ -36,7 +37,7 @@ const ShortCut = () => {
             <button className="border-b heading3 py-3 text-start px-2">
               Add New Sale
             </button>
-            <button className="heading3 py-3 text-start px-2">POS</button>
+            <Link href="/pos" className="heading3 py-3 text-start px-2">POS</Link>
           </div>
         </div>
       )}
