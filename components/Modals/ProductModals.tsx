@@ -96,8 +96,9 @@ const ProductModals = () => {
               </button>
             </div>
             <div className="h-[90vh] pt-12 overflow-y-scroll no-scrollbar">
-              <NewProductForm handleUpload={handleUpload} />
+              <NewProductForm />
             </div>
+            <button onClick={handleUpload} className="hidden"></button>
           </div>
         </div>
       )}

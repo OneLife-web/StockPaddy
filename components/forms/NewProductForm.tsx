@@ -41,7 +41,7 @@ const FormSchema = z.object({
     .max(50, "Product Barcode must be less than 50 characters"),
 });
 
-const NewProductForm = ({ handleUpload }: { handleUpload: () => void }) => {
+const NewProductForm = () => {
   /*   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(""); */
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -59,10 +59,14 @@ const NewProductForm = ({ handleUpload }: { handleUpload: () => void }) => {
     },
   });
 
+  async function onSubmit(formData: z.infer<typeof FormSchema>) {
+    console.log(formData);
+  }
+
   return (
     <div>
       <Form {...form}>
-        <form onSubmit={form.handleSubmit(handleUpload)} className="mt-10">
+        <form onSubmit={form.handleSubmit(onSubmit)} className="mt-10">
           {/* {error && (
             <p className="text-sm mb-1 text-red-500 text-center">{error}</p>
           )} */}
