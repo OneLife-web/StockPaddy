@@ -81,7 +81,7 @@ function FormFieldComponent<TFieldValues extends FieldValues>({
                         width={150}
                         height={150}
                         alt="Preview"
-                        className="rounded-lg object-contain"
+                        className="rounded-lg h-[150px] object-contain"
                       />
                       <button
                         onClick={handleDeleteImage}
