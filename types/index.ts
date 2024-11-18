@@ -19,6 +19,13 @@ export interface Product {
   updatedAt: Date */
 }
 
+export type MyProduct = {
+  name: string;
+  price: number;
+  stock: number;
+};
+
+
 export interface ImageProps {
   variant: 1 | 2;
   width: number;

@@ -2,13 +2,20 @@
 import Papa from "papaparse";
 import { useSideNav } from "@/contexts/SideNavContext";
 import { Upload, X } from "lucide-react";
-import { useEffect, useState } from "react";
-import { Product } from "@/types";
+import { useEffect, useRef, useState } from "react";
+import { MyProduct } from "@/types";
 
 const ProductModals = () => {
   const { isProductModalOpen, closeProductModal } = useSideNav();
   const [isVisible, setIsVisible] = useState(false);
-  const [csvData, setCsvData] = useState<Product[] | null>(null);
+  const [csvData, setCsvData] = useState<MyProduct[] | null>(null);
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleButtonClick = () => {
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    }
+  };
 
   useEffect(() => {
     if (isProductModalOpen) {
@@ -20,7 +27,7 @@ const ProductModals = () => {
     setIsVisible(false); // Trigger the closing animation
     setTimeout(() => {
       closeProductModal(); // Close after animation completes
-    }, 300); // Match the animation duration (150ms)
+    }, 150); // Match the animation duration (150ms)
   };
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -29,7 +36,7 @@ const ProductModals = () => {
       Papa.parse(file, {
         header: true, // Map headers to keys
         skipEmptyLines: true,
-        complete: (results: Papa.ParseResult<Product>) => {
+        complete: (results: Papa.ParseResult<MyProduct>) => {
           // Use a proper type here
           setCsvData(results.data);
           console.log("Parsed CSV Data:", results.data);
@@ -76,10 +83,14 @@ const ProductModals = () => {
               <input
                 type="file"
                 accept=".csv"
+                ref={fileInputRef}
                 onChange={handleFileChange}
                 className="hidden"
               />
-              <button className="myFlex flex-col gap-[2px]">
+              <button
+                onClick={handleButtonClick}
+                className="myFlex flex-col gap-[2px]"
+              >
                 <Upload strokeWidth={1.3} size={24} />
                 <p className="max-md:text-xs text-sm">Upload CSV</p>
               </button>
