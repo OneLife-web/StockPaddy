@@ -46,7 +46,6 @@ function FormFieldComponent<TFieldValues extends FieldValues>({
       const reader = new FileReader();
       reader.onload = () => {
         if (typeof reader.result === "string") {
-          console.log(reader.result);
           form.setValue(
             name as Path<TFieldValues>,
             reader.result as PathValue<TFieldValues, Path<TFieldValues>>
@@ -82,7 +81,7 @@ function FormFieldComponent<TFieldValues extends FieldValues>({
                         width={150}
                         height={150}
                         alt="Preview"
-                        className="rounded-lg"
+                        className="rounded-lg object-contain"
                       />
                       <button
                         onClick={handleDeleteImage}
@@ -113,7 +112,9 @@ function FormFieldComponent<TFieldValues extends FieldValues>({
               <div className="grid gap-2">
                 <label className="font-clashmd">{label}</label>
                 <select {...field} className="bg-gray-100 h-[48px] rounded-lg">
-                  <option value="" className="text-sm text-text-3">{placeholder}</option>
+                  <option value="" className="text-sm text-text-3">
+                    {placeholder}
+                  </option>
                   <option value="option1">Option 1</option>
                   <option value="option2">Option 2</option>
                 </select>
