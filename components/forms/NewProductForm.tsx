@@ -72,14 +72,14 @@ const NewProductForm = ({ handleUpload }: { handleUpload: () => void }) => {
               name="productName"
               label="Product Name"
               placeholder="Enter product name"
-              className="bg-gray-100 placeholder:text-sm"
+              className="bg-gray-100 placeholder:text-sm placeholder:text-text-2"
             />
             <FormFieldComponent
               form={form}
               name="productImage"
               label="Product Image"
               placeholder="Select Product Image"
-              className="bg-gray-100 placeholder:text-sm"
+              className="bg-gray-100 placeholder:text-sm placeholder:text-text-2"
               formType="image"
             />
             <div className="grid grid-cols-2 gap-3">
@@ -87,15 +87,16 @@ const NewProductForm = ({ handleUpload }: { handleUpload: () => void }) => {
                 form={form}
                 name="productCategory"
                 label="Product Category"
-                placeholder="Select Product Category"
-                className="bg-gray-100 placeholder:text-sm"
+                placeholder="Select Category"
+                className="bg-gray-100 placeholder:text-sm placeholder:text-text-2"
+                formType="select"
               />
               <FormFieldComponent
                 form={form}
                 name="sku"
                 label="SKU"
                 placeholder="Enter SKU"
-                className="bg-gray-100 placeholder:text-sm"
+                className="bg-gray-100 placeholder:text-sm placeholder:text-text-2"
               />
             </div>
             <div className="grid grid-cols-2 gap-3">
@@ -104,14 +105,14 @@ const NewProductForm = ({ handleUpload }: { handleUpload: () => void }) => {
                 name="stockQuantity"
                 label="Stock Quantity"
                 placeholder="Enter Stock Quantity"
-                className="bg-gray-100 placeholder:text-sm"
+                className="bg-gray-100 placeholder:text-sm placeholder:text-text-2"
               />
               <FormFieldComponent
                 form={form}
                 name="lowStockThreshold"
                 label="Low Stock Threshold"
                 placeholder="Enter Low Stock Threshold"
-                className="bg-gray-100 placeholder:text-sm"
+                className="bg-gray-100 placeholder:text-sm placeholder:text-text-2"
               />
             </div>
             <div className="grid grid-cols-2 gap-3">
@@ -120,14 +121,14 @@ const NewProductForm = ({ handleUpload }: { handleUpload: () => void }) => {
                 name="unitSellingPrice"
                 label="Unit Seling Price"
                 placeholder="Enter Unit Selling Price"
-                className="bg-gray-100 placeholder:text-sm"
+                className="bg-gray-100 placeholder:text-sm placeholder:text-text-2"
               />
               <FormFieldComponent
                 form={form}
                 name="unitCostPrice"
                 label="Unit Cost Price"
                 placeholder="Enter Unit Cost Price"
-                className="bg-gray-100 placeholder:text-sm"
+                className="bg-gray-100 placeholder:text-sm placeholder:text-text-2"
               />
             </div>
             <FormFieldComponent
@@ -135,7 +136,7 @@ const NewProductForm = ({ handleUpload }: { handleUpload: () => void }) => {
               name="productBarcode"
               label="Product Barcode"
               placeholder="Enter Product Barcode"
-              className="bg-gray-100 placeholder:text-sm"
+              className="bg-gray-100 placeholder:text-sm placeholder:text-text-2"
             />
             <button
               className="btn1 h-[48px] myFlex disabled:cursor-not-allowed"

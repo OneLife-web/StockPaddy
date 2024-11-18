@@ -1,5 +1,5 @@
 // components/FormField.tsx
-import React, { ReactNode, useRef } from "react";
+import React, { forwardRef, ReactNode, useRef } from "react";
 import { UseFormReturn, FieldValues, Path, PathValue } from "react-hook-form";
 import {
   FormField,
@@ -84,7 +84,10 @@ function FormFieldComponent<TFieldValues extends FieldValues>({
                         alt="Preview"
                         className="rounded-lg"
                       />
-                      <button onClick={handleDeleteImage} className="absolute -right-2 -top-2 text-red-500 bg-white rounded-full p-1">
+                      <button
+                        onClick={handleDeleteImage}
+                        className="absolute -right-2 -top-2 text-red-500 bg-white rounded-full p-1"
+                      >
                         <X strokeWidth={1.2} size={14} />
                       </button>
                     </div>
@@ -105,6 +108,15 @@ function FormFieldComponent<TFieldValues extends FieldValues>({
                     </div>
                   )}
                 </div>
+              </div>
+            ) : formType === "select" ? (
+              <div className="grid gap-2">
+                <label className="font-clashmd">{label}</label>
+                <select {...field} className="bg-gray-100 h-[48px] rounded-lg">
+                  <option value="" className="text-sm text-text-3">{placeholder}</option>
+                  <option value="option1">Option 1</option>
+                  <option value="option2">Option 2</option>
+                </select>
               </div>
             ) : (
               <Input
