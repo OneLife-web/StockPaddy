@@ -19,7 +19,7 @@ const BestProductTable = () => {
             <th className="px-4 py-3 text-left font-normal">Current Stock</th>
             <th className="px-4 py-3 text-left font-normal">Units Sold</th>
             <th className="px-4 py-3 text-left font-normal rounded-r-full">
-              SKU/ID
+              SKU
             </th>
           </tr>
         </thead>

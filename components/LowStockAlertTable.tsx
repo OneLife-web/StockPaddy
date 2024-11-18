@@ -18,10 +18,10 @@ const LowStockAlertTable = () => {
             </th>
             <th className="max-xs:px-3 px-4 py-3 text-left font-normal">Current Stock</th>
             <th className="max-xs:px-2 px-4 py-3 text-left font-normal">
-              Reorder Threshold
+              Low Stock Threshold
             </th>
             <th className="max-xs:px-3 px-4 py-3 text-left font-normal rounded-r-full">
-              SKU/ID
+              SKU
             </th>
           </tr>
         </thead>

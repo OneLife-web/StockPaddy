@@ -4,6 +4,7 @@ import { useSideNav } from "@/contexts/SideNavContext";
 import { Upload, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import { MyProduct } from "@/types";
+import NewProductForm from "../forms/NewProductForm";
 
 const ProductModals = () => {
   const { isProductModalOpen, closeProductModal } = useSideNav();
@@ -75,7 +76,7 @@ const ProductModals = () => {
         >
           <div
             onClick={(e) => e.stopPropagation()}
-            className={`h-[95%] bg-white w-[100vw] rounded-tr-3xl rounded-tl-3xl relative px-[3%] ${
+            className={`h-[95%] overflow-scroll bg-white w-[100vw] rounded-tr-3xl rounded-tl-3xl relative px-[3%] ${
               isVisible && "animate-modal-slide-up"
             }`}
           >
@@ -94,8 +95,8 @@ const ProductModals = () => {
                 <X strokeWidth={1.5} size={30} />
               </button>
             </div>
-            <div className="py-5">
-              <button onClick={handleUpload}></button>
+            <div>
+              <NewProductForm handleUpload={handleUpload} />
             </div>
           </div>
         </div>
