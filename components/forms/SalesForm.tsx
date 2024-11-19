@@ -8,6 +8,7 @@ import { useState } from "react";
 import { Loader2 } from "lucide-react";
 import { useSideNav } from "@/contexts/SideNavContext";
 import toast from "react-hot-toast";
+import { ApiError } from "@/types";
 //.url("Please provide a valid image URL")
 
 const FormSchema = z.object({
@@ -78,8 +79,21 @@ const SalesForm = () => {
       toast.success("Product Added");
       // SWR will automatically update when socket emits 'productCreated'
     } catch (error) {
-      console.error("Error creating product:", error);
-      toast.error("An error occured!. Please try again");
+      if (error instanceof Error) {
+        console.error("Error creating product:", error.message);
+        toast.error(error.message);
+      } else if (
+        typeof error === "object" &&
+        error !== null &&
+        "error" in error
+      ) {
+        const apiError = error as ApiError;
+        console.error("API error:", apiError.error);
+        toast.error(apiError.error);
+      } else {
+        console.error("Unexpected error:", error);
+        toast.error("An unexpected error occurred.");
+      }
     } finally {
       setLoading(false);
     }
@@ -98,7 +112,7 @@ const SalesForm = () => {
               name="name"
               label="Product Name"
               placeholder="Enter product name"
-              className="bg-gray-100 placeholder:text-sm placeholder:text-text-2"
+              formType="calendar"
             />
             <FormFieldComponent
               form={form}

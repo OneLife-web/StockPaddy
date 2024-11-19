@@ -8,8 +8,13 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import Input from "./Input";
-import { ChevronDown, UploadCloud, X } from "lucide-react";
+import { CalendarIcon, ChevronDown, UploadCloud, X } from "lucide-react";
 import Image from "next/image";
+import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { Button } from "./ui/button";
+import { format } from "date-fns";
+import { Calendar } from "./ui/calendar";
+import { cn } from "@/lib/utils";
 
 interface FormFieldComponentProps<TFieldValues extends FieldValues> {
   form: UseFormReturn<TFieldValues>;
@@ -19,7 +24,7 @@ interface FormFieldComponentProps<TFieldValues extends FieldValues> {
   type?: string;
   icon?: ReactNode;
   className?: string;
-  formType?: "default" | "select" | "image";
+  formType?: "calendar" | "select" | "image";
 }
 
 function FormFieldComponent<TFieldValues extends FieldValues>({
@@ -117,13 +122,52 @@ function FormFieldComponent<TFieldValues extends FieldValues>({
                     className="bg-gray-100 h-[48px] text-sm px-3 focus:outline-none text-text-1 focus:ring-1 ring-orange-400 rounded-lg pr-8 w-full"
                   >
                     <option value="">{placeholder}</option>
-                    <option className="text-base text-text-1" value="option1">Option 1</option>
-                    <option className="text-base text-text-1" value="option2">Option 2</option>
+                    <option className="text-base text-text-1" value="option1">
+                      Option 1
+                    </option>
+                    <option className="text-base text-text-1" value="option2">
+                      Option 2
+                    </option>
                   </select>
                   <span className="absolute top-1/2 right-2 -translate-y-1/2 pointer-events-none">
                     <ChevronDown strokeWidth={1.2} size={20} />
                   </span>
                 </div>
+              </div>
+            ) : formType === "calendar" ? (
+              <div className="grid gap-2">
+                <label className="font-clashmd">{label}</label>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <FormControl>
+                      <Button
+                        variant={"outline"}
+                        className={cn(
+                          "w-full pl-4 bg-gray-100 rounded-lg border-0 shadow-none text-left h-[48px] font-normal",
+                          !field.value && "text-muted-foreground"
+                        )}
+                      >
+                        {field.value ? (
+                          format(field.value, "PPP")
+                        ) : (
+                          <span>Pick a date</span>
+                        )}
+                        <CalendarIcon className="ml-auto h-4 w-4 opacity-90" />
+                      </Button>
+                    </FormControl>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0" align="start">
+                    <Calendar
+                      mode="single"
+                      selected={field.value}
+                      onSelect={field.onChange}
+                      disabled={(date) =>
+                        date > new Date() || date < new Date("1900-01-01")
+                      }
+                      initialFocus
+                    />
+                  </PopoverContent>
+                </Popover>
               </div>
             ) : (
               <Input
