@@ -76,17 +76,11 @@ const SalesForm = () => {
 
       container.style.display = "block";
 
-      const containerWidth = container?.offsetWidth || 300;
-      const containerHeight = container?.offsetHeight || 300;
-
       const html5QrcodeInstance = new Html5Qrcode(scannerId);
 
       const config = {
         fps: 10,
-        qrbox: {
-          width: Math.min(containerWidth - 50, 400), // Dynamic width
-          height: Math.min(containerHeight - 50, 400), // Dynamic height
-        },
+        qrbox: { width: 300, height: 300 },
       };
 
       // Disable verbose logging and error messages
