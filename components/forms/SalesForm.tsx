@@ -4,11 +4,12 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import FormFieldComponent from "../FormField";
-import React, { useCallback, useEffect, useState } from "react";
-import { Loader2, ScanBarcode, Trash } from "lucide-react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { Loader2, ScanBarcode, Trash, X } from "lucide-react";
 import { useSideNav } from "@/contexts/SideNavContext";
 import toast from "react-hot-toast";
-import { ApiError, MyProduct, Product } from "@/types";
+import { ApiError, Product } from "@/types";
+import { Html5Qrcode } from "html5-qrcode";
 //.url("Please provide a valid image URL")
 
 const FormSchema = z.object({
@@ -40,6 +41,61 @@ const SalesForm = () => {
       products: [],
     },
   });
+
+  const [isScannerActive, setIsScannerActive] = useState(false);
+  const scannerRef = useRef<HTMLDivElement>(null);
+  const html5QrcodeRef = useRef<Html5Qrcode | null>(null);
+
+  const startScanner = () => {
+    if (!scannerRef.current) return;
+
+    Html5Qrcode.getCameras()
+      .then((devices) => {
+        if (devices && devices.length) {
+          const cameraId = devices[0].id;
+          html5QrcodeRef.current = new Html5Qrcode(scannerRef.current!.id);
+
+          html5QrcodeRef.current
+            .start(
+              cameraId,
+              { fps: 10, qrbox: 250 },
+              onScanSuccess,
+              (errorMessage) => {
+                console.error("Scan Error:", errorMessage);
+                toast.error(
+                  "Failed to start scanner. Check camera permissions."
+                );
+              }
+            )
+            .catch((err) => {
+              console.error("Start Error:", err);
+              toast.error("Could not access camera. Please check permissions.");
+            });
+
+          setIsScannerActive(true);
+        } else {
+          toast.error("No cameras found");
+        }
+      })
+      .catch((err) => {
+        console.error("Camera Error:", err);
+        toast.error("Failed to access cameras");
+      });
+  };
+
+  const stopScanner = () => {
+    if (html5QrcodeRef.current) {
+      html5QrcodeRef.current.stop();
+      html5QrcodeRef.current.clear();
+      setIsScannerActive(false);
+    }
+  };
+
+  const onScanSuccess = (decodedText: string) => {
+    // Directly use the scanned barcode to search for product
+    setQuery(decodedText);
+    stopScanner();
+  };
 
   // Add to existing component
   const addProductToForm = (product: Product) => {
@@ -181,11 +237,23 @@ const SalesForm = () => {
                 />
                 <button
                   type="button"
+                  onClick={isScannerActive ? stopScanner : startScanner}
                   className="absolute top-[50%] translate-y-[-50%] right-4 bg-white rounded-full p-1 myShadow"
                 >
-                  <ScanBarcode strokeWidth={1.5} size={18} />
+                  {isScannerActive ? (
+                    <X />
+                  ) : (
+                    <ScanBarcode strokeWidth={1.5} size={18} />
+                  )}
                 </button>
               </div>
+              {isScannerActive && (
+                <div
+                  id="scanner-container"
+                  ref={scannerRef}
+                  className="w-full h-[300px] mt-4"
+                />
+              )}
               <div>
                 <h2>Results:</h2>
                 <ul>
