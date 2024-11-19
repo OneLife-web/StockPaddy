@@ -84,8 +84,8 @@ const SalesForm = () => {
       const config = {
         fps: 10,
         qrbox: {
-          width: Math.min(250, containerWidth - 50),
-          height: Math.min(250, containerHeight - 50),
+          width: Math.min(containerWidth - 50, 400), // Dynamic width
+          height: Math.min(containerHeight - 50, 400), // Dynamic height
         },
       };
 
