@@ -1,5 +1,9 @@
 import { ReactNode } from "react";
 
+export interface ApiError {
+  error: string;
+}
+
 export interface InputProps {
   label?: string;
   placeholder?: string;

@@ -1,4 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { MongoServerError } from "mongodb";
 import { Server as SocketIOServer } from "socket.io";
 import connectToDatabase from "@/lib/mongodb";
 import Product from "@/utils/models/Product";
@@ -68,7 +69,16 @@ export default async function handler(
         .status(201)
         .json({ message: "Product created", product: newProduct });
     } catch (error) {
-      console.error("Error creating product:", error);
+      if (error instanceof MongoServerError && error.code === 11000) {
+        // Handle duplicate key error
+        const duplicateKey = error.keyValue.sku; // Extract duplicate field
+        return res.status(400).json({
+          error: `Duplicate key error: The SKU "${duplicateKey}" already exists.`,
+        });
+      }
+
+      // For other errors
+      console.error("Unexpected error:", error);
       return res.status(500).json({ error: "Failed to create product" });
     }
   } else if (req.method === "GET") {

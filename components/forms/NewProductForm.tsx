@@ -8,6 +8,7 @@ import { useState } from "react";
 import { Loader2 } from "lucide-react";
 import { useSideNav } from "@/contexts/SideNavContext";
 import toast from "react-hot-toast";
+import { ApiError } from "@/types";
 //.url("Please provide a valid image URL")
 
 const FormSchema = z.object({
@@ -72,14 +73,32 @@ const NewProductForm = () => {
         },
         body: JSON.stringify(formData),
       });
-      if (!response.ok) throw new Error("Failed to create product");
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.error || "Failed to create product");
+      }
+
       setLoading(false);
       closeProductModal();
       toast.success("Product Added");
       // SWR will automatically update when socket emits 'productCreated'
     } catch (error) {
-      console.error("Error creating product:", error);
-      toast.error("An error occured!. Please try again");
+      if (error instanceof Error) {
+        console.error("Error creating product:", error.message);
+        toast.error(error.message);
+      } else if (
+        typeof error === "object" &&
+        error !== null &&
+        "error" in error
+      ) {
+        const apiError = error as ApiError;
+        console.error("API error:", apiError.error);
+        toast.error(apiError.error);
+      } else {
+        console.error("Unexpected error:", error);
+        toast.error("An unexpected error occurred.");
+      }
     } finally {
       setLoading(false);
     }
