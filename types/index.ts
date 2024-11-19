@@ -11,12 +11,18 @@ export interface InputProps {
 }
 
 export interface Product {
-  _id: string;
-  name: string;
-  /* quantity: number
-  price: number
-  createdAt: Date
-  updatedAt: Date */
+  _id: string; // Unique identifier
+  name: string; // Product name
+  image?: string; // URL for the product image (optional)
+  category: string; // Product category
+  sku: string; // Stock Keeping Unit, unique identifier
+  stockQuantity?: number; // Quantity in stock (optional, defaults to 0)
+  unitSellingPrice: number; // Selling price per unit
+  unitCostPrice: number; // Cost price per unit
+  lowStockThreshold?: number; // Minimum quantity before low-stock alert (optional)
+  barcode: string; // Unique barcode for the product
+  createdAt: Date; // Timestamp of product creation
+  updatedAt: Date; // Timestamp of last update
 }
 
 export type MyProduct = {
@@ -24,7 +30,6 @@ export type MyProduct = {
   price: number;
   stock: number;
 };
-
 
 export interface ImageProps {
   variant: 1 | 2;
@@ -42,7 +47,7 @@ export interface CardProps {
 }
 
 export interface AuditType {
-  actor: string,
-  action: string,
-  timestamp: string
+  actor: string;
+  action: string;
+  timestamp: string;
 }

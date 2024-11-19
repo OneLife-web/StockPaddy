@@ -11,12 +11,12 @@ import toast from "react-hot-toast";
 //.url("Please provide a valid image URL")
 
 const FormSchema = z.object({
-  productName: z
+  name: z
     .string()
     .min(1, "Product Name is required")
     .max(100, "Product Name must be less than 100 characters"),
-  productImage: z.string().optional(),
-  productCategory: z.string().min(1, "Product Category is required"),
+  image: z.string().optional(),
+  category: z.string().min(1, "Product Category is required"),
   sku: z
     .string()
     .min(1, "SKU is required")
@@ -37,7 +37,7 @@ const FormSchema = z.object({
     .int()
     .min(0, "Reorder Threshold cannot be negative")
     .optional(),
-  productBarcode: z
+  barcode: z
     .string()
     .min(1, "Product Barcode is required")
     .max(50, "Product Barcode must be less than 50 characters"),
@@ -50,27 +50,38 @@ const NewProductForm = () => {
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      productName: "",
-      productImage: "",
-      productCategory: "",
+      name: "",
+      image: "",
+      category: "",
       sku: "",
       stockQuantity: 0,
       unitSellingPrice: 0,
       unitCostPrice: 0,
       lowStockThreshold: 0,
-      productBarcode: "",
+      barcode: "",
     },
   });
 
   async function onSubmit(formData: z.infer<typeof FormSchema>) {
-    console.log(formData);
     setLoading(true);
-
-    setTimeout(() => {
+    try {
+      const response = await fetch("/api/products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+      if (!response.ok) throw new Error("Failed to create product");
       setLoading(false);
       closeProductModal();
       toast.success("Product Added");
-    }, 3000);
+      // SWR will automatically update when socket emits 'productCreated'
+    } catch (error) {
+      console.error("Error creating product:", error);
+    } finally {
+      setLoading(false);
+    }
   }
 
   return (
@@ -83,14 +94,14 @@ const NewProductForm = () => {
           <div className="space-y-8">
             <FormFieldComponent
               form={form}
-              name="productName"
+              name="name"
               label="Product Name"
               placeholder="Enter product name"
               className="bg-gray-100 placeholder:text-sm placeholder:text-text-2"
             />
             <FormFieldComponent
               form={form}
-              name="productImage"
+              name="image"
               label="Product Image"
               placeholder="Select Product Image"
               className="bg-gray-100 placeholder:text-sm placeholder:text-text-2"
@@ -99,7 +110,7 @@ const NewProductForm = () => {
             <div className="grid grid-cols-2 gap-3">
               <FormFieldComponent
                 form={form}
-                name="productCategory"
+                name="category"
                 label="Product Category"
                 placeholder="Select Category"
                 className="bg-gray-100 placeholder:text-sm placeholder:text-text-2"
@@ -151,7 +162,7 @@ const NewProductForm = () => {
             </div>
             <FormFieldComponent
               form={form}
-              name="productBarcode"
+              name="barcode"
               label="Product Barcode"
               placeholder="Enter Product Barcode"
               className="bg-gray-100 placeholder:text-sm placeholder:text-text-2"

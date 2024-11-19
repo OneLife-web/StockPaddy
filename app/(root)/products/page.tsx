@@ -1,6 +1,5 @@
 import { Suspense } from "react";
 import ProductList from "@/components/ProductList";
-import AddProductForm from "@/components/forms/ProductForm";
 
 // Server-side fetch to get the products
 async function getProducts() {
@@ -30,9 +29,6 @@ export default async function Home() {
       <h1 className="text-3xl font-bold mb-8">Inventory Management</h1>
 
       {/* Product Form */}
-      <Suspense fallback={<div>Loading form...</div>}>
-        <AddProductForm />
-      </Suspense>
 
       {/* Product List */}
       <Suspense fallback={<div>Loading products...</div>}>

@@ -17,13 +17,33 @@ export default async function handler(
 ) {
   if (req.method === "POST") {
     try {
-      const { name } = req.body;
+      const {
+        name,
+        image,
+        category,
+        sku,
+        stockQuantity,
+        unitSellingPrice,
+        unitCostPrice,
+        lowStockThreshold,
+        barcode,
+      } = req.body;
 
       // Connect to the database
       await connectToDatabase();
 
       // Create the new product
-      const newProduct = new Product({ name });
+      const newProduct = new Product({
+        name,
+        image,
+        category,
+        sku,
+        stockQuantity,
+        unitSellingPrice,
+        unitCostPrice,
+        lowStockThreshold,
+        barcode,
+      });
       await newProduct.save();
 
       // Send POST request to external Socket.IO server to emit event
