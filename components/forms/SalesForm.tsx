@@ -76,8 +76,8 @@ const SalesForm = () => {
 
       container.style.display = "block";
 
-      const containerWidth = Math.max(300, container.clientWidth);
-      const containerHeight = Math.max(300, container.clientHeight);
+      const containerWidth = container?.offsetWidth || 300;
+      const containerHeight = container?.offsetHeight || 300;
 
       const html5QrcodeInstance = new Html5Qrcode(scannerId);
 
