@@ -51,25 +51,33 @@ const SalesForm = () => {
 
     if (!scannerRef.current) {
       console.error("Scanner ref is null");
+      toast.error("Scanner not initialized. Please try again.");
       return;
     }
+
+    const html5QrcodeInstance = new Html5Qrcode(scannerRef.current.id);
+
     Html5Qrcode.getCameras()
       .then((devices) => {
         if (devices && devices.length) {
           const cameraId = devices[0].id;
-          html5QrcodeRef.current = new Html5Qrcode(scannerRef.current!.id);
+
+          html5QrcodeRef.current = html5QrcodeInstance;
 
           html5QrcodeRef.current
             .start(
               cameraId,
               { fps: 10, qrbox: 250 },
               onScanSuccess,
-              (errorMessage) => {
-                console.error("Scan Error:", errorMessage);
-                toast.error(
-                  "Failed to start scanner. Check camera permissions."
-                );
-              }
+              debounceErrorCallback(
+                (errorMessage) => {
+                  console.error("Scan Error:", errorMessage);
+                  toast.error(
+                    "Failed to start scanner. Check camera permissions."
+                  );
+                },
+                3000 // Prevents spam toasts every frame
+              )
             )
             .catch((err) => {
               console.error("Start Error:", err);
@@ -89,16 +97,31 @@ const SalesForm = () => {
 
   const stopScanner = () => {
     if (html5QrcodeRef.current) {
-      html5QrcodeRef.current.stop();
-      html5QrcodeRef.current.clear();
-      setIsScannerActive(false);
+      html5QrcodeRef.current.stop().then(() => {
+        html5QrcodeRef.current?.clear();
+        setIsScannerActive(false);
+      });
     }
   };
 
+  // Debounce function to limit repeated error messages
+  const debounceErrorCallback = (
+    callback: (msg: string) => void,
+    delay: number
+  ) => {
+    let timer: NodeJS.Timeout | null = null;
+    return (message: string) => {
+      if (timer) return; // Prevent duplicate calls
+      callback(message);
+      timer = setTimeout(() => {
+        timer = null;
+      }, delay);
+    };
+  };
+
   const onScanSuccess = (decodedText: string) => {
-    // Directly use the scanned barcode to search for product
     setQuery(decodedText);
-    stopScanner();
+    stopScanner(); // Stops scanner after a successful scan
   };
 
   // Add to existing component
