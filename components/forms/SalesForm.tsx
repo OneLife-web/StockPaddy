@@ -11,8 +11,6 @@ import toast from "react-hot-toast";
 import { ApiError, Product } from "@/types";
 import {
   Html5Qrcode,
-  QrcodeErrorCallback,
-  Html5QrcodeScannerState,
 } from "html5-qrcode";
 //.url("Please provide a valid image URL")
 
