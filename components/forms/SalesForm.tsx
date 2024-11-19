@@ -9,9 +9,7 @@ import { Loader2, ScanBarcode, Trash, X } from "lucide-react";
 import { useSideNav } from "@/contexts/SideNavContext";
 import toast from "react-hot-toast";
 import { ApiError, Product } from "@/types";
-import {
-  Html5Qrcode,
-} from "html5-qrcode";
+import { Html5Qrcode } from "html5-qrcode";
 //.url("Please provide a valid image URL")
 
 const FormSchema = z.object({
@@ -64,6 +62,9 @@ const SalesForm = () => {
         return;
       }
 
+      // Prefer back camera (last camera in the list)
+      const backCameraId = cameras[cameras.length - 1].id;
+
       if (!scannerRef.current) {
         toast.error("Scanner container not found");
         return;
@@ -73,7 +74,6 @@ const SalesForm = () => {
       const scannerId = "barcode-scanner-container";
       container.id = scannerId;
 
-      // Ensure container is visible
       container.style.display = "block";
 
       const containerWidth = Math.max(300, container.clientWidth);
@@ -89,14 +89,14 @@ const SalesForm = () => {
         },
       };
 
-      // Persistent scanning
+      // Disable verbose logging and error messages
       await html5QrcodeInstance.start(
-        cameras[0].id,
+        backCameraId,
         config,
         onScanSuccess,
-        (errorMessage) => {
-          // Log error but don't stop scanning
-          console.warn("Scan Warning:", errorMessage);
+        () => {
+          // Empty error callback to suppress console warnings
+          return;
         }
       );
 
@@ -127,7 +127,6 @@ const SalesForm = () => {
   const onScanSuccess = (decodedText: string) => {
     toast.success(`Scanned: ${decodedText}`);
     setQuery(decodedText);
-    // Optional: Add logic to handle multiple scans
   };
 
   // Add to existing component
