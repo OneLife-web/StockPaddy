@@ -8,6 +8,7 @@ import { MoveRight } from "lucide-react";
 import RecentSalesTable from "@/components/RecentSalesTable";
 import RecentActivities from "@/components/RecentActivities";
 import ProductModals from "@/components/Modals/ProductModals";
+import SalesModals from "@/components/Modals/SalesModal";
 
 const DashboardPage = () => {
   return (
@@ -69,6 +70,7 @@ const DashboardPage = () => {
       </section>
       <section>
         <ProductModals />
+        <SalesModals />
       </section>
     </main>
   );

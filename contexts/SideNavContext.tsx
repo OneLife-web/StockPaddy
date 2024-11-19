@@ -19,6 +19,9 @@ interface SideNavContextType {
   isProductModalOpen: boolean;
   openProductModal: () => void;
   closeProductModal: () => void;
+  isSalesModalOpen: boolean;
+  openSalesModal: () => void;
+  closeSalesModal: () => void;
 }
 
 // Create the context
@@ -29,14 +32,15 @@ export const SideNavProvider = ({ children }: { children: ReactNode }) => {
   const [isOpen, setIsOpen] = useState(true);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
   const [isProductModalOpen, setIsProductModalOpen] = useState(false);
+  const [isSalesModalOpen, setIsSalesModalOpen] = useState(false);
 
   useEffect(() => {
-    if (isProductModalOpen) {
+    if (isProductModalOpen || isSalesModalOpen) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
     }
-  }, [isProductModalOpen]);
+  }, [isProductModalOpen, isSalesModalOpen]);
 
   const openNav = () => setIsOpen(true);
   const closeNav = () => setIsOpen(false);
@@ -44,6 +48,8 @@ export const SideNavProvider = ({ children }: { children: ReactNode }) => {
   const closeMobileNav = () => setIsMobileOpen(false);
   const openProductModal = () => setIsProductModalOpen(true);
   const closeProductModal = () => setIsProductModalOpen(false);
+  const openSalesModal = () => setIsSalesModalOpen(true);
+  const closeSalesModal = () => setIsSalesModalOpen(false);
 
   return (
     <SideNavContext.Provider
@@ -57,6 +63,9 @@ export const SideNavProvider = ({ children }: { children: ReactNode }) => {
         isProductModalOpen,
         openProductModal,
         closeProductModal,
+        isSalesModalOpen,
+        openSalesModal,
+        closeSalesModal,
       }}
     >
       {children}

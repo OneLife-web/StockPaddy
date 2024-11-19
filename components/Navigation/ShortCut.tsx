@@ -6,7 +6,7 @@ import { useState } from "react";
 
 const ShortCut = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { openProductModal } = useSideNav();
+  const { openProductModal, openSalesModal } = useSideNav();
   return (
     <div className="fixed right-10 bottom-20">
       <button
@@ -37,7 +37,13 @@ const ShortCut = () => {
             >
               Add New Product
             </button>
-            <button className="border-b heading3 py-3 text-start px-2">
+            <button
+              onClick={() => {
+                setIsOpen(false);
+                openSalesModal();
+              }}
+              className="border-b heading3 py-3 text-start px-2"
+            >
               Add New Sale
             </button>
             <Link href="/pos" className="heading3 py-3 text-start px-2">

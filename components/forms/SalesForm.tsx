@@ -43,8 +43,8 @@ const FormSchema = z.object({
     .max(50, "Product Barcode must be less than 50 characters"),
 });
 
-const NewProductForm = () => {
-  const { closeProductModal } = useSideNav();
+const SalesForm = () => {
+  const { closeSalesModal } = useSideNav();
   const [loading, setLoading] = useState(false);
   // const [error, setError] = useState("");
   const form = useForm<z.infer<typeof FormSchema>>({
@@ -74,7 +74,7 @@ const NewProductForm = () => {
       });
       if (!response.ok) throw new Error("Failed to create product");
       setLoading(false);
-      closeProductModal();
+      closeSalesModal();
       toast.success("Product Added");
       // SWR will automatically update when socket emits 'productCreated'
     } catch (error) {
@@ -182,4 +182,4 @@ const NewProductForm = () => {
   );
 };
 
-export default NewProductForm;
+export default SalesForm;
