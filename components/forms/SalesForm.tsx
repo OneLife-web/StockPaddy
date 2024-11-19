@@ -128,6 +128,7 @@ const SalesForm = () => {
 
   const onScanSuccess = (decodedText: string) => {
     toast.success(`Scanned: ${decodedText}`);
+    setQuery(decodedText);
     // Optional: Add logic to handle multiple scans
   };
 
@@ -275,9 +276,9 @@ const SalesForm = () => {
                   className="absolute top-[50%] translate-y-[-50%] right-4 bg-white rounded-full p-1 myShadow"
                 >
                   {isScannerActive ? (
-                    <X />
+                    <X strokeWidth={1.5} size={20} />
                   ) : (
-                    <ScanBarcode strokeWidth={1.5} size={18} />
+                    <ScanBarcode strokeWidth={1.5} size={20} />
                   )}
                 </button>
               </div>
