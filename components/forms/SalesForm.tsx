@@ -47,8 +47,12 @@ const SalesForm = () => {
   const html5QrcodeRef = useRef<Html5Qrcode | null>(null);
 
   const startScanner = () => {
-    if (!scannerRef.current) return;
+    console.log("Starting scanner...");
 
+    if (!scannerRef.current) {
+      console.error("Scanner ref is null");
+      return;
+    }
     Html5Qrcode.getCameras()
       .then((devices) => {
         if (devices && devices.length) {
@@ -247,13 +251,13 @@ const SalesForm = () => {
                   )}
                 </button>
               </div>
-              {isScannerActive && (
-                <div
-                  id="scanner-container"
-                  ref={scannerRef}
-                  className="w-full h-[300px] mt-4"
-                />
-              )}
+              <div
+                id="scanner-container"
+                ref={scannerRef}
+                className={`w-full h-[300px] mt-4 ${
+                  isScannerActive ? "block" : "hidden"
+                }`}
+              />
               <div>
                 <h2>Results:</h2>
                 <ul>
