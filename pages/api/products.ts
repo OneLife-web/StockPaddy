@@ -71,9 +71,11 @@ export default async function handler(
     } catch (error) {
       if (error instanceof MongoServerError && error.code === 11000) {
         // Handle duplicate key error
-        const duplicateKey = error.keyValue.sku; // Extract duplicate field
+        const duplicateField = Object.keys(error.keyValue)[0]; // Extract the field name causing the conflict
+        const duplicateValue = error.keyValue[duplicateField]; // Extract the duplicate value
+
         return res.status(400).json({
-          error: `Duplicate key error: The SKU "${duplicateKey}" already exists.`,
+          error: `Duplicate key error: The ${duplicateField} "${duplicateValue}" already exists.`,
         });
       }
 
