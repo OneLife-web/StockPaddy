@@ -87,7 +87,7 @@ const SalesForm = () => {
 
       const config = {
         fps: 10,
-        qrbox: { width: 300, height: 400 },
+        qrbox: { width: 300, height: 300 },
       };
 
       // Disable verbose logging and error messages
