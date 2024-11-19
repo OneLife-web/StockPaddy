@@ -9,7 +9,11 @@ import { Loader2, ScanBarcode, Trash, X } from "lucide-react";
 import { useSideNav } from "@/contexts/SideNavContext";
 import toast from "react-hot-toast";
 import { ApiError, Product } from "@/types";
-import { Html5Qrcode } from "html5-qrcode";
+import {
+  Html5Qrcode,
+  QrcodeErrorCallback,
+  Html5QrcodeScannerState,
+} from "html5-qrcode";
 //.url("Please provide a valid image URL")
 
 const FormSchema = z.object({
@@ -46,82 +50,85 @@ const SalesForm = () => {
   const scannerRef = useRef<HTMLDivElement>(null);
   const html5QrcodeRef = useRef<Html5Qrcode | null>(null);
 
-  const startScanner = () => {
-    console.log("Starting scanner...");
+  useEffect(() => {
+    return () => {
+      if (html5QrcodeRef.current) {
+        html5QrcodeRef.current.clear();
+      }
+    };
+  }, []);
 
-    if (!scannerRef.current) {
-      console.error("Scanner ref is null");
-      toast.error("Scanner not initialized. Please try again.");
-      return;
-    }
+  const startScanner = async () => {
+    try {
+      const cameras = await Html5Qrcode.getCameras();
+      if (!cameras || cameras.length === 0) {
+        toast.error("No cameras found");
+        return;
+      }
 
-    const html5QrcodeInstance = new Html5Qrcode(scannerRef.current.id);
+      if (!scannerRef.current) {
+        toast.error("Scanner container not found");
+        return;
+      }
 
-    Html5Qrcode.getCameras()
-      .then((devices) => {
-        if (devices && devices.length) {
-          const cameraId = devices[0].id;
+      const container = scannerRef.current;
+      const scannerId = "barcode-scanner-container";
+      container.id = scannerId;
 
-          html5QrcodeRef.current = html5QrcodeInstance;
+      // Ensure container is visible
+      container.style.display = "block";
 
-          html5QrcodeRef.current
-            .start(
-              cameraId,
-              { fps: 10, qrbox: 250 },
-              onScanSuccess,
-              debounceErrorCallback(
-                (errorMessage) => {
-                  console.error("Scan Error:", errorMessage);
-                  toast.error(
-                    "Failed to start scanner. Check camera permissions."
-                  );
-                },
-                3000 // Prevents spam toasts every frame
-              )
-            )
-            .catch((err) => {
-              console.error("Start Error:", err);
-              toast.error("Could not access camera. Please check permissions.");
-            });
+      const containerWidth = Math.max(300, container.clientWidth);
+      const containerHeight = Math.max(300, container.clientHeight);
 
-          setIsScannerActive(true);
-        } else {
-          toast.error("No cameras found");
+      const html5QrcodeInstance = new Html5Qrcode(scannerId);
+
+      const config = {
+        fps: 10,
+        qrbox: {
+          width: Math.min(250, containerWidth - 50),
+          height: Math.min(250, containerHeight - 50),
+        },
+      };
+
+      // Persistent scanning
+      await html5QrcodeInstance.start(
+        cameras[0].id,
+        config,
+        onScanSuccess,
+        (errorMessage) => {
+          // Log error but don't stop scanning
+          console.warn("Scan Warning:", errorMessage);
         }
-      })
-      .catch((err) => {
-        console.error("Camera Error:", err);
-        toast.error("Failed to access cameras");
-      });
+      );
+
+      html5QrcodeRef.current = html5QrcodeInstance;
+      setIsScannerActive(true);
+    } catch (err) {
+      console.error("Scanner Start Error:", err);
+      toast.error("Could not start scanner");
+    }
   };
 
   const stopScanner = () => {
-    if (html5QrcodeRef.current) {
-      html5QrcodeRef.current.stop().then(() => {
-        html5QrcodeRef.current?.clear();
-        setIsScannerActive(false);
-      });
+    try {
+      if (html5QrcodeRef.current) {
+        html5QrcodeRef.current
+          .stop()
+          .then(() => {
+            html5QrcodeRef.current?.clear();
+            setIsScannerActive(false);
+          })
+          .catch(console.error);
+      }
+    } catch (err) {
+      console.error("Stop Scanner Error:", err);
     }
   };
 
-  // Debounce function to limit repeated error messages
-  const debounceErrorCallback = (
-    callback: (msg: string) => void,
-    delay: number
-  ) => {
-    let timer: NodeJS.Timeout | null = null;
-    return (message: string) => {
-      if (timer) return; // Prevent duplicate calls
-      callback(message);
-      timer = setTimeout(() => {
-        timer = null;
-      }, delay);
-    };
-  };
-
   const onScanSuccess = (decodedText: string) => {
-    setQuery(decodedText);
-    stopScanner(); // Stops scanner after a successful scan
+    toast.success(`Scanned: ${decodedText}`);
+    // Optional: Add logic to handle multiple scans
   };
 
   // Add to existing component
@@ -275,7 +282,6 @@ const SalesForm = () => {
                 </button>
               </div>
               <div
-                id="scanner-container"
                 ref={scannerRef}
                 className={`w-full h-[300px] mt-4 ${
                   isScannerActive ? "block" : "hidden"
