@@ -7,7 +7,7 @@ export interface ApiError {
 export interface InputProps {
   label?: string;
   placeholder?: string;
-  value: string;
+  value?: string;
   onChange: (value: string | number) => void;
   type?: string;
   className?: string;

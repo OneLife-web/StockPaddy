@@ -87,9 +87,22 @@ export default async function handler(
     try {
       // Connect to the database
       await connectToDatabase();
+      const { query } = req.query;
 
-      // Fetch all products
-      const products = await Product.find({});
+      // Build the search criteria
+      let filter = {};
+      if (query) {
+        filter = {
+          $or: [
+            { name: { $regex: query, $options: "i" } }, // Case-insensitive search for name
+            { sku: { $regex: query, $options: "i" } },
+            { barcode: { $regex: query, $options: "i" } }, // Add barcode search
+          ],
+        };
+      }
+
+      // Fetch matching products
+      const products = await Product.find(filter);
 
       return res.status(200).json({ products });
     } catch (error) {

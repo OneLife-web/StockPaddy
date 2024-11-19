@@ -4,64 +4,121 @@ import { z } from "zod";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import FormFieldComponent from "../FormField";
-import { useState } from "react";
-import { Loader2 } from "lucide-react";
+import React, { useCallback, useEffect, useState } from "react";
+import { Loader2, ScanBarcode, Trash } from "lucide-react";
 import { useSideNav } from "@/contexts/SideNavContext";
 import toast from "react-hot-toast";
-import { ApiError } from "@/types";
+import { ApiError, MyProduct, Product } from "@/types";
 //.url("Please provide a valid image URL")
 
 const FormSchema = z.object({
-  name: z
-    .string()
-    .min(1, "Product Name is required")
-    .max(100, "Product Name must be less than 100 characters"),
-  image: z.string().optional(),
-  category: z.string().min(1, "Product Category is required"),
-  sku: z
-    .string()
-    .min(1, "SKU is required")
-    .max(50, "SKU must be less than 50 characters"),
-  stockQuantity: z
-    .number()
-    .int()
-    .min(0, "Stock Quantity cannot be negative")
-    .optional(),
-  unitSellingPrice: z
-    .number()
-    .min(0, "Unit Selling Price must be zero or greater"),
-  unitCostPrice: z
-    .number()
-    .min(0, "Product Cost Price must be zero or greater"),
-  lowStockThreshold: z
-    .number()
-    .int()
-    .min(0, "Reorder Threshold cannot be negative")
-    .optional(),
-  barcode: z
-    .string()
-    .min(1, "Product Barcode is required")
-    .max(50, "Product Barcode must be less than 50 characters"),
+  date: z.date(),
+  products: z.array(
+    z.object({
+      code: z.string(),
+      name: z.string(),
+      quantity: z.number().min(1),
+      unitCost: z.number().min(0),
+      discount: z.number().min(0).optional(),
+    })
+  ),
 });
 
 const SalesForm = () => {
   const { closeSalesModal } = useSideNav();
   const [loading, setLoading] = useState(false);
+  const [query, setQuery] = useState("");
+  const [results, setResults] = useState<Product[] | []>([]);
+
+  // Debounce state for tracking input delay
+  const [debouncedQuery, setDebouncedQuery] = useState("");
   // const [error, setError] = useState("");
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      name: "",
-      image: "",
-      category: "",
-      sku: "",
-      stockQuantity: 0,
-      unitSellingPrice: 0,
-      unitCostPrice: 0,
-      lowStockThreshold: 0,
-      barcode: "",
+      date: new Date(),
+      products: [],
     },
   });
+
+  // Add to existing component
+  const addProductToForm = (product: Product) => {
+    const currentProducts = form.getValues("products");
+
+    // Check if product already exists to prevent duplicates
+    const existingProductIndex = currentProducts.findIndex(
+      (p) => p.code === product.sku
+    );
+
+    if (existingProductIndex !== -1) {
+      toast.error("Product already added");
+      return;
+    }
+
+    form.setValue("products", [
+      ...currentProducts,
+      {
+        code: product.sku,
+        name: product.name,
+        quantity: 1, // Default quantity
+        unitCost: product.unitCostPrice,
+        discount: 0,
+      },
+    ]);
+
+    // Clear search after adding
+    setQuery("");
+    setResults([]);
+  };
+
+  const removeProduct = (index: number) => {
+    const products = form.getValues("products");
+    products.splice(index, 1);
+    form.setValue("products", products);
+  };
+
+  const updateQuantity = (index: number, value: number) => {
+    const products = form.getValues("products");
+    products[index].quantity = value;
+    form.setValue("products", products);
+  };
+
+  // Debounce effect to update `debouncedQuery` after a delay
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedQuery(query);
+    }, 500); // Adjust the delay (in ms) as needed
+
+    return () => clearTimeout(handler); // Cleanup timeout on component unmount or query change
+  }, [query]);
+
+  // Fetch products based on the debounced query
+  const fetchProducts = useCallback(async (searchQuery: string) => {
+    if (!searchQuery) {
+      toast.error("Please enter a search term.");
+      return;
+    }
+
+    try {
+      const response = await fetch(`/api/products?query=${searchQuery}`);
+      const data = await response.json();
+
+      if (response.ok) {
+        setResults(data.products); // Update state with the fetched results
+      } else {
+        console.error(data.error || "Error fetching products");
+      }
+    } catch (error) {
+      console.error("An error occurred:", error);
+    }
+  }, []);
+
+  // Effect to trigger product fetching when `debouncedQuery` changes
+  useEffect(() => {
+    if (debouncedQuery) {
+      fetchProducts(debouncedQuery);
+    }
+  }, [debouncedQuery, fetchProducts]);
 
   async function onSubmit(formData: z.infer<typeof FormSchema>) {
     setLoading(true);
@@ -109,85 +166,79 @@ const SalesForm = () => {
           <div className="space-y-8">
             <FormFieldComponent
               form={form}
-              name="name"
-              label="Product Name"
-              placeholder="Enter product name"
+              name="date"
+              label="Date"
               formType="calendar"
             />
-            <FormFieldComponent
-              form={form}
-              name="image"
-              label="Product Image"
-              placeholder="Select Product Image"
-              className="bg-gray-100 placeholder:text-sm placeholder:text-text-2"
-              formType="image"
-            />
-            <div className="grid grid-cols-2 gap-3">
-              <FormFieldComponent
-                form={form}
-                name="category"
-                label="Product Category"
-                placeholder="Select Category"
-                className="bg-gray-100 placeholder:text-sm placeholder:text-text-2"
-                formType="select"
-              />
-              <FormFieldComponent
-                form={form}
-                name="sku"
-                label="SKU"
-                placeholder="Enter SKU"
-                className="bg-gray-100 placeholder:text-sm placeholder:text-text-2"
-              />
+            <div className="grid gap-2 lg:text-sm">
+              <label className="font-clashmd">Barcode / Search Product</label>
+              <div className="relative">
+                <input
+                  value={query}
+                  onChange={(e) => setQuery(e.target.value)}
+                  placeholder="Scan or search product by code or name"
+                  className="rounded-lg w-full bg-gray-100 focus:ring-1 ring-orange-400 h-[48px] px-4 text-base focus:outline-none placeholder:text-sm"
+                />
+                <button
+                  type="button"
+                  className="absolute top-[50%] translate-y-[-50%] right-4 bg-white rounded-full p-1 myShadow"
+                >
+                  <ScanBarcode strokeWidth={1.5} size={18} />
+                </button>
+              </div>
+              <div>
+                <h2>Results:</h2>
+                <ul>
+                  {results.length > 0
+                    ? results.map((product) => (
+                        <li
+                          key={product._id}
+                          className="flex justify-between items-center p-2 hover:bg-gray-100 cursor-pointer"
+                          onClick={() => addProductToForm(product)}
+                        >
+                          {product.name} - {product.sku}
+                          <button type="button" className="text-green-500">
+                            + Add
+                          </button>
+                        </li>
+                      ))
+                    : query && (
+                        <li className="text-gray-500">No products found</li>
+                      )}
+                </ul>
+              </div>
             </div>
-            <div className="grid grid-cols-2 gap-3">
-              <FormFieldComponent
-                form={form}
-                name="stockQuantity"
-                label="Stock Quantity"
-                placeholder="Enter Stock Quantity"
-                className="bg-gray-100 placeholder:text-sm placeholder:text-text-2"
-                type="number"
-              />
-              <FormFieldComponent
-                form={form}
-                name="lowStockThreshold"
-                label="Low Stock Threshold"
-                placeholder="Enter Low Stock Threshold"
-                className="bg-gray-100 placeholder:text-sm placeholder:text-text-2"
-                type="number"
-              />
+            {/* Product List */}
+            <div className="mt-4 space-y-2">
+              {form.getValues("products").map((product, index) => (
+                <div
+                  key={product.code}
+                  className="flex items-center gap-2 border p-2 rounded"
+                >
+                  <span className="flex-1">{product.name}</span>
+                  <input
+                    type="number"
+                    value={product.quantity}
+                    onChange={(e) =>
+                      updateQuantity(index, parseInt(e.target.value, 10) || 1)
+                    }
+                  />
+                  <button
+                    type="button"
+                    className="text-red-500"
+                    onClick={() => removeProduct(index)}
+                  >
+                    <Trash />
+                  </button>
+                </div>
+              ))}
             </div>
-            <div className="grid grid-cols-2 gap-3">
-              <FormFieldComponent
-                form={form}
-                name="unitSellingPrice"
-                label="Unit Seling Price"
-                placeholder="Enter Unit Selling Price"
-                className="bg-gray-100 placeholder:text-sm placeholder:text-text-2"
-                type="number"
-              />
-              <FormFieldComponent
-                form={form}
-                name="unitCostPrice"
-                label="Unit Cost Price"
-                placeholder="Enter Unit Cost Price"
-                className="bg-gray-100 placeholder:text-sm placeholder:text-text-2"
-                type="number"
-              />
-            </div>
-            <FormFieldComponent
-              form={form}
-              name="barcode"
-              label="Product Barcode"
-              placeholder="Enter Product Barcode"
-              className="bg-gray-100 placeholder:text-sm placeholder:text-text-2"
-            />
             <button
               className="btn1 h-[48px] myFlex disabled:cursor-not-allowed"
               disabled={loading}
               type="submit"
             >
-              {loading ? <Loader2 className="animate-spin" /> : "Add Product"}
+              {loading ? <Loader2 className="animate-spin" /> : "Add Sale"}
             </button>
           </div>
         </form>
