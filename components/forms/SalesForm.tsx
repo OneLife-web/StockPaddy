@@ -49,12 +49,19 @@ const SalesForm = () => {
   useEffect(() => {
     return () => {
       if (html5QrcodeRef.current) {
-        html5QrcodeRef.current.clear();
+        html5QrcodeRef.current
+          .stop()
+          .then(() => html5QrcodeRef.current?.clear())
+          .catch(console.error);
       }
     };
   }, []);
 
   const startScanner = async () => {
+    if (isScannerActive) {
+      toast.error("Scanner is already running");
+      return;
+    }
     try {
       const cameras = await Html5Qrcode.getCameras();
       if (!cameras || cameras.length === 0) {
@@ -80,7 +87,7 @@ const SalesForm = () => {
 
       const config = {
         fps: 10,
-        qrbox: { width: 300, height: 300 },
+        qrbox: { width: 300, height: 400 },
       };
 
       // Disable verbose logging and error messages
@@ -102,19 +109,19 @@ const SalesForm = () => {
     }
   };
 
-  const stopScanner = () => {
+  const stopScanner = async () => {
     try {
       if (html5QrcodeRef.current) {
-        html5QrcodeRef.current
-          .stop()
-          .then(() => {
-            html5QrcodeRef.current?.clear();
-            setIsScannerActive(false);
-          })
-          .catch(console.error);
+        // Stop the scanner
+        await html5QrcodeRef.current.stop();
+        // Clear the scanner after stopping
+        await html5QrcodeRef.current.clear();
+        html5QrcodeRef.current = null; // Reset the instance
+        setIsScannerActive(false);
       }
     } catch (err) {
       console.error("Stop Scanner Error:", err);
+      toast.error("Failed to stop scanner.");
     }
   };
 
@@ -275,7 +282,7 @@ const SalesForm = () => {
               </div>
               <div
                 ref={scannerRef}
-                className={`w-full h-[300px] mt-4 ${
+                className={`w-full mt-4 ${
                   isScannerActive ? "block" : "hidden"
                 }`}
               />
