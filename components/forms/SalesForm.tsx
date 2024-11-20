@@ -138,18 +138,23 @@ const SalesForm = () => {
 
   const onScanSuccess = async (decodedText: string) => {
     try {
+      if (!decodedText) {
+        toast.error("Invalid barcode or QR code scanned.");
+        return;
+      }
+
       toast.success(`Scanned: ${decodedText}`);
 
       // Fetch product based on the scanned code
       const response = await fetch(`/api/products?query=${decodedText}`);
       const data = await response.json();
 
-      if (response.ok && data.products) {
-        // Automatically add product to the form
-        addProductToForm(data.products);
+      if (response.ok && data.products && data.products.length > 0) {
+        // Automatically add the first matched product
+        addProductToForm(data.products[0]);
 
         // Optionally, trigger quantity adjustment popup
-        promptQuantityUpdate(data.product);
+        promptQuantityUpdate(data.products[0]);
       } else {
         toast.error("Product not found.");
       }

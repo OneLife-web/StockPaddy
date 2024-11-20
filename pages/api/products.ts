@@ -66,7 +66,7 @@ export default async function handler(
 
       // Return success response
       return res
-        .status(201)
+        .status(200)
         .json({ message: "Product created", product: newProduct });
     } catch (error) {
       if (error instanceof MongoServerError && error.code === 11000) {
@@ -103,6 +103,9 @@ export default async function handler(
 
       // Fetch matching products
       const products = await Product.find(filter);
+      if (!products.length) {
+        return res.status(404).json({ error: "No products found." });
+      }
 
       return res.status(200).json({ products });
     } catch (error) {
