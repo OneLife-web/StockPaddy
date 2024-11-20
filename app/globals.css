@@ -167,6 +167,10 @@
     @apply text-text-2;
   }
 
+  input {
+    @apply focus:outline-none focus:ring-1 focus:ring-orange-400  placeholder:text-sm;
+  }
+
   input:-webkit-autofill {
     -webkit-box-shadow: 0 0 0 1000px transparent inset !important;
     box-shadow: 0 0 0 1000px transparent inset !important;

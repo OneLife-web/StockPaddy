@@ -26,7 +26,7 @@ const Input = forwardRef<HTMLInputElement, InputProps>(
               onChange(newValue);
             }}
             placeholder={placeholder}
-            className={`rounded-lg w-full focus:ring-1 ring-orange-400 h-[48px] px-4 text-base focus:outline-none placeholder:text-sm ${className}`}
+            className={`rounded-lg w-full h-[48px] px-4 text-base ${className}`}
           />
           {type === "password" && (
             <div
