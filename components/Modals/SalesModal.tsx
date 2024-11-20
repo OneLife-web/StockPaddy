@@ -3,7 +3,7 @@ import Papa from "papaparse";
 import { useSideNav } from "@/contexts/SideNavContext";
 import { Loader, Upload, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
-import { MyProduct } from "@/types";
+import { Product } from "@/types";
 import Modal1 from "./Modal1";
 import toast from "react-hot-toast";
 import SalesForm from "../forms/SalesForm";
@@ -13,7 +13,7 @@ const SalesModals = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isCSV, setIsCSV] = useState(false);
-  const [csvData, setCsvData] = useState<MyProduct[] | null>(null);
+  const [csvData, setCsvData] = useState<Product[] | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
   const handleButtonClick = () => {
@@ -41,7 +41,7 @@ const SalesModals = () => {
       Papa.parse(file, {
         header: true, // Map headers to keys
         skipEmptyLines: true,
-        complete: (results: Papa.ParseResult<MyProduct>) => {
+        complete: (results: Papa.ParseResult<Product>) => {
           // Use a proper type here
           setCsvData(results.data);
           setIsCSV(true);
