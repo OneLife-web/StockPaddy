@@ -322,7 +322,7 @@ const SalesForm = () => {
               </div>
             </div>
             {/* Product List */}
-            <div className="mt-4 space-y-2">
+            <div className="mt-4 space-y-2 bg-gray-100">
               {form.getValues("products").map((product, index) => (
                 <div
                   key={product.code}
