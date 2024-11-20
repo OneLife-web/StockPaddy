@@ -136,9 +136,45 @@ const SalesForm = () => {
     }
   };
 
-  const onScanSuccess = (decodedText: string) => {
-    toast.success(`Scanned: ${decodedText}`);
-    setQuery(decodedText);
+  const onScanSuccess = async (decodedText: string) => {
+    try {
+      toast.success(`Scanned: ${decodedText}`);
+
+      // Fetch product based on the scanned code
+      const response = await fetch(`/api/products?query=${decodedText}`);
+      const data = await response.json();
+
+      if (response.ok && data.product) {
+        // Automatically add product to the form
+        addProductToForm(data.product);
+
+        // Optionally, trigger quantity adjustment popup
+        promptQuantityUpdate(data.product);
+      } else {
+        toast.error("Product not found.");
+      }
+    } catch (error) {
+      console.error("Error fetching scanned product:", error);
+      toast.error("Failed to process the scanned product.");
+    }
+  };
+
+  const promptQuantityUpdate = (product: Product) => {
+    // Example: Open a modal for quantity input
+    const quantity = window.prompt(
+      `Enter quantity for ${product.name}:`,
+      "1" // Default quantity
+    );
+
+    if (quantity) {
+      const index = form
+        .getValues("products")
+        .findIndex((p) => p.id === product._id);
+
+      if (index !== -1) {
+        updateQuantity(index, parseInt(quantity, 10) || 1);
+      }
+    }
   };
 
   // Add to existing component
