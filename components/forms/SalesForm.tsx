@@ -294,7 +294,7 @@ const SalesForm = () => {
                   <div className="myFlex flex-col gap-1 h-full text-text-1 max-md:text-sm">
                     <Loader className="animate-spin" /> searching...
                   </div>
-                ) : results && results.length > 0 ? (
+                ) : results.length > 0 ? (
                   <div className="pt-3 max-h-[350px] overflow-y-scroll no-scrollbar">
                     <h2 className="font-clashmd">Search Results:</h2>
                     <ul>
@@ -322,29 +322,32 @@ const SalesForm = () => {
               </div>
             </div>
             {/* Product List */}
-            <div className="mt-4 space-y-2 bg-gray-100">
-              {form.getValues("products").map((product, index) => (
-                <div
-                  key={product.code}
-                  className="flex items-center gap-2 border p-2 rounded"
-                >
-                  <span className="flex-1">{product.name}</span>
-                  <input
-                    type="number"
-                    value={product.quantity}
-                    onChange={(e) =>
-                      updateQuantity(index, parseInt(e.target.value, 10) || 1)
-                    }
-                  />
-                  <button
-                    type="button"
-                    className="text-red-500"
-                    onClick={() => removeProduct(index)}
+            <div className="grid gap-2 lg:text-sm">
+              <label className="font-clashmd">Selected Products</label>
+              <div>
+                {form.getValues("products").map((product, index) => (
+                  <div
+                    key={product.code}
+                    className="flex items-center gap-2 border p-2 rounded"
                   >
-                    <Trash />
-                  </button>
-                </div>
-              ))}
+                    <span className="flex-1">{product.name}</span>
+                    <input
+                      type="number"
+                      value={product.quantity}
+                      onChange={(e) =>
+                        updateQuantity(index, parseInt(e.target.value, 10) || 1)
+                      }
+                    />
+                    <button
+                      type="button"
+                      className="text-red-500"
+                      onClick={() => removeProduct(index)}
+                    >
+                      <Trash />
+                    </button>
+                  </div>
+                ))}
+              </div>
             </div>
             <button
               className="btn1 h-[48px] myFlex disabled:cursor-not-allowed"
