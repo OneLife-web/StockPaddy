@@ -144,9 +144,9 @@ const SalesForm = () => {
       const response = await fetch(`/api/products?query=${decodedText}`);
       const data = await response.json();
 
-      if (response.ok && data.product) {
+      if (response.ok && data.products) {
         // Automatically add product to the form
-        addProductToForm(data.product);
+        addProductToForm(data.products);
 
         // Optionally, trigger quantity adjustment popup
         promptQuantityUpdate(data.product);
