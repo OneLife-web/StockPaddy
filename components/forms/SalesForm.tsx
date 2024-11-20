@@ -289,13 +289,13 @@ const SalesForm = () => {
                 }`}
               />
               {/**Search Result */}
-              <div className={`${!query ? "hidden" : "block"}`}>
+              <div className={`${!query ? "hidden" : "block min-h-[100px]"}`}>
                 {searchLoading ? (
-                  <div className="min-h-[150px] myFlex flex-col gap-1">
+                  <div className="myFlex flex-col gap-1 h-full text-text-3 font-clashmd max-md:text-sm">
                     <Loader className="animate-spin" /> searching...
                   </div>
                 ) : results && results.length > 0 ? (
-                  <div className="min-h-[150px] pt-3">
+                  <div className="pt-3 max-h-[350px] overflow-y-scroll no-scrollbar">
                     <h2 className="font-clashmd">Search Results:</h2>
                     <ul>
                       {results.map((product) => (
@@ -313,8 +313,8 @@ const SalesForm = () => {
                     </ul>
                   </div>
                 ) : (
-                  <div className="min-h-[150px] pt-3 myFlex">
-                    <p className="text-text-3 font-clashmd">
+                  <div className="pt-3 myFlex h-full">
+                    <p className="text-text-3 font-clashmd max-md:text-sm">
                       No products found
                     </p>
                   </div>
