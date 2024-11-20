@@ -5,8 +5,12 @@ import React from "react";
 
 export function SalesProductListTable({
   products,
+  deleteFunc,
+  qtyUpdateFunc,
 }: {
   products: SingleProduct[];
+  deleteFunc: (index: number) => void;
+  qtyUpdateFunc: (index: number, newQty: number) => void;
 }) {
   return (
     <div className="overflow-auto">
@@ -36,7 +40,16 @@ export function SalesProductListTable({
               >
                 <td className="px-4 py-3">{item.name}</td>
                 <td className="px-4 py-3">{item.sku}</td>
-                <td className="px-4 py-3">{item.quantity}</td>
+                <td className="px-4 py-3">
+                  <input
+                    type="number"
+                    defaultValue={item.quantity}
+                    onChange={(e) =>
+                      qtyUpdateFunc(index, Number(e.target.value))
+                    }
+                    className="w-14 rounded-md border text-center py-1"
+                  />
+                </td>
                 {/* Updated */}
                 <td className="px-4 py-3">{item.unitCost}</td>
                 <td className="px-4 py-3 text-center">
@@ -57,7 +70,11 @@ export function SalesProductListTable({
                 <td className="px-4 py-3">{item.discount}</td>
                 <td className="px-4 py-3">subtotal</td>
                 <td className="px-4 py-3">
-                  <Trash2 strokeWidth={1.5} size={18} />
+                  <Trash2
+                    onClick={() => deleteFunc(index)}
+                    strokeWidth={1.5}
+                    size={18}
+                  />
                 </td>
               </tr>
             </React.Fragment>

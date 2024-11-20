@@ -37,13 +37,13 @@ const SalesForm = () => {
   const [loading, setLoading] = useState(false);
   const [searchLoading, setSearchLoading] = useState(false);
   const [query, setQuery] = useState("");
+  const [debouncedQuery, setDebouncedQuery] = useState("");
+  // const [error, setError] = useState("");
   const [results, setResults] = useState<Product[] | []>([]);
   const [isScannerActive, setIsScannerActive] = useState(false);
   const scannerRef = useRef<HTMLDivElement>(null);
   const html5QrcodeRef = useRef<Html5Qrcode | null>(null);
-  // Debounce state for tracking input delay
-  const [debouncedQuery, setDebouncedQuery] = useState("");
-  // const [error, setError] = useState("");
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -54,9 +54,9 @@ const SalesForm = () => {
 
   const products: SingleProduct[] = form.getValues("products");
 
- /*  const handleInputChange = (index: number, value: number) => {
+  const handleInputChange = (index: number, value: number) => {
     updateQuantity(index, value || 1);
-  }; */
+  };
 
   useEffect(() => {
     return () => {
@@ -174,7 +174,7 @@ const SalesForm = () => {
     setQuery("");
     setResults([]);
   };
-/* 
+
   const removeProduct = (index: number) => {
     const products = form.getValues("products");
     products.splice(index, 1);
@@ -185,7 +185,7 @@ const SalesForm = () => {
     const products = form.getValues("products");
     products[index].quantity = value;
     form.setValue("products", products);
-  }; */
+  };
 
   // Debounce effect to update `debouncedQuery` after a delay
   useEffect(() => {
@@ -338,10 +338,17 @@ const SalesForm = () => {
               </div>
             </div>
             {/* Product List */}
-            <div className="grid gap-2 lg:text-sm">
-              <label className="font-clashmd">Selected Products</label>
-              <SalesProductListTable products={products} />
-            </div>
+            {products.length > 0 && (
+              <div className="grid gap-2 lg:text-sm">
+                <label className="font-clashmd">Selected Products</label>
+                <SalesProductListTable
+                  products={products}
+                  deleteFunc={removeProduct}
+                  qtyUpdateFunc={handleInputChange}
+                />
+              </div>
+            )}
+            {/**Submit button */}
             <button
               className="btn1 h-[48px] myFlex disabled:cursor-not-allowed"
               disabled={loading}
