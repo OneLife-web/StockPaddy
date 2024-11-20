@@ -289,9 +289,9 @@ const SalesForm = () => {
                 }`}
               />
               {/**Search Result */}
-              <div className={`${!query ? "hidden" : "block min-h-[100px]"}`}>
+              <div className={`${!query ? "hidden" : "block min-h-[120px]"}`}>
                 {searchLoading ? (
-                  <div className="myFlex flex-col gap-1 h-full text-text-3 font-clashmd max-md:text-sm">
+                  <div className="myFlex flex-col gap-1 h-full text-text-1 max-md:text-sm">
                     <Loader className="animate-spin" /> searching...
                   </div>
                 ) : results && results.length > 0 ? (
@@ -314,7 +314,7 @@ const SalesForm = () => {
                   </div>
                 ) : (
                   <div className="pt-3 myFlex h-full">
-                    <p className="text-text-3 font-clashmd max-md:text-sm">
+                    <p className="text-text-1 max-md:text-sm">
                       No products found
                     </p>
                   </div>
