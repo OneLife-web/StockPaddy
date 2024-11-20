@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import FormFieldComponent from "../FormField";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Loader2, ScanBarcode, Trash, X } from "lucide-react";
+import { Loader, Loader2, ScanBarcode, Trash, X } from "lucide-react";
 import { useSideNav } from "@/contexts/SideNavContext";
 import toast from "react-hot-toast";
 import { ApiError, Product } from "@/types";
@@ -28,9 +28,12 @@ const FormSchema = z.object({
 const SalesForm = () => {
   const { closeSalesModal } = useSideNav();
   const [loading, setLoading] = useState(false);
+  const [searchLoading, setSearchLoading] = useState(false);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<Product[] | []>([]);
-
+  const [isScannerActive, setIsScannerActive] = useState(false);
+  const scannerRef = useRef<HTMLDivElement>(null);
+  const html5QrcodeRef = useRef<Html5Qrcode | null>(null);
   // Debounce state for tracking input delay
   const [debouncedQuery, setDebouncedQuery] = useState("");
   // const [error, setError] = useState("");
@@ -41,10 +44,6 @@ const SalesForm = () => {
       products: [],
     },
   });
-
-  const [isScannerActive, setIsScannerActive] = useState(false);
-  const scannerRef = useRef<HTMLDivElement>(null);
-  const html5QrcodeRef = useRef<Html5Qrcode | null>(null);
 
   useEffect(() => {
     return () => {
@@ -187,7 +186,7 @@ const SalesForm = () => {
       toast.error("Please enter a search term.");
       return;
     }
-
+    setSearchLoading(true);
     try {
       const response = await fetch(`/api/products?query=${searchQuery}`);
       const data = await response.json();
@@ -199,6 +198,8 @@ const SalesForm = () => {
       }
     } catch (error) {
       console.error("An error occurred:", error);
+    } finally {
+      setSearchLoading(false);
     }
   }, []);
 
@@ -280,17 +281,24 @@ const SalesForm = () => {
                   )}
                 </button>
               </div>
+              {/**Create scanenr modal */}
               <div
                 ref={scannerRef}
                 className={`w-full mt-4 ${
                   isScannerActive ? "block" : "hidden"
                 }`}
               />
-              <div>
-                <h2>Results:</h2>
-                <ul>
-                  {results.length > 0
-                    ? results.map((product) => (
+              {/**Search Result */}
+              <>
+                {searchLoading ? (
+                  <div className="min-h-[150px] flex flex-col items-center justify-center gap-1">
+                    <Loader className="animate-spin" /> searching...
+                  </div>
+                ) : results && results.length > 0 ? (
+                  <div className="min-h-[150px] pt-3">
+                    <h2 className="font-clashmd">Search Results:</h2>
+                    <ul>
+                      {results.map((product) => (
                         <li
                           key={product._id}
                           className="flex justify-between items-center p-2 hover:bg-gray-100 cursor-pointer"
@@ -301,12 +309,15 @@ const SalesForm = () => {
                             + Add
                           </button>
                         </li>
-                      ))
-                    : query && (
-                        <li className="text-gray-500">No products found</li>
-                      )}
-                </ul>
-              </div>
+                      ))}
+                    </ul>
+                  </div>
+                ) : (
+                  <div className="min-h-[150px]">
+                    <p className="text-gray-500">No products found</p>
+                  </div>
+                )}
+              </>
             </div>
             {/* Product List */}
             <div className="mt-4 space-y-2">

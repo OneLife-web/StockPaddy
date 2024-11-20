@@ -152,7 +152,11 @@ function FormFieldComponent<TFieldValues extends FieldValues>({
                         ) : (
                           <span>Pick a date</span>
                         )}
-                        <CalendarIcon className="ml-auto h-4 w-4 opacity-90" />
+                        <CalendarIcon
+                          strokeWidth={1.5}
+                          size={20}
+                          className="ml-auto"
+                        />
                       </Button>
                     </FormControl>
                   </PopoverTrigger>
