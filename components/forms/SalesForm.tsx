@@ -38,6 +38,7 @@ const SalesForm = () => {
   const [searchLoading, setSearchLoading] = useState(false);
   const [query, setQuery] = useState("");
   const [debouncedQuery, setDebouncedQuery] = useState("");
+  const [products, setProducts] = useState<SingleProduct[]>([]);
   // const [error, setError] = useState("");
   const [results, setResults] = useState<Product[] | []>([]);
   const [isScannerActive, setIsScannerActive] = useState(false);
@@ -51,8 +52,6 @@ const SalesForm = () => {
       products: [],
     },
   });
-
-  const products: SingleProduct[] = form.getValues("products");
 
   const handleInputChange = (index: number, value: number) => {
     updateQuantity(index, value || 1);
@@ -146,7 +145,13 @@ const SalesForm = () => {
   const addProductToForm = (product: Product) => {
     const currentProducts = form.getValues("products");
 
-    // Check if product already exists to prevent duplicates
+    // Validate product object
+    if (!product._id || !product.name) {
+      toast.error("Invalid product details");
+      return;
+    }
+
+    // Check if product already exists
     const existingProductIndex = currentProducts.findIndex(
       (p) => p.id === product._id
     );
@@ -156,7 +161,7 @@ const SalesForm = () => {
       return;
     }
 
-    form.setValue("products", [
+    const updatedProducts = [
       ...currentProducts,
       {
         id: product._id,
@@ -168,23 +173,54 @@ const SalesForm = () => {
         quantity: 1, // Default quantity
         discount: 0,
       },
-    ]);
+    ];
 
-    // Clear search after adding
+    // Update form and state
+    form.setValue("products", updatedProducts);
+    setProducts(updatedProducts);
     setQuery("");
     setResults([]);
   };
 
   const removeProduct = (index: number) => {
     const products = form.getValues("products");
-    products.splice(index, 1);
-    form.setValue("products", products);
+
+    // Validate the index
+    if (index < 0 || index >= products.length) {
+      toast.error("Invalid index");
+      return;
+    }
+
+    // Create a new array without mutating
+    const updatedProducts = products.filter((_, i) => i !== index);
+
+    // Update form and local state
+    form.setValue("products", updatedProducts);
+    setProducts(updatedProducts);
   };
 
   const updateQuantity = (index: number, value: number) => {
     const products = form.getValues("products");
-    products[index].quantity = value;
-    form.setValue("products", products);
+
+    // Validate index
+    if (index < 0 || index >= products.length) {
+      toast.error("Invalid product index");
+      return;
+    }
+
+    // Validate value
+    if (value < 1 || isNaN(value)) {
+      toast.error("Quantity must be at least 1");
+      return;
+    }
+
+    // Create a new array with updated quantity
+    const updatedProducts = products.map((product, i) =>
+      i === index ? { ...product, quantity: value } : product
+    );
+
+    // Update the form value
+    form.setValue("products", updatedProducts);
   };
 
   // Debounce effect to update `debouncedQuery` after a delay
