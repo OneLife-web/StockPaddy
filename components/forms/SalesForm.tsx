@@ -5,24 +5,31 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import FormFieldComponent from "../FormField";
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Loader, Loader2, ScanBarcode, Trash, X } from "lucide-react";
+import { Loader, Loader2, ScanBarcode, X } from "lucide-react";
 import { useSideNav } from "@/contexts/SideNavContext";
 import toast from "react-hot-toast";
-import { ApiError, Product } from "@/types";
+import { ApiError, Product, SingleProduct } from "@/types";
 import { Html5Qrcode } from "html5-qrcode";
+import { SalesProductListTable } from "../Tables/SalesProductListTable";
 //.url("Please provide a valid image URL")
 
 const FormSchema = z.object({
   date: z.date(),
   products: z.array(
     z.object({
-      code: z.string(),
+      id: z.string(),
       name: z.string(),
+      sku: z.string(),
+      unitCost: z.number(),
       quantity: z.number().min(1),
-      unitCost: z.number().min(0),
+      stock: z.number(),
+      lowStockThreshold: z.number(),
       discount: z.number().min(0).optional(),
     })
   ),
+  attendedBy: z.string(),
+  status: z.enum(["pending", "completed", "cancelled"]),
+  discount: z.number().min(0).default(0),
 });
 
 const SalesForm = () => {
@@ -44,6 +51,12 @@ const SalesForm = () => {
       products: [],
     },
   });
+
+  const products: SingleProduct[] = form.getValues("products");
+
+ /*  const handleInputChange = (index: number, value: number) => {
+    updateQuantity(index, value || 1);
+  }; */
 
   useEffect(() => {
     return () => {
@@ -135,7 +148,7 @@ const SalesForm = () => {
 
     // Check if product already exists to prevent duplicates
     const existingProductIndex = currentProducts.findIndex(
-      (p) => p.code === product.sku
+      (p) => p.id === product._id
     );
 
     if (existingProductIndex !== -1) {
@@ -146,10 +159,13 @@ const SalesForm = () => {
     form.setValue("products", [
       ...currentProducts,
       {
-        code: product.sku,
+        id: product._id,
         name: product.name,
-        quantity: 1, // Default quantity
+        sku: product.sku,
         unitCost: product.unitCostPrice,
+        stock: product.stockQuantity,
+        lowStockThreshold: product.lowStockThreshold,
+        quantity: 1, // Default quantity
         discount: 0,
       },
     ]);
@@ -158,7 +174,7 @@ const SalesForm = () => {
     setQuery("");
     setResults([]);
   };
-
+/* 
   const removeProduct = (index: number) => {
     const products = form.getValues("products");
     products.splice(index, 1);
@@ -169,7 +185,7 @@ const SalesForm = () => {
     const products = form.getValues("products");
     products[index].quantity = value;
     form.setValue("products", products);
-  };
+  }; */
 
   // Debounce effect to update `debouncedQuery` after a delay
   useEffect(() => {
@@ -324,30 +340,7 @@ const SalesForm = () => {
             {/* Product List */}
             <div className="grid gap-2 lg:text-sm">
               <label className="font-clashmd">Selected Products</label>
-              <div>
-                {form.getValues("products").map((product, index) => (
-                  <div
-                    key={product.code}
-                    className="flex items-center gap-2 border p-2 rounded"
-                  >
-                    <span className="flex-1">{product.name}</span>
-                    <input
-                      type="number"
-                      value={product.quantity}
-                      onChange={(e) =>
-                        updateQuantity(index, parseInt(e.target.value, 10) || 1)
-                      }
-                    />
-                    <button
-                      type="button"
-                      className="text-red-500"
-                      onClick={() => removeProduct(index)}
-                    >
-                      <Trash />
-                    </button>
-                  </div>
-                ))}
-              </div>
+              <SalesProductListTable products={products} />
             </div>
             <button
               className="btn1 h-[48px] myFlex disabled:cursor-not-allowed"
